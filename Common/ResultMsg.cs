@@ -72,7 +72,7 @@ namespace Common {
     public enum Icon {
         /// <summary>
         /// 信息
-        /// </summary>
+        /// </summary> 
         Info,
         /// <summary>
         /// 成功
