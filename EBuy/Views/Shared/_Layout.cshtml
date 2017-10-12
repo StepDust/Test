@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!-- CSS文件引用 -->
+    <link href="~/Content/Script/Plug/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/CSS/Common.css" rel="stylesheet" />
+    @RenderSection("css", false)
+</head>
+<body>
+
+
+    @RenderBody()
+
+    <!-- JS文件引用 -->
+    <script src="~/Content/Script/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/Script/Plug/layui/layui.all.js"></script>
+    @RenderSection("jq", false)
+</body>
+</html>

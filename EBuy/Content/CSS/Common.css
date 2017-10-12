@@ -1,0 +1,126 @@
+﻿/* #region 全局样式 */
+* {
+    transition: .2s;
+}
+
+p {
+    padding: 10px 30px;
+    display: inline-block;
+}
+
+i {
+    font-size: 12px;
+}
+
+/* #region 表单样式*/
+
+input[type=text] {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+input[type=submit] {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    width: 250px;
+}
+
+/* #endregion */
+
+/* #region 表格样式*/
+table {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+tr {
+    height: 30px;
+}
+
+td {
+    padding: 5px;
+}
+
+tr:hover {
+    background-color: #eee;
+}
+
+    tr:hover td {
+        color: #666;
+    }
+/* #endregion */
+
+/* #endregion */
+
+/* #region 分页样式 */
+
+/* 页码样式 */
+.pagelist span,
+.pagelist a,
+.pagelist input {
+    /* 定位&&大小 */
+    display: inline-block;
+    margin: 0 0 0 -1px;
+    padding: 4px 12px;
+    height: 20px;
+    float: left;
+    /* 文字样式 */
+    text-decoration: none;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    color: #6c6c6c;
+    /* 容器样式 */
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    background-color: rgba(0, 0, 0, 0.00);
+    outline: none;
+    transition: .2s;
+    overflow: hidden;
+}
+
+/* 当前页码样式 */
+.pagelist .current {
+    background-color: #0086e8;
+    color: #eee;
+    border: 1px solid #0086e8;
+}
+
+/* 可跳转链接悬浮样式 */
+.pagelist a:hover {
+    background-color: #eee;
+}
+
+/* 每页数量,输入框样式 */
+.pagelist input {
+    width: 42px;
+    height: 30px;
+    line-height: 30px;
+}
+
+    /* 输入框聚焦样式 */
+    .pagelist input:focus {
+        box-shadow: inset 0px 0px 5px #0086e8;
+        color: #0086e8;
+        border-color: rgba(0, 0, 0, 0.00);
+        height: 32px;
+        margin-top: -1px;
+    }
+
+/* 第一个span圆角 */
+.pagelist .l-btns span:first-child,
+.pagelist .default span:first-child {
+    border-radius: 5px 0px 0px 5px;
+}
+
+/* 最后一个span圆角 */
+.pagelist .l-btns span:last-child,
+.pagelist .default span:last-child,
+.pagelist .default a:last-child {
+    border-radius: 0px 5px 5px 0px;
+    margin-right: 5px;
+}
+/* #endregion */
