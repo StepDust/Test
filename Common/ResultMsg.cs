@@ -11,7 +11,6 @@ namespace Common {
     /// </summary>
     public class ResultMsg {
 
-
         #region 弹框消息
 
         /// <summary>
@@ -41,7 +40,9 @@ namespace Common {
         private string skin;
 
         public string layer_Area {
-            get {  }
+            get {
+                return "['500px','400px']";
+            }
             set { area = value; }
         }
         private string area;

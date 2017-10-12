@@ -14,7 +14,7 @@ namespace Common {
 
         #region 正则表达式
 
-        public static string Reg_ { get { return @""; } }
+        public static string Reg_PX { get { return @"^[0-9]{1,}px$"; } }
 
 
         #endregion
@@ -24,7 +24,7 @@ namespace Common {
         /// <summary>
         /// 校验字符是否匹配正则表达式
         /// </summary>
-        /// <param name="con">待校验字符</param>
+        /// <param name="con">初始字符</param>
         /// <param name="regStr">正则表达式</param>
         /// <param name="def">默认返回值</param>
         /// <returns></returns>
@@ -40,7 +40,7 @@ namespace Common {
         /// <summary>
         /// 校验字符是否匹配正则表达式
         /// </summary>
-        /// <param name="con">待校验字符</param>
+        /// <param name="con">初始字符</param>
         /// <param name="regStr">正则表达式</param>
         /// <returns></returns>
         public static bool CheckReg(string con, string regStr) {
@@ -52,6 +52,40 @@ namespace Common {
         }
 
         #endregion
-        
+
+        #region 替换字符
+
+        /// <summary>
+        /// 替换中西文字符
+        /// </summary>
+        /// <param name="con">初始字符</param>
+        /// <param name="ToWestern">是否替换至西文字符</param>
+        /// <returns></returns>
+        public static string ReplaceChar(string con, bool ToWestern = true) {
+
+            char[,] arr =  {
+                { '（', '(' },{ '）', ')' },// 括号
+                {'【', '[' },{ '】', ']' },// 中括号
+                { '“', '"'},{ '”', '"' },// 双引号
+                {'‘', '\''},{ '’', '\'' },// 单引号
+                {'！', '!'},// 感叹号
+                {'？', '?'},// 问号
+                {'；', ';'},// 分号
+                {'：', ':'},// 冒号
+                {'，', ','},// 逗号
+                {'。', '.'}// 句号
+            };
+
+            int old = ToWestern ? 0 : 1;
+            int now = 1 - old;
+
+            for (int i = 0; i < arr.Length; i++) {
+                con = con.Remove(arr[i, old], arr[1, now]);
+            }
+
+            return con;
+        }
+
+        #endregion
     }
 }

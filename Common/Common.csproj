@@ -66,11 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper.cs" />
-    <Compile Include="Msg.cs" />
     <Compile Include="PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regular.cs" />
     <Compile Include="ReqData.cs" />
+    <Compile Include="ResultMsg.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
