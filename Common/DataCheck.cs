@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Common {
 
     /// <summary>
-    /// 正则表达式
+    /// 数据校验
     /// </summary>
-    public static class Regular {
+    public static class DataCheck {
 
         #region 正则表达式
 
