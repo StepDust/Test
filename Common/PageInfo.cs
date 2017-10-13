@@ -219,78 +219,7 @@ namespace Common {
         #endregion
 
         #endregion
-
-        #region 校验方法
-
-        /// <summary>
-        /// 保证num的值范围为，[min,max]
-        /// </summary>
-        /// <param name="num">原始数据</param>
-        /// <param name="min">最小值</param>
-        /// <param name="max">最大值</param>
-        /// <param name="def">默认值(不填时，默认值为最小值)</param>
-        /// <returns></returns>
-        public int? GetNumInMinToMax(ref int? num, int min, int max, int? def = null) {
-            // 若def没有值，将最小值给它
-            if (!def.HasValue)
-                def = min;
-            // 若num没有值，将默认值给它
-            if (!num.HasValue)
-                num = def;
-            // 若num的值小于最小值，或大于最大值，将默认值给它
-            else if (num < min || max < num)
-                num = def;
-
-            return num;
-        }
-
-        /// <summary>
-        /// 将字符串去掉空格，并进行敏感字符检测
-        /// </summary>
-        /// <param name="str">原字符串</param>
-        /// <param name="Ischeck">是否开启敏感字符校验</param>
-        /// <param name="def">默认的值，字符串为空时，赋此值</param>
-        /// <returns></returns>
-        public string CheckStr(ref string str, bool Ischeck = true, string def = "") {
-            if (string.IsNullOrEmpty(str))
-                return str = def;
-            str = str.Trim();
-            if (Ischeck)
-                if (!GetIsFormText(str))
-                    str = "请不要输入敏感字符！";
-            return str;
-        }
-
-        /// <summary>
-        /// 检测是否含有危险字符（防止Sql注入）
-        /// 转自：http://blog.csdn.net/chaozi/article/details/4462312
-        /// </summary>
-        /// <param name="contents">预检测的内容</param>
-        /// <returns>返回True或false</returns>
-        public static bool GetIsFormText(string contents) {
-            bool bReturnValue = false;
-            if (contents.Length > 0) {
-                //convert to lower
-                string sLowerStr = contents.ToLower();
-                //RegularExpressions
-                string sRxStr = "(/sand/s)|(/sand/s)|(/slike/s)|(select/s)|(insert/s)|" +
-                    "(delete/s)|(update/s[/s/S].*/sset)|(create/s)|(/stable)|(<[iframe|/iframe|" +
-                    "script|/script])|(')|(/sexec)|(/sdeclare)|(/struncate)|(/smaster)|(/sbackup)|(/smid)|(/scount)";
-                //Match
-                bool bIsMatch = false;
-                System.Text.RegularExpressions.Regex sRx = new
-
-                System.Text.RegularExpressions.Regex(sRxStr);
-                bIsMatch = sRx.IsMatch(sLowerStr, 0);
-                if (bIsMatch) {
-                    bReturnValue = true;
-                }
-            }
-            return bReturnValue;
-        }
-
-        #endregion
-
+        
         #region 数据绑定方法
 
         /// <summary>

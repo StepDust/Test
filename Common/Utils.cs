@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Common {
     /// <summary>
@@ -39,9 +40,54 @@ namespace Common {
             return str;
         }
 
+        /// <summary>
+        /// 拼接键值对
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="val">值</param>
+        /// <returns></returns>
+        public static string MosaicKeyVal(object[] key, object[] val) {
+            if (key.Length != val.Length)
+                return "";
+
+            StringBuilder str = new StringBuilder();
+            for (int i = 0; i < key.Length; i++) {
+                if (string.IsNullOrEmpty(key[i] + ""))
+                    continue;
+                if (string.IsNullOrEmpty(val[i] + ""))
+                    continue;
+                // 添加逗号
+                if (str.Length > 0)
+                    str.Append(",");
+                // 添加键值对
+                str.Append(string.Format(" '{0}':'{1}'  " + key[i].ToString(), val[i].ToString()));
+            }
+            return str.ToString(); ;
+        }
+
         #endregion
 
         #region URL处理
+
+        /// <summary>
+        /// 返回当前请求的Url，包含参数
+        /// </summary>
+        /// <returns></returns>
+        public static string GetUrlInfo() {
+            return HttpContext.Current.Request.RawUrl;
+        }
+
+        /// <summary>
+        /// 返回当前请求的Url，不包含参数
+        /// </summary>
+        /// <returns></returns>
+        public static string GetUrl() {
+            string url = GetUrlInfo();
+            int index = url.IndexOf("?");
+            if (index > 0)
+                return url.Substring(0, index);
+            return url;
+        }
 
         /// <summary>
         /// URL字符编码
@@ -120,7 +166,7 @@ namespace Common {
 
             linkUrl += "pageSize=" + pageSize;
             linkUrl += "&pageindex=" + pageId;
-            
+
             //计算页数
             if (totalCount < 1 || pageSize < 1) {
                 return OutPagingHtml("", linkUrl, pageSize, typeName);
@@ -209,7 +255,7 @@ namespace Common {
             index = linkUrl.LastIndexOf(repStr);
             if (index != -1)
                 linkUrl = linkUrl.Substring(0, index + repStr.Length);
-            
+
             // Html部分
             StringBuilder pageStr = new StringBuilder();
             pageStr.Append("<br />");
@@ -257,6 +303,65 @@ namespace Common {
 
         #endregion
 
+        #region 创建下拉框
+
+        /// <summary>
+        /// 创建下拉框，默认以索引作为值
+        /// </summary>
+        /// <param name="Arr">数组，作为数据源</param>
+        /// <param name="SelVal">默认选中的值</param>
+        /// <param name="StarVal">初始值，默认为索引的开始：0</param>
+        /// <returns></returns>
+        public static List<SelectListItem> BingDrop(object[] Arr, int SelVal, int StarVal = 0) {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            for (int i = 0; i < Arr.Length; i++) {
+                int val = StarVal + i;
+                list.Add(CreatSelectListItem(Arr[i].ToString(), val.ToString(), val == SelVal));
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 创建下拉框
+        /// </summary>
+        /// <param name="dic">数据源，(Val,Text)</param>
+        /// <param name="selVal">默认选中值</param>
+        /// <param name="isAll">是否有“全部”</param>
+        /// <param name="allVal">“全部”的值</param>
+        /// <param name="allStr">“全部”文本</param>
+        /// <returns></returns>
+        public static List<SelectListItem> BingDrop<k, v>(Dictionary<k, v> dic, k selVal, bool isAll = true, string allVal = "-1", string allStr = "全  部") {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (k key in dic.Keys) {
+                list.Add(CreatSelectListItem(dic[key] + "", key + "", key + "" == selVal + ""));
+            }
+
+            if (isAll)
+                list.Insert(0, CreatSelectListItem(allStr, allVal, allVal == selVal + ""));
+
+            return list;
+        }
+
+        /// <summary>
+        /// 创建下拉项
+        /// </summary>
+        /// <param name="Text">文本</param>
+        /// <param name="Val">值</param>
+        /// <param name="IsSel">是否选中</param>
+        /// <returns></returns>
+        private static SelectListItem CreatSelectListItem(string Text, string Val, bool IsSel) {
+            SelectListItem item = new SelectListItem() {
+                Text = Text,
+                Value = Val,
+                Selected = IsSel
+            };
+            return item;
+        }
+
+        #endregion
 
     }
 }

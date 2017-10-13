@@ -15,7 +15,7 @@ namespace Common {
         /// 导航栏标题
         /// </summary>
         public string Title {
-            get { return CheckStr(ref title); }
+            get { return DataCheck.GetSecurityStr(ref title); }
             set { title = value; }
         }
         private string title;
@@ -63,7 +63,7 @@ namespace Common {
         /// 消息ID
         /// </summary> 
         public string MsgID {
-            get { return CheckStr(ref msgid); }
+            get { return DataCheck.GetSecurityStr(ref msgid); }
             set { msgid = value; }
         }
         private string msgid;
@@ -72,7 +72,7 @@ namespace Common {
         /// 消息文本
         /// </summary> 
         public string MsgStr {
-            get => CheckStr(ref msgstr);
+            get => DataCheck.GetSecurityStr(ref msgstr);
             set { msgstr = value; }
         }
         private string msgstr;
