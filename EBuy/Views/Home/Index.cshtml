@@ -1,102 +1,38 @@
-﻿@using EBuy.Models
-@model ReqData<string>
+﻿
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<div style="width:30%;margin:0px auto;">
-    <form action="/Home/Index" method="post">
-        <input type="hidden" value="@Model.PageIndex" id="index" />
-        <p> Msgid ：<input name="msgid" type="text" value="@Model.MsgID" onchange="Findid('msgid',0)" /><i></i></p>
-        <p> Msgstr：<input name="msgstr" type="text" value="@Model.MsgStr" onchange="Findid('msgstr',1)" /><i></i></p>
-        <p><input type="submit" value="提交" /><i>总标签数：0</i></p>
-    </form>
-</div>
-<table>
-    <tr style="background-color:#ccc;">
-        <th>Msgid</th>
-        <th>Msgstr</th>
-        <th width="5%">Action</th>
-    </tr>
-</table>
-<p id="page"></p>
+<!DOCTYPE html>
 
-@section jq{
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!-- CSS文件引用 -->
+    <link href="~/Content/Script/Plug/layui/css/layui.css" rel="stylesheet" />
+    <!-- JS文件引用 -->
+    <script src="~/Content/Script/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/Script/Plug/layui/layui.all.js"></script>
+</head>
+<body>
     <script>
+
         $(function () {
-
-            @Html.Raw(ViewBag.Msg);
-            setInterval(getData, 1000);
+            // 创建iframe
+            layer.open({
+            type: 2,
+            title: false,
+            shadeClose: false,
+            closeBtn: 0,
+            shade: false,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['100%', '100%'],
+            anim:5,
+            content: '@Url.Action("Default", "Home")'
+            });
         });
-
-        function Findid(name,index) {
-            var val = $("input[name=" + name+"]").val();
-
-            if (name == "msgid" || name == "msgstr") {
-                if (name == "msgid") name = "msgstr";
-                else if (name == "msgstr") name = "msgid";
-                $("input[name=" + name + "]").val(val);
-            }
-
-            $.ajax({
-                url: "/Home/GetCount?" + name + "=" + val,
-                success: function (res) {
-                    $("i:eq(" + index + ")").html("匹配__" + res + "__个");
-                    
-                }
-            });
-        }
-
-        function getData() {
-
-            $.ajax({
-                url: "/Home/GetData?PageIndex=" + $("#index").val(),
-                dataType: "json",
-                success: function (res) {
-
-                    $("table tr:gt(0)").remove();
-                    $("i:last").html("总标签数：" + res.PageCount);
-
-                    for (var i = 0; i <= res.DataList.length; i++) {
-                        if (i == 0)
-                            continue;
-                        var tr = "<tr><td>" + res.DataList[i - 1].msgid + "</td><td>" + res.DataList[i - 1].msgstr + "</td><td onclick='Delete(" + res.DataList[i - 1].id + ")'><a href='#'> 删除</a></td></tr>";
-
-                        $("table").append(tr);
-
-                    }
-                    $("#page").html(res.html);
-                }
-            });
-
-        }
-
-        function Delete(id) {
-            layer.confirm('确认删除？', {
-                btn: ['取消', '确认'] //按钮
-            }, function () {
-                layer.msg('已取消删除！');
-            }, function () {
-
-                $.ajax({
-                    url: "/Home/Delete?id=" + id,
-                    success: function (res) {
-                        if (res == 1) {
-                            layer.msg("删除成功！");
-                            setTimeout(function () {
-                                location.href = '/Home/Index';;
-                            },1000);
-                        }
-                        else
-                            layer.msg("删除失败！");
-                    }
-                });
-
-            });
-
-
-        }
-
+        
     </script>
-}
+</body>
+</html>

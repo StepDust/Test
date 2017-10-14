@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Default";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="@Url.Action("Default", "Home")" method="post" class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择框</label>
+        <div class="layui-input-block">
+            @Html.DropDownList("icon")
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">输入框</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" placeholder="请输入文字" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="submit" class="layui-btn" />
+        </div>
+    </div>
+</form>
+

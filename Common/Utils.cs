@@ -10,7 +10,7 @@ namespace Common {
     /// <summary>
     /// 工具类
     /// </summary>
-    public class Utils {
+    public static class Utils {
 
         #region 字符串处理
 
@@ -29,14 +29,24 @@ namespace Common {
         }
 
         /// <summary>
-        /// 删除最后结尾的指定字符后的字符
+        /// 删除指定字符后的字符
         /// </summary>
-        public static string DelLastChar(string str, string strchar) {
+        /// <param name="str">原字符</param>
+        /// <param name="strchar">指定字符</param>
+        /// <param name="num">倒数第几个指定字符</param>
+        /// <returns></returns>
+        public static string DelLastChar(string str, string strchar, int num = 1) {
             if (string.IsNullOrEmpty(str))
                 return "";
-            if (str.LastIndexOf(strchar) >= 0 && str.LastIndexOf(strchar) == str.Length - 1) {
-                return str.Substring(0, str.LastIndexOf(strchar));
+
+            int index = str.Length;
+
+            while (num-- > 0 && !string.IsNullOrEmpty(str)) {
+                index = str.LastIndexOf(strchar);
+                if (0 <= index && index <= str.Length - 1)
+                    str = str.Substring(0, str.LastIndexOf(strchar));
             }
+
             return str;
         }
 
@@ -60,7 +70,7 @@ namespace Common {
                 if (str.Length > 0)
                     str.Append(",");
                 // 添加键值对
-                str.Append(string.Format(" '{0}':'{1}'  " + key[i].ToString(), val[i].ToString()));
+                str.Append(string.Format(" '{0}':'{1}'  ", key[i].ToString(), val[i].ToString()));
             }
             return str.ToString(); ;
         }
@@ -306,24 +316,6 @@ namespace Common {
         #region 创建下拉框
 
         /// <summary>
-        /// 创建下拉框，默认以索引作为值
-        /// </summary>
-        /// <param name="Arr">数组，作为数据源</param>
-        /// <param name="SelVal">默认选中的值</param>
-        /// <param name="StarVal">初始值，默认为索引的开始：0</param>
-        /// <returns></returns>
-        public static List<SelectListItem> BingDrop(object[] Arr, int SelVal, int StarVal = 0) {
-            List<SelectListItem> list = new List<SelectListItem>();
-
-            for (int i = 0; i < Arr.Length; i++) {
-                int val = StarVal + i;
-                list.Add(CreatSelectListItem(Arr[i].ToString(), val.ToString(), val == SelVal));
-            }
-
-            return list;
-        }
-
-        /// <summary>
         /// 创建下拉框
         /// </summary>
         /// <param name="dic">数据源，(Val,Text)</param>
@@ -341,6 +333,24 @@ namespace Common {
 
             if (isAll)
                 list.Insert(0, CreatSelectListItem(allStr, allVal, allVal == selVal + ""));
+
+            return list;
+        }
+
+        /// <summary>
+        /// 创建下拉框，默认以索引作为值
+        /// </summary>
+        /// <param name="Arr">数组，作为数据源</param>
+        /// <param name="SelVal">默认选中的值</param>
+        /// <param name="StarVal">初始值，默认为索引的开始：0</param>
+        /// <returns></returns>
+        public static List<SelectListItem> BingDrop(object[] Arr, int SelVal, int StarVal = 0) {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            for (int i = 0; i < Arr.Length; i++) {
+                int val = StarVal + i;
+                list.Add(CreatSelectListItem(Arr[i].ToString(), val.ToString(), val == SelVal));
+            }
 
             return list;
         }

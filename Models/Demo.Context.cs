@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EBuy.Models
+namespace Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DemoEntities1 : DbContext
+    public partial class DemoEntities : DbContext
     {
-        public DemoEntities1()
-            : base("name=DemoEntities1")
+        public DemoEntities()
+            : base("name=DemoEntities")
         {
         }
     

@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Lang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="msgid" Type="nvarchar(max)" />
+          <Property Name="msgstr" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Menu01">
           <Key>
             <PropertyRef Name="id" />
@@ -22,6 +30,7 @@
           <Property Name="title" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="DemoModelStoreContainer">
+          <EntitySet Name="Lang" EntityType="Self.Lang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu01" EntityType="Self.Menu01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu02" EntityType="Self.Menu02" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -30,6 +39,14 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Lang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="msgid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="msgstr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Menu01">
           <Key>
             <PropertyRef Name="id" />
@@ -47,6 +64,7 @@
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="DemoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Lang" EntityType="Self.Lang" />
           <EntitySet Name="Menu01" EntityType="Self.Menu01" />
           <EntitySet Name="Menu02" EntityType="Self.Menu02" />
         </EntityContainer>
@@ -56,6 +74,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DemoModelStoreContainer" CdmEntityContainer="DemoEntities">
+          <EntitySetMapping Name="Lang">
+            <EntityTypeMapping TypeName="DemoModel.Lang">
+              <MappingFragment StoreEntitySet="Lang">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="msgid" ColumnName="msgid" />
+                <ScalarProperty Name="msgstr" ColumnName="msgstr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Menu01">
             <EntityTypeMapping TypeName="DemoModel.Menu01">
               <MappingFragment StoreEntitySet="Menu01">

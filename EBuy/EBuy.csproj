@@ -210,16 +210,6 @@
     <Content Include="Content\Script\Plug\layui\lay\modules\upload.js" />
     <Content Include="Content\Script\Plug\layui\lay\modules\util.js" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Demo.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Demo.edmx</DependentUpon>
-      <LastGenOutput>Demo.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Demo.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Demo.edmx</DependentUpon>
-      <LastGenOutput>Demo.cs</LastGenOutput>
-    </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -235,31 +225,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Auction.cs" />
-    <Compile Include="Models\Demo.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Demo.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Demo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Demo.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Demo.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\EbuyDataContext.cs" />
-    <Compile Include="Models\Lang.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu01.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Menu02.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ReqData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -268,19 +234,13 @@
     <Content Include="Content\Script\Plug\layui\font\iconfont.eot" />
     <Content Include="Content\Script\Plug\layui\font\iconfont.ttf" />
     <Content Include="Content\Script\Plug\layui\font\iconfont.woff" />
-    <EntityDeploy Include="Models\Demo.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Demo.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Demo.edmx.diagram">
-      <DependentUpon>Demo.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\Home\Default.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -298,6 +258,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{627570b2-399f-4515-a4fb-616d3ca9ac55}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{77F0543B-6BD2-491F-8B66-0532A38E4794}</Project>
+      <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

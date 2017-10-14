@@ -65,7 +65,6 @@ namespace Common {
                     "(delete/s)|(update/s[/s/S].*/sset)|(create/s)|(/stable)|(<[iframe|/iframe|" +
                     "script|/script])|(')|(/sexec)|(/sdeclare)|(/struncate)|(/smaster)|(/sbackup)|(/smid)|(/scount)";
                 //Match
-                bool bIsMatch = false;
                 Regex sRx = new Regex(sRxStr);
 
                 return sRx.IsMatch(sLowerStr, 0);
@@ -75,7 +74,7 @@ namespace Common {
 
         #endregion
 
-        #region 替换字符，Get...To
+        #region 替换字符，Rep
 
         /// <summary>
         /// 替换中西文字符
@@ -83,7 +82,7 @@ namespace Common {
         /// <param name="con">初始字符</param>
         /// <param name="ToWestern">是否替换至西文字符</param>
         /// <returns></returns>
-        public static string ReplaceChar(string con, bool ToWestern = true) {
+        public static string RepLanguage(string con, bool ToWestern = true) {
 
             char[,] arr =  {
                 { '（', '(' },{ '）', ')' },// 括号

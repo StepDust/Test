@@ -7,15 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebHTML
+namespace Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Menu01
+    public partial class Lang
     {
         public int id { get; set; }
-        public string pid { get; set; }
-        public string title { get; set; }
+        public string msgid { get; set; }
+        public string msgstr { get; set; }
     }
 }

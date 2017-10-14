@@ -125,8 +125,8 @@ namespace Common {
             object[] val = { layer_Skin, anim, time, GetIconNum(icon) };
 
             str.Append("<script>");
-            str.Append("loaction.href='" + url + "'; ");
-            str.Append("layer.msg('" + msg + "'{");
+            str.Append("location.href='" + url + "'; ");
+            str.Append("parent.layer.msg('" + msg + "',{");
             str.Append(Utils.MosaicKeyVal(key, val) + "});");
             str.Append("</script>");
 
@@ -150,8 +150,8 @@ namespace Common {
                 case Icon.Error: return 2;
                 case Icon.Help: return 3;
                 case Icon.Lock: return 4;
-                case Icon.Happy: return 5;
-                case Icon.Sorry: return 6;
+                case Icon.Sorry: return 5;
+                case Icon.Happy: return 6;
                 default: return null;
             }
         }
@@ -213,13 +213,13 @@ namespace Common {
         /// </summary>
         Lock,
         /// <summary>
-        /// 开心
-        /// </summary>
-        Happy,
-        /// <summary>
         /// 难过
         /// </summary>
-        Sorry
+        Sorry,
+        /// <summary>
+        /// 开心
+        /// </summary>
+        Happy
     }
 
 }
