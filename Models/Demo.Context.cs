@@ -7,24 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Models
-{
+namespace Models {
+    using Common;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
-    public partial class DemoEntities : DbContext
-    {
+
+    public partial class DemoEntities : DbContext {
         public DemoEntities()
-            : base("name=DemoEntities")
-        {
+            : base(Config.ReadConStr(Config.Name_Demo)) {
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Lang> Lang { get; set; }
         public virtual DbSet<Menu01> Menu01 { get; set; }
         public virtual DbSet<Menu02> Menu02 { get; set; }
