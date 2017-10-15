@@ -45,7 +45,7 @@ namespace Common {
             set { dropList = value; }
         }
         private List<SelectListItem> dropList;
-        
+
         #endregion
 
         #region 查询参数
@@ -76,6 +76,15 @@ namespace Common {
             set { msgstr = value; }
         }
         private string msgstr;
+
+        /// <summary>
+        /// 编号
+        /// </summary>
+        public int? Icon {
+            get { return icon; }
+            set { icon = value; }
+        }
+        private int? icon;
 
         #endregion
 

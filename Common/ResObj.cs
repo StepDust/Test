@@ -116,18 +116,24 @@ namespace Common {
             if (string.IsNullOrEmpty(url))
                 url = Utils.GetUrlInfo();
             // 动画
+            anim = anim % 7;
             if (anim < 0)
                 anim = new Random().Next(0, 7);
 
             StringBuilder str = new StringBuilder();
 
-            object[] key = { "skin", "anim", "time", "icon" };
-            object[] val = { layer_Skin, anim, time, GetIconNum(icon) };
+            Dictionary<object, object> dic = new Dictionary<object, object> {
+                { "skin", layer_Skin },
+                { "anim", anim },
+                { "time", time },
+                { "icon", GetIconNum(icon) }
+            };
 
             str.Append("<script>");
             str.Append("location.href='" + url + "'; ");
+            // 由于要返回的是父窗的方法，所以加上parent.
             str.Append("parent.layer.msg('" + msg + "',{");
-            str.Append(Utils.MosaicKeyVal(key, val) + "});");
+            str.Append(Utils.MosaicKeyVal(dic) + "});");
             str.Append("</script>");
 
             return str.ToString();

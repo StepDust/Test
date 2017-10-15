@@ -1108,6 +1108,10 @@ a {
         margin-left: 10px
     }
 
+.layui-btn-block {
+    width:100%;
+}
+
 .layui-btn-radius {
     border-radius: 100px
 }
@@ -1268,6 +1272,16 @@ a {
 .layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
     display: none
 }
+
+.layui-form fieldset {
+    border: 1px solid #c2c2c2;
+    border-radius: 3px;
+}
+
+    .layui-form fieldset legend {
+        color: #808080;
+        padding: 0px 10px;
+    }
 
 .layui-form-item {
     margin-bottom: 15px;

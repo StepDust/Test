@@ -1,26 +1,30 @@
-﻿
+﻿@using Common
+@model ReqData<string>
 @{
     ViewBag.Title = "Default";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<form action="@Url.Action("Default", "Home")" method="post" class="layui-form">
-    <div class="layui-form-item">
-        <label class="layui-form-label">选择框</label>
-        <div class="layui-input-block">
-            @Html.DropDownList("icon")
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">输入框</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" placeholder="请输入文字" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <input type="submit" class="layui-btn" />
-        </div>
-    </div>
-</form>
-
+<div style="width:80%;margin:0px auto;">
+    <form action="@Url.Action("Default", "Home")" method="post" class="layui-form">
+        <fieldset>
+            <legend>表单</legend>
+            <div class="layui-form-item">
+                <label class="layui-form-label">图 标</label>
+                <div class="layui-input-block">
+                    @Html.DropDownList("icon",Model.DropList)
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">文 字</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" placeholder="请输入文字" class="layui-input" value="@Model.Title">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="submit" class="layui-btn layui-btn-block" value="弹框" />
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EBuy.Models;
 using Newtonsoft.Json;
 using Models;
 using Common;
 
-namespace EBuy.Controllers {
+namespace Web_MVC.Controllers {
     /// <summary>
     /// 添加语言包数据
     /// </summary>
@@ -19,21 +18,23 @@ namespace EBuy.Controllers {
             return View();
         }
 
-        public ActionResult Default() {
+        public ActionResult Default(ReqData<string> data) {
             Dictionary<int, string> dic = new Dictionary<int, string>();
 
             foreach (var item in Enum.GetValues(typeof(Icon)))
                 dic.Add((int)item, item.ToString());
 
-            ViewBag.icon = Utils.BingDrop(dic, s, false);
+            data.DropList = Utils.BingDrop(dic, data.Icon ?? -1, false);
 
-            return View();
+            return View(data);
         }
-        static int s = 0;
+
         [HttpPost]
-        public ActionResult Default(string title, int icon) {
-            s = icon;
-            return Content(ResObj.LayerMsg("Msg", "", (Icon)s));
+        public ActionResult Default(string title, int? icon) {
+
+            if (string.IsNullOrEmpty(title))
+                title = "Msg";
+            return Content(ResObj.LayerMsg(title, Utils.GetPostUrlInfo(), (Icon)icon));
         }
 
     }

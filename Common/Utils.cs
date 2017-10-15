@@ -53,25 +53,30 @@ namespace Common {
         /// <summary>
         /// 拼接键值对
         /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="val">值</param>
+        /// <param name="dic">存放键值对的字典</param>
+        /// <param name="format">拼接格式，默认为Json格式</param>
+        /// <param name="Split">分割符号</param>
         /// <returns></returns>
-        public static string MosaicKeyVal(object[] key, object[] val) {
-            if (key.Length != val.Length)
-                return "";
+        public static string MosaicKeyVal(Dictionary<object, object> dic, string format = " '{0}':'{1}' ", string Split = ",") {
 
             StringBuilder str = new StringBuilder();
-            for (int i = 0; i < key.Length; i++) {
-                if (string.IsNullOrEmpty(key[i] + ""))
+
+            // 是否包含{0}和{1}
+            if (format.IndexOf("{0}") < 0 || format.IndexOf("{1}") < 0)
+                return "";
+            format = format.Trim();
+            foreach (string item in dic.Keys) {
+                if (string.IsNullOrEmpty(item + ""))
                     continue;
-                if (string.IsNullOrEmpty(val[i] + ""))
+                if (string.IsNullOrEmpty(dic[item] + ""))
                     continue;
                 // 添加逗号
                 if (str.Length > 0)
-                    str.Append(",");
+                    str.Append(Split);
                 // 添加键值对
-                str.Append(string.Format(" '{0}':'{1}'  ", key[i].ToString(), val[i].ToString()));
+                str.Append(string.Format(format, item.ToString(), dic[item].ToString()));
             }
+
             return str.ToString(); ;
         }
 
@@ -85,6 +90,25 @@ namespace Common {
         /// <returns></returns>
         public static string GetUrlInfo() {
             return HttpContext.Current.Request.RawUrl;
+        }
+
+        /// <summary>
+        /// 返回当前请求的Url，包含Post参数
+        /// </summary>
+        /// <returns></returns>
+        public static string GetPostUrlInfo() {
+            string url = GetUrlInfo();
+            if (url.Contains('?'))
+                url += "&";
+            else
+                url += "?";
+
+            Dictionary<object, object> dic = new Dictionary<object, object>();
+            // 遍历获取post参数和值
+            foreach (string item in HttpContext.Current.Request.Form)
+                dic.Add(item, HttpContext.Current.Request[item]);
+
+            return url + MosaicKeyVal(dic, "{0}={1}", "&");
         }
 
         /// <summary>
