@@ -98,7 +98,7 @@ namespace Common {
         /// </summary>
         /// <returns></returns>
         public string GetMsg() {
-            return LayerMsg(Msg, Url, GetIcon(State ?? -1), Layer_Anim ?? -1, Layer_Time ?? 2000);
+            return LayerMsg(Msg, Url, State ?? -1, Layer_Anim ?? -1, Layer_Time ?? 2000);
         }
 
         /// <summary>
@@ -139,6 +139,18 @@ namespace Common {
             return str.ToString();
         }
 
+        /// <summary>
+        /// 返回页面消息弹框
+        /// </summary>
+        /// <param name="msg">消息内容</param>
+        /// <param name="url">跳转链接</param>
+        /// <param name="icon">消息类型</param>
+        /// <param name="anim">消息动画</param>
+        /// <param name="time">出现时间</param>
+        /// <returns></returns>
+        public static string LayerMsg(string msg, string url = "", int? icon = -1, int anim = -1, int time = 2000) {
+            return LayerMsg(msg, url, GetIcon(icon ?? -1), anim, time);
+        }
         #endregion
 
         #region 字典转换
@@ -151,9 +163,9 @@ namespace Common {
         /// <returns></returns>
         public static int? GetIconNum(Icon icon) {
             switch (icon) {
-                case Icon.Info: return 0;
+                case Icon.Error: return 0;
                 case Icon.Success: return 1;
-                case Icon.Error: return 2;
+                case Icon.Info: return 2;
                 case Icon.Help: return 3;
                 case Icon.Lock: return 4;
                 case Icon.Sorry: return 5;
@@ -180,10 +192,10 @@ namespace Common {
                 case 3: return Icon.Help;
                 // 锁定
                 case 4: return Icon.Lock;
-                // 开心
-                case 5: return Icon.Happy;
                 // 难过
-                case 6: return Icon.Sorry;
+                case 5: return Icon.Sorry;
+                // 开心
+                case 6: return Icon.Happy;
                 // 暂无
                 default: return Icon.None;
             }
@@ -199,17 +211,17 @@ namespace Common {
         /// </summary>
         None = -1,
         /// <summary>
-        /// 信息
-        /// </summary> 
-        Info,
+        /// 失败
+        /// </summary>
+        Error,
         /// <summary>
         /// 成功
         /// </summary>
         Success,
         /// <summary>
-        /// 失败
-        /// </summary>
-        Error,
+        /// 信息
+        /// </summary> 
+        Info,
         /// <summary>
         /// 帮助
         /// </summary>

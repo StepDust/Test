@@ -4,27 +4,32 @@
     ViewBag.Title = "Default";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div style="width:80%;margin:0px auto;">
-    <form action="@Url.Action("Default", "Home")" method="post" class="layui-form">
-        <fieldset>
-            <legend>表单</legend>
-            <div class="layui-form-item">
-                <label class="layui-form-label">图 标</label>
-                <div class="layui-input-block">
-                    @Html.DropDownList("icon",Model.DropList)
-                </div>
+<form action="@Url.Action("Default", "Home")" method="post" class="layui-form">
+    <fieldset>
+        <legend>表单</legend>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图 标</label>
+            <div class="layui-input-block">
+                @Html.DropDownList("icon", Model.DropList)
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">文 字</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" placeholder="请输入文字" class="layui-input" value="@Model.Title">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文 字</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" placeholder="请输入文字" class="layui-input" value="@Model.Title">
             </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="submit" class="layui-btn layui-btn-block" value="弹框" />
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="submit" class="layui-btn layui-btn-block" value="弹框" />
             </div>
-        </fieldset>
-    </form>
-</div>
+        </div>
+    </fieldset>
+</form>
+
+<fieldset>
+    <legend>功能列表</legend>
+    <ul>
+        <li>@Html.ActionLink("Lang字典添加", "index", "AddDic", new { }, new { @class = "com-a-block" })</li>
+    </ul>
+</fieldset>

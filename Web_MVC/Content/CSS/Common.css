@@ -1,6 +1,22 @@
-﻿
-/* #region 分页样式 */
+﻿/* 将a标签充满容器 */
+.com-a-block {
+    padding: 1%;
+    transition: .2s;
+    border-bottom: 1px dashed #f2f2f2;
+    display: inline-block;
+    width: 98%;
+    height: 100%;
+    color: #01AAED;
+}
 
+    .com-a-block:hover {
+        background-color: #f2f2f2;
+        padding-left: 2%;
+        width: 97%;
+        color: #808080;
+    }
+
+/* #region 分页样式 */
 /* 页码样式 */
 .pagelist span,
 .pagelist a,

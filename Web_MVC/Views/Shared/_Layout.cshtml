@@ -16,12 +16,41 @@
 </head>
 <body>
 
+    <div class="layui-container">
 
-    @RenderBody()
+        @RenderBody()
+
+    </div>
 
     <!-- JS文件引用 -->
     <script src="~/Content/Script/jquery-3.2.1.min.js"></script>
     <script src="~/Content/Script/Plug/layui/layui.all.js"></script>
+    <script src="~/Content/Script/Plug/Pin/jquery.pin.js"></script>
+    <script src="~/Content/Script/Common.js"></script>
+    <script>
+        
+        // 固定块
+            layui.util.fixbar({
+                bar1: "&#xe68e;",
+                css: { right: 50, bottom: 50 },
+                bgcolor: '#9F9F9F',
+                click: function (type) {
+                    if (type === 'bar1') {
+                        //询问框
+                        layer.confirm('是否跳转至首页？', {
+                            icon: 3,
+                            title: "询问",
+                            btn: ['确认', '取消'] // 按钮
+                        }, function (index) {
+                            parent.location.href = "@Url.Action("Index","Home")";
+                        }, function (index) {
+                            layer.close(index);
+                        });
+                    }
+                }
+            });
+    </script>
+
     @RenderSection("jq", false)
 </body>
 </html>

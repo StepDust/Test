@@ -1,6 +1,5 @@
 ﻿using Common;
 using Models;
-using System;
 using System.Data.Entity;
 using System.Runtime.Remoting.Messaging;
 
@@ -24,7 +23,7 @@ namespace Factory {
                     // 根据ConStrName，进行分支创建
                     switch (ConStrName) {
                         case Config.Name_Demo:// 
-                            dbContext = new DemoEntities(); break;
+                            dbContext = new  DemoEntities(); break;
                     }
                     // 创建了实例后存入
                     if (dbContext != null)
@@ -32,7 +31,7 @@ namespace Factory {
                 }
                 return dbContext;
             }
-            catch (Exception ex) {
+            catch{
                 return null;
             }
         }

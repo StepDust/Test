@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\CSS\Common.css" />
+    <Content Include="Content\Script\Common.js" />
     <Content Include="Content\Script\jquery-3.2.1.min.js" />
     <Content Include="Content\Script\Plug\layui\css\layui.css" />
     <Content Include="Content\Script\Plug\layui\css\layui.mobile.css" />
@@ -209,11 +210,13 @@
     <Content Include="Content\Script\Plug\layui\lay\modules\tree.js" />
     <Content Include="Content\Script\Plug\layui\lay\modules\upload.js" />
     <Content Include="Content\Script\Plug\layui\lay\modules\util.js" />
+    <Content Include="Content\Script\Plug\Pin\jquery.pin.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AddDicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -231,6 +234,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Home\Default.cshtml" />
+    <Content Include="Views\AddDic\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -246,9 +250,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{4d96bdd4-79c3-49dc-9542-874f4e386ff4}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{627570b2-399f-4515-a4fb-616d3ca9ac55}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interface\Interface.csproj">
+      <Project>{8C141B69-6D20-4B34-82CA-E227AF6EAE0C}</Project>
+      <Name>Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{77F0543B-6BD2-491F-8B66-0532A38E4794}</Project>

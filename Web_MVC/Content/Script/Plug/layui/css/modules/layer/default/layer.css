@@ -510,10 +510,11 @@ html #layuicss-layer {
             height: 30px
         }
 
+/* Success */
 .layui-layer-ico1 {
     background-position: -30px 0
 }
-
+/* Info */
 .layui-layer-ico2 {
     background-position: -60px 0
 }

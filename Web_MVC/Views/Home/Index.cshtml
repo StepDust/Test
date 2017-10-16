@@ -16,22 +16,25 @@
 </head>
 <body>
     <script>
-
+        var iframe;
         $(function () {
+
             // 创建iframe
-            layer.open({
-            type: 2,
-            title: false,
-            shadeClose: false,
-            closeBtn: 0,
-            shade: false,
-            maxmin: false, //开启最大化最小化按钮
-            area: ['100%', '100%'],
-            anim:5,
-            content: '@Url.Action("Default", "Home")'
+           iframe= layer.open({
+                type: 2,
+                title: false,
+                shadeClose: false,
+                closeBtn: 0,
+                shade: false,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['100%', '100%'],
+                anim: 5,
+                content: '@Url.Action("Default", "Home")'
             });
+
+
         });
-        
+
     </script>
 </body>
 </html>

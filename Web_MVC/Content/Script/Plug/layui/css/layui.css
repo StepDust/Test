@@ -1,4 +1,14 @@
 /** layui-v2.1.5 MIT License By http://www.layui.com */
+* {
+    border-color: #808080;
+    border-radius: 2px;
+    color: #808080;
+}
+/* »Ö¸´msgÑÕÉ« */
+.layui-layer-hui .layui-layer-content {
+    color: #eee;
+}
+
 .layui-btn, .layui-inline, img {
     vertical-align: middle
 }
@@ -12,7 +22,7 @@
 blockquote, body, button, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, input, li, ol, p, pre, td, textarea, th, ul {
     margin: 0;
     padding: 0;
-    -webkit-tap-highlight-color: rgba(0,0,0,0)
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 a:active, a:hover {
@@ -34,12 +44,12 @@ table {
 }
 
 h1, h2, h3 {
-    font-size: 14px;
+    /*font-size: 14px;*/
     font-weight: 400
 }
 
 h4, h5, h6 {
-    font-size: 100%;
+    /*font-size: 100%;*/
     font-weight: 400
 }
 
@@ -87,7 +97,6 @@ hr {
 }
 
 a {
-    color: #333;
     text-decoration: none
 }
 
@@ -1109,7 +1118,7 @@ a {
     }
 
 .layui-btn-block {
-    width:100%;
+    width: 100%;
 }
 
 .layui-btn-radius {
@@ -1273,13 +1282,12 @@ a {
     display: none
 }
 
-.layui-form fieldset {
+fieldset {
     border: 1px solid #c2c2c2;
     border-radius: 3px;
 }
 
-    .layui-form fieldset legend {
-        color: #808080;
+    fieldset legend {
         padding: 0px 10px;
     }
 
@@ -1303,7 +1311,7 @@ a {
     padding: 9px 15px;
     width: 80px;
     font-weight: 400;
-    text-align: right
+    text-align: right;
 }
 
 .layui-form-item .layui-inline {
@@ -2069,39 +2077,45 @@ a {
     background-color: #fff
 }
 
-    .layui-table tr {
-        transition: all .3s;
-        -webkit-transition: all .3s
-    }
+.table-center tr td, .table-center tr th {
+    text-align: center;
+}
 
-    .layui-table thead tr, .layui-table-fixed-l tr, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool {
-        background-color: #f2f2f2
-    }
+.layui-table tr {
+    transition: all .3s;
+    -webkit-transition: all .3s
+}
 
-    .layui-table th {
-        text-align: left;
-        font-weight: 400
-    }
+.layui-table thead tr, .layui-table-fixed-l tr, .layui-table-header, .layui-table-mend, .layui-table-patch, .layui-table-tool {
+    background-color: #f2f2f2
+}
 
-    .layui-table td, .layui-table th, .layui-table-header, .layui-table-tool, .layui-table-view, .layui-table[lay-skin=row], .layui-table[lay-skin=line] {
-        border: 1px solid #e2e2e2
-    }
+.layui-table th {
+    text-align: left;
+    font-weight: 400;
+    color: #666;
+    font-weight: bold;
+}
 
-    .layui-table td, .layui-table th {
-        position: relative;
-        padding: 9px 15px;
-        min-height: 20px;
-        line-height: 20px;
-        font-size: 14px
-    }
+.layui-table td, .layui-table th, .layui-table-header, .layui-table-tool, .layui-table-view, .layui-table[lay-skin=row], .layui-table[lay-skin=line] {
+    border: 1px solid #e2e2e2
+}
 
-    .layui-table[lay-even] tr:nth-child(even) {
-        background-color: #f8f8f8
-    }
+.layui-table td, .layui-table th {
+    position: relative;
+    padding: 9px 15px;
+    min-height: 20px;
+    line-height: 20px;
+    font-size: 14px
+}
 
-    .layui-table tbody tr:hover, .layui-table-hover {
-        background-color: #f2f2f2 !important
-    }
+.layui-table[lay-even] tr:nth-child(even) {
+    background-color: #f8f8f8
+}
+
+.layui-table tbody tr:hover, .layui-table-hover {
+    background-color: #f2f2f2 !important
+}
 
 .layui-table-click {
     background-color: #FFEEE8 !important
