@@ -63,7 +63,9 @@
 
     /* 当前页码样式 */
     .pagelist .current {
-        color: #1E9FFF;
+        color: #eee;
+        border-radius: 2px;
+        background-color: #c2c2c2;
     }
 
     /* 可跳转链接悬浮样式 */

@@ -28,7 +28,7 @@
             <th>序号</th>
             <th>MsgID</th>
             <th>MsgStr</th>
-            <th>操作</th>
+            <th width="25%">操作</th>
         </tr>
     </thead>
     @{
@@ -38,8 +38,12 @@
                 <td>@item.msgid</td>
                 <td>@item.msgstr</td>
                 <td>
-                    <label class="" onclick="Delete(@item.id)">删除</label>
-                    <label class="" onclick="Edit(@item.id,'@item.msgid')">编辑</label>
+                    <label class="" onclick="Edit(@item.id,'@item.msgid')">
+                        <button class="layui-btn"><i class="layui-icon">&#xe642;</i> 编辑</button>
+                    </label>
+                    <label class="" onclick="Delete(@item.id)">
+                        <button class="layui-btn layui-btn-danger"><i class="layui-icon">&#xe640;</i> 删除</button>
+                    </label>
                 </td>
             </tr>
         }
