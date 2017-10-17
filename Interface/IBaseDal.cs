@@ -36,14 +36,14 @@ namespace Interface {
         /// </summary>
         /// <param name="ID">主键ID</param>
         /// <returns></returns>
-        T DeleteEntity(int ID);
+        bool DeleteEntity(int ID);
 
         /// <summary>
         /// 删除数据
         /// </summary>
         /// <param name="entity">数据实体</param>
         /// <returns></returns>
-        T DeleteEntity(T entity);
+        bool DeleteEntity(T entity);
 
         /// <summary>
         /// 批量删除

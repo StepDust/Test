@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using System.Runtime.Serialization.Json;
 
 namespace Common {
     /// <summary>
@@ -79,6 +82,28 @@ namespace Common {
 
             return str.ToString(); ;
         }
+
+        #region Json
+
+        // 从一个对象信息生成Json串
+        public static string ObjectToJson(object obj) {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+            MemoryStream stream = new MemoryStream();
+            serializer.WriteObject(stream, obj);
+            byte[] dataBytes = new byte[stream.Length];
+            stream.Position = 0;
+            stream.Read(dataBytes, 0, (int)stream.Length);
+            return Encoding.UTF8.GetString(dataBytes);
+        }
+
+        // 从一个Json串生成对象信息
+        public static object JsonToObject(string jsonString, object obj) {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+            MemoryStream mStream = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
+            return serializer.ReadObject(mStream);
+        }
+
+        #endregion
 
         #endregion
 
@@ -203,17 +228,17 @@ namespace Common {
 
             //计算页数
             if (totalCount < 1 || pageSize < 1) {
-                return OutPagingHtml("", linkUrl, pageSize, typeName);
+                return OutPagingHtml("", linkUrl, pageSize, typeName, totalCount);
             }
             int pageCount = totalCount / pageSize;
             if (pageCount < 1) {
-                return OutPagingHtml("", linkUrl, pageSize, typeName);
+                return OutPagingHtml("", linkUrl, pageSize, typeName, totalCount);
             }
             if (totalCount % pageSize > 0) {
                 pageCount += 1;
             }
             if (pageCount <= 1) {
-                return OutPagingHtml("", linkUrl, pageSize, typeName);
+                return OutPagingHtml("", linkUrl, pageSize, typeName, totalCount);
             }
 
             // 开始拼接页码
@@ -221,17 +246,17 @@ namespace Common {
 
 
             // 拼接页码
-            string firstBtn = "<a href=\"" + ReplaceStr(linkUrl, pageId, (pageIndex - 1).ToString()) + "\">«上一页</a>";
-            string lastBtn = "<a href=\"" + ReplaceStr(linkUrl, pageId, (pageIndex + 1).ToString()) + "\">下一页»</a>";
+            string firstBtn = "<a href=\"" + ReplaceStr(linkUrl, pageId, (pageIndex - 1).ToString()) + "\">«</a>";
+            string lastBtn = "<a href=\"" + ReplaceStr(linkUrl, pageId, (pageIndex + 1).ToString()) + "\">»</a>";
 
             string firstStr = "<a href=\"" + ReplaceStr(linkUrl, pageId, "1") + "\">1</a>";
             string lastStr = "<a href=\"" + ReplaceStr(linkUrl, pageId, pageCount.ToString()) + "\">" + pageCount.ToString() + "</a>";
 
             if (pageIndex <= 1) {
-                firstBtn = "<span class=\"disabled\">«上一页</span>";
+                firstBtn = "<span class=\"disabled\">«</span>";
             }
             if (pageIndex >= pageCount) {
-                lastBtn = "<span class=\"disabled\">下一页»</span>";
+                lastBtn = "<span class=\"disabled\">»</span>";
             }
             if (pageIndex == 1) {
                 firstStr = "<span class=\"current\">1</span>";
@@ -247,7 +272,7 @@ namespace Common {
             int lastNum = pageIndex + centSize - ((centSize / 2) + 1);
             if (lastNum >= pageCount)
                 lastNum = pageCount - 1;
-            pageStr.Append("<span>共" + totalCount + "记录</span>");
+
             pageStr.Append(firstBtn + firstStr);
             if (pageIndex >= centSize) {
                 pageStr.Append("<span>...</span>\n");
@@ -265,7 +290,7 @@ namespace Common {
             }
             pageStr.Append(lastStr + lastBtn);
 
-            return OutPagingHtml(pageStr.ToString(), linkUrl, pageSize, typeName);
+            return OutPagingHtml(pageStr.ToString(), linkUrl, pageSize, typeName, totalCount);
         }
 
         /// <summary>
@@ -274,7 +299,7 @@ namespace Common {
         /// <param name="PageList"></param>
         /// <param name="linkUrl"></param>
         /// <returns></returns>
-        private static string OutPagingHtml(string PageList, string linkUrl, int pageSize, string typeName) {
+        private static string OutPagingHtml(string PageList, string linkUrl, int pageSize, string typeName, int totalCount) {
 
             string repStr = "&pageindex";
 
@@ -292,10 +317,10 @@ namespace Common {
 
             // Html部分
             StringBuilder pageStr = new StringBuilder();
-            pageStr.Append("<br />");
+
             pageStr.Append("<div class=\"pagelist\">");
+            pageStr.Append("<span>共 ：" + totalCount + " 条</span>");
             pageStr.Append("    <div class=\"l-btns\">");
-            pageStr.Append("        <span>显示</span>");
             pageStr.Append("        <input class=\"pagenum\" id=\"changePageSize\" value=\"" + pageSize + "\" />");
             pageStr.Append("        <span>条/页</span>");
             pageStr.Append("    </div>");

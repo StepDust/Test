@@ -98,7 +98,7 @@ namespace Common {
         /// </summary>
         /// <returns></returns>
         public string GetMsg() {
-            return LayerMsg(Msg, Url, State ?? -1, Layer_Anim ?? -1, Layer_Time ?? 2000);
+            return LayerMsg(Msg, State ?? -1, Url, Layer_Anim ?? -1, Layer_Time ?? 2000);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Common {
         /// <param name="anim">消息动画</param>
         /// <param name="time">出现时间</param>
         /// <returns></returns>
-        public static string LayerMsg(string msg, string url = "", Icon icon = Icon.None, int anim = -1, int time = 2000) {
+        public static string LayerMsg(string msg, Icon icon , string url = "", int anim = -1, int time = 2000) {
 
             // 链接
             if (string.IsNullOrEmpty(url))
@@ -148,8 +148,8 @@ namespace Common {
         /// <param name="anim">消息动画</param>
         /// <param name="time">出现时间</param>
         /// <returns></returns>
-        public static string LayerMsg(string msg, string url = "", int? icon = -1, int anim = -1, int time = 2000) {
-            return LayerMsg(msg, url, GetIcon(icon ?? -1), anim, time);
+        public static string LayerMsg(string msg, int? icon , string url = "", int anim = -1, int time = 2000) {
+            return LayerMsg(msg, GetIcon(icon ?? -1), url, anim, time);
         }
         #endregion
 

@@ -44,7 +44,7 @@ namespace Web_MVC.Controllers {
 
             if (string.IsNullOrEmpty(title))
                 title = "Msg";
-            return Content(ResObj.LayerMsg(title, Utils.GetPostUrlInfo(), icon));
+            return Content(ResObj.LayerMsg(title, icon, Utils.GetPostUrlInfo()));
         }
 
     }

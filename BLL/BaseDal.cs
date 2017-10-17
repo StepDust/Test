@@ -65,7 +65,7 @@ namespace BLL {
         /// </summary>
         /// <param name="ID">主键ID</param>
         /// <returns></returns>
-        public T DeleteEntity(int ID) {
+        public bool DeleteEntity(int ID) {
             T entity = FindEntity(ID);
             return DeleteEntity(entity);
         }
@@ -75,8 +75,12 @@ namespace BLL {
         /// </summary>
         /// <param name="entity">数据实体</param>
         /// <returns></returns>
-        public T DeleteEntity(T entity) {
-            return DbWrite.Set<T>().Remove(entity);
+        public bool DeleteEntity(T entity) {
+            if (entity != null) {
+                DbWrite.Entry<T>(entity).State = EntityState.Deleted;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -144,7 +148,7 @@ namespace BLL {
         public T FindEntity(int ID) {
             // 获取当前的表名
             string tableName = typeof(T).Name;
-            string sqlstr = string.Format(" select top(1) from {0} where id='{1}' ", tableName, ID + "");
+            string sqlstr = string.Format(" select top(1) * from {0} where id='{1}' ", tableName, ID + "");
             return LoadEntities(sqlstr).FirstOrDefault();
         }
 

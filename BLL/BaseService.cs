@@ -11,13 +11,13 @@ namespace BLL {
     /// 数据服务类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BaseService<T>  where T : class, new() {
+    public class BaseService<T> where T : class, new() {
 
         /// <summary>
         /// 数据服务类
         /// </summary>
         /// <param name="ConStrName">连接字符串名字</param>
-        public BaseService(string ConStrName){
+        public BaseService(string ConStrName) {
             baseDalModel = new BaseDal<T>(ConStrName) as IBaseDal<T>;
         }
 
@@ -35,18 +35,28 @@ namespace BLL {
         /// 添加数据
         /// </summary>
         /// <param name="entity">实体对象</param>
+        /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public T AddEntity(T entity) {
-            return BaseDalModel.AddEntity(entity);
+        public int AddEntity(T entity, bool issave = true) {
+            BaseDalModel.AddEntity(entity);
+            if (issave)
+                return SaveChanges();
+            else
+                return 0;
         }
 
         /// <summary>
         /// 批量添加
         /// </summary>
         /// <param name="entity">数据集合</param>
+        /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public List<T> AddEntityList(List<T> entityList) {
-            return BaseDalModel.AddEntityList(entityList);
+        public int AddEntityList(List<T> entityList, bool issave = true) {
+            BaseDalModel.AddEntityList(entityList);
+            if (issave)
+                return SaveChanges();
+            else
+                return 0;
         }
 
         #endregion
@@ -57,27 +67,42 @@ namespace BLL {
         /// 删除数据
         /// </summary>
         /// <param name="ID">主键ID</param>
+        /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public T DeleteEntity(int ID) {
-            return BaseDalModel.DeleteEntity(ID);
+        public int DeleteEntity(int ID, bool issave = true) {
+            BaseDalModel.DeleteEntity(ID);
+            if (issave)
+                return SaveChanges();
+            else
+                return 0;
         }
 
         /// <summary>
         /// 删除数据
         /// </summary>
         /// <param name="entity">数据实体</param>
+        /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public T DeleteEntity(T entity) {
-            return BaseDalModel.DeleteEntity(entity);
+        public int DeleteEntity(T entity, bool issave = true) {
+            BaseDalModel.DeleteEntity(entity);
+            if (issave)
+                return SaveChanges();
+            else
+                return 0;
         }
 
         /// <summary>
         /// 批量删除
         /// </summary>
         /// <param name="entityList">数据集合</param>
+        /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public List<T> DeleteEntityList(List<T> entityList) {
-            return BaseDalModel.DeleteEntityList(entityList);
+        public int DeleteEntityList(List<T> entityList, bool issave = true) {
+            BaseDalModel.DeleteEntityList(entityList);
+            if (issave)
+                return SaveChanges();
+            else
+                return 0;
         }
 
         #endregion
@@ -88,9 +113,14 @@ namespace BLL {
         /// 修改数据
         /// </summary>
         /// <param name="entity">数据实体</param>
+        /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public bool EditEntity(T entity) {
-            return BaseDalModel.EditEntity(entity);
+        public int EditEntity(T entity, bool issave = true) {
+             BaseDalModel.EditEntity(entity);
+            if (issave)
+                return SaveChanges();
+            else
+                return 0;
         }
 
         #endregion
@@ -155,7 +185,7 @@ namespace BLL {
         /// <param name="field">排序字段</param>
         /// <param name="isAsc">是否升序，默认：true</param>
         /// <returns></returns>
-        public IQueryable<T> LoadEntities<s>( IPage info, Expression<Func<T, bool>> where, Func<T, s> field, bool isAsc = true) {
+        public IQueryable<T> LoadEntities<s>(IPage info, Expression<Func<T, bool>> where, Func<T, s> field, bool isAsc = true) {
             var dataList = LoadEntities(where, field, isAsc);
             info.PageCount = dataList.Count();
             return dataList.Skip((info.PageIndex - 1) * info.PageSize).Take(info.PageSize);
