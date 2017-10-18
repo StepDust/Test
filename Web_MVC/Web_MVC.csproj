@@ -220,6 +220,7 @@
     <Compile Include="Areas\Algorithm\Controllers\SortController.cs" />
     <Compile Include="Controllers\AddDicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Manager.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

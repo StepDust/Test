@@ -65,6 +65,13 @@
             });
         }
 
+        // 加载代码修饰器
+        layui.use('code', function () { //加载code模块
+            layui.code({
+                about: false,
+                encode: true
+            }); //引用code方法
+        });
     </script>
 
     @RenderSection("jq", false)

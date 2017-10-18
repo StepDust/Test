@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Common;
+using EBuy;
 
 namespace Web_MVC.Controllers {
     /// <summary>
     /// 添加语言包数据
     /// </summary>
-    public class HomeController : Controller {
+    public class HomeController : Manager {
 
         /// <summary>
         /// 父窗页面

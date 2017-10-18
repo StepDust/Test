@@ -42,19 +42,19 @@
 
     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
         <ul class="layui-tab-title">
-            <li class="layui-this">Web功能</li>
-            <li>算法学习</li>
+            <li>Web功能</li>
+            <li class="layui-this">算法学习</li>
         </ul>
         <div class="layui-tab-content">
             @* Web功能 *@
-            <div class="layui-tab-item layui-show">
+            <div class="layui-tab-item ">
                 <a href="@Url.Action("index", "AddDic")" class="com-a-block com-a-block-anim">
                     Lang字典添加
                     <i>2017-10-16，始<br /> 2017-10-17，止</i>
                 </a>
             </div>
             @* 算法学习 *@
-            <div class="layui-tab-item">
+            <div class="layui-tab-item layui-show">
                 <a href="@Url.Action("Index", "Sort", new { area = "Algorithm" })" class="com-a-block com-a-block-anim">
                 排序
                 <i>2017-10-18，始<br /> 2017-10-18，桶排序</i>
@@ -63,8 +63,6 @@
         </div>
     </div>
 </fieldset>
-
-
 
 <script>
     $(function () {

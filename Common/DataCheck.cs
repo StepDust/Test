@@ -9,6 +9,10 @@ namespace Common {
 
         #region 正则表达式
 
+        /// <summary>
+        /// 是否为数字，包含（整数，小数，负数）
+        /// </summary>
+        public const string Reg_Num = @"^-?[0-9]+.?[0-9]*$";
 
 
         #endregion
@@ -79,24 +83,24 @@ namespace Common {
         /// <returns></returns>
         public static string RepLanguage(string con, bool ToWestern = true) {
 
-            char[,] arr =  {
-                { '（', '(' },{ '）', ')' },// 括号
-                {'【', '[' },{ '】', ']' },// 中括号
-                { '“', '"'},{ '”', '"' },// 双引号
-                {'‘', '\''},{ '’', '\'' },// 单引号
-                {'！', '!'},// 感叹号
-                {'？', '?'},// 问号
-                {'；', ';'},// 分号
-                {'：', ':'},// 冒号
-                {'，', ','},// 逗号
-                {'。', '.'}// 句号
+            string[,] arr =  {
+                {"（", "(" },{ "）", ")" },// 括号
+                {"【", "[" },{ "】", "]" },// 中括号
+                { "“", "\""},{ "”", "\"" },// 双引号
+                {"‘", "\""},{ "’", "\"" },// 单引号
+                {"！", "!"},// 感叹号
+                {"？", "?"},// 问号
+                {"；", ";"},// 分号
+                {"：", ":"},// 冒号
+                {"，", ","},// 逗号
+                {"。", "."}// 句号
             };
 
             int old = ToWestern ? 0 : 1;
             int now = 1 - old;
 
-            for (int i = 0; i < arr.Length; i++) {
-                con = con.Remove(arr[i, old], arr[1, now]);
+            for (int i = 0; i < arr.Length / 2; i++) {
+                con = con.Replace(arr[i, old], arr[i, now]);
             }
 
             return con;
@@ -144,7 +148,7 @@ namespace Common {
                     text = def;
             return text;
         }
-        
+
         #endregion
 
     }

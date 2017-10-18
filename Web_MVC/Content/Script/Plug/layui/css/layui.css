@@ -3673,3 +3673,17 @@ body .layui-util-face {
     -webkit-animation-name: layui-fadeout;
     animation-name: layui-fadeout
 }
+
+/* #region 拓展样式 */
+
+/* #region 文本框+按钮组 */
+.layui-input-item-r .layui-input {
+    border-radius: 2px 0px 0px 2px;
+}
+
+.layui-input-item-r .layui-btn {
+    border-radius: 0px 2px 2px 0px;
+}
+/* #endregion */
+
+/* #endregion */

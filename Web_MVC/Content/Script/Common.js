@@ -1,5 +1,5 @@
 ﻿
-// 禁用刷新
+// 禁用刷新，数据表格左右切换
 $(this).bind("keydown", function (e) {
     // 禁用刷新
     if (e.key == "F5" && e.keyCode == 116) {
@@ -16,7 +16,7 @@ $(this).bind("keydown", function (e) {
 
     var curr = $(".default .current");
 
-    if (curr) {
+    if (curr.length > 0) {
         var a;
         var msg = "";
         // 表格方向键：下一页
@@ -39,7 +39,7 @@ $(this).bind("keydown", function (e) {
                 layer.msg(msg, {
                     icon: 5,
                     anim: 6,
-                    time:2000
+                    time: 2000
                 });
         }
 
@@ -47,3 +47,54 @@ $(this).bind("keydown", function (e) {
     }
 
 });
+
+// 锚点平滑滚动
+function GetMao(id) {
+    var mao = $("#" + id);
+    // 判断对象是否存在
+    if (mao.length > 0) {
+        // 获取对象相对当前窗口的偏移
+        var pos = mao.offset().top;
+        // 移动滚动条
+        $("html,body").stop().animate({ scrollTop: pos - 5 }, 500);
+    }
+}
+
+// 算法模块，ajax提交数据
+function Algo(obj, url) {
+
+    var val = $(obj).parents(".layui-row").find(".layui-input").eq(0).val();
+
+    if (val.length <= 0) {
+        layer.msg("数据为空，停止计算！", { icon: 0 });
+        return false;
+    }
+    var data = { input: val };
+    AjaxAlert(url, data);
+
+}
+
+// ajax返回弹框
+function AjaxAlert(url, data) {
+    $.ajax({
+        url: url,
+        type: 'Post',
+        data: data,
+        dataType: 'json',
+        success: function (res) {
+            layer.open({
+                shade: false,
+                resize: false,
+                title: res.layer_Title,
+                content: res.Msg,
+                icon: res.layer_Icon
+            });
+        },
+        error: function (res) {
+            layer.msg("错误信息：" + res.status + "，" + res.statusText, {
+                icon: 0,
+                resize: false
+            });
+        }
+    });
+}

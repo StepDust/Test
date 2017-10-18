@@ -5,6 +5,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
+using System;
 
 namespace Common {
     /// <summary>
@@ -17,15 +19,36 @@ namespace Common {
         /// <summary>
         /// 替换指定的字符串
         /// </summary>
-        /// <param name="originalStr">原字符串</param>
+        /// <param name="str">原字符串</param>
         /// <param name="oldStr">旧字符串</param>
         /// <param name="newStr">新字符串</param>
         /// <returns></returns>
-        public static string ReplaceStr(string originalStr, string oldStr, string newStr) {
+        public static string ReplaceStr(string str, string oldStr, string newStr) {
             if (string.IsNullOrEmpty(oldStr)) {
                 return "";
             }
-            return originalStr.Replace(oldStr, newStr);
+            return str.Replace(oldStr, newStr);
+        }
+
+        /// <summary>
+        /// 字符串转Double数组
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static double[] GetStrToDoubleArr(string str) {
+
+            // 字符矫正
+            str = DataCheck.RepLanguage(str);
+
+            List<double> list = new List<double>();
+            string[] s = str.Split(',');
+            for (int i = 0; i < s.Length; i++) {
+                if (DataCheck.CheckReg(s[i], DataCheck.Reg_Num)) {
+                    list.Add(double.Parse(s[i]));
+                }
+            }
+            
+            return list.ToArray();
         }
 
         /// <summary>
@@ -47,6 +70,22 @@ namespace Common {
                     str = str.Substring(0, str.LastIndexOf(strchar));
             }
 
+            return str;
+        }
+
+        /// <summary>
+        /// 删除指定字符结尾的指定字符
+        /// </summary>
+        /// <param name="str">原字符</param>
+        /// <param name="c">指定字符</param>
+        /// <returns></returns>
+        public static string DelLastChar(string str, char c) {
+            if (string.IsNullOrEmpty(str))
+                return "";
+            int index = str.LastIndexOf(c);
+
+            if (index == str.Length - 1)
+                return str.Substring(0, index);
             return str;
         }
 
@@ -84,13 +123,7 @@ namespace Common {
 
         // 从一个对象信息生成Json串
         public static string ObjectToJson(object obj) {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-            MemoryStream stream = new MemoryStream();
-            serializer.WriteObject(stream, obj);
-            byte[] dataBytes = new byte[stream.Length];
-            stream.Position = 0;
-            stream.Read(dataBytes, 0, (int)stream.Length);
-            return Encoding.UTF8.GetString(dataBytes);
+            return JsonConvert.SerializeObject(obj);
         }
 
         // 从一个Json串生成对象信息
@@ -189,7 +222,7 @@ namespace Common {
             catch {
                 return _url;
             }
-            return _url + DelLastChar(urlParams.ToString(), "&");
+            return _url + DelLastChar(urlParams.ToString(), '&');
         }
 
         #endregion

@@ -12,14 +12,46 @@ namespace Common {
 
         public ResObj() { }
 
-        public ResObj(int state, string msg) {
-            State = state;
-            Msg = msg;
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="s">状态</param>
+        /// <param name="m">消息</param>
+        public ResObj(int s, string m) {
+            State = s;
+            Msg = m;
         }
 
-        public ResObj(int state, object obj) {
-            State = state;
-            Obj = obj;
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="s">状态</param>
+        /// <param name="o">对象</param>
+        public ResObj(int s, object o) {
+            State = s;
+            Obj = o;
+        }
+
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="t">标题</param>
+        /// <param name="m">消息</param>
+        public ResObj(string t, string m) {
+            layer_Title = t;
+            Msg = m;
+        }
+
+        /// <summary>
+        /// 返回结果
+        /// </summary>
+        /// <param name="t">标题</param>
+        /// <param name="m">消息</param>
+        /// <param name="i">图标</param>
+        public ResObj(string t, string m, Icon i) {
+            layer_Title = t;
+            Msg = m;
+            icon = i;
         }
 
         #endregion
@@ -89,6 +121,16 @@ namespace Common {
         }
         private static string skin;
 
+        /// <summary>
+        /// 标题
+        /// </summary>
+        public string layer_Title { get; set; }
+
+        public int layer_Icon {
+            get { return GetIconNum(icon) ?? 0; }
+            set { icon = GetIcon(value); }
+        }
+        private Icon icon;
         #endregion
 
         /// <summary>
@@ -108,7 +150,7 @@ namespace Common {
         /// <param name="anim">消息动画</param>
         /// <param name="time">出现时间</param>
         /// <returns></returns>
-        public static string LayerMsg(string msg, Icon icon , string url = "", int anim = -1, int time = 2000) {
+        public static string LayerMsg(string msg, Icon icon, string url = "", int anim = -1, int time = 2000) {
 
             // 链接
             if (string.IsNullOrEmpty(url))
@@ -146,7 +188,7 @@ namespace Common {
         /// <param name="anim">消息动画</param>
         /// <param name="time">出现时间</param>
         /// <returns></returns>
-        public static string LayerMsg(string msg, int? icon , string url = "", int anim = -1, int time = 2000) {
+        public static string LayerMsg(string msg, int? icon, string url = "", int anim = -1, int time = 2000) {
             return LayerMsg(msg, GetIcon(icon ?? -1), url, anim, time);
         }
         #endregion
@@ -203,6 +245,9 @@ namespace Common {
 
     }
 
+    /// <summary>
+    /// 信息图标枚举
+    /// </summary>
     public enum Icon {
         /// <summary>
         /// 暂无

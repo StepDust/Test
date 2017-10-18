@@ -3,12 +3,13 @@ using System.Linq;
 using System.Web.Mvc;
 using System.IO;
 using System.Text.RegularExpressions;
+using EBuy;
 
 namespace Web_MVC.Controllers {
     /// <summary>
     /// 
     /// </summary>
-    public class TestController : Controller {
+    public class TestController : Manager {
         
         public ActionResult Index() {
             return View();
