@@ -50,24 +50,21 @@
             <div class="layui-tab-item layui-show">
                 <a href="@Url.Action("index", "AddDic")" class="com-a-block com-a-block-anim">
                     Lang字典添加
-                    <i>始于：2017-10-16 <br /> 止于：2017-10-17</i>
-                </a>
-                <a href="@Url.Action("index", "AddDic")" class="com-a-block com-a-block-anim">
-                    Lang字典添加
-                    <i>罢了巴拉巴</i>
-                </a>
-                <a href="@Url.Action("index", "AddDic")" class="com-a-block com-a-block-anim">
-                    Lang字典添加
-                    <i>始于：2017-10-16 <br /> 止于：2017-10-17</i>
+                    <i>2017-10-16，始<br /> 2017-10-17，止</i>
                 </a>
             </div>
             @* 算法学习 *@
             <div class="layui-tab-item">
-                <a href="@Url.Action("index", "AddDic")" class="com-a-block com-a-block-anim">桶排序 </a>
+                <a href="@Url.Action("Index", "Sort", new { area = "Algorithm" })" class="com-a-block com-a-block-anim">
+                排序
+                <i>2017-10-18，始<br /> 2017-10-18，桶排序</i>
+                </a>
             </div>
         </div>
     </div>
 </fieldset>
+
+
 
 <script>
     $(function () {
@@ -83,7 +80,7 @@
                         var html = $(this).children("i").html();
                         if (html) {
                             index = layer.tips(html, this, {
-                                tips: [1, '#3595CC'],
+                                tips: [3, '#3595CC'],
                                 time: 3000
                             });
                         }

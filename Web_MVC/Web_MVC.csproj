@@ -216,6 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Algorithm\AlgorithmAreaRegistration.cs" />
+    <Compile Include="Areas\Algorithm\Controllers\SortController.cs" />
     <Compile Include="Controllers\AddDicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -229,12 +231,15 @@
     <Content Include="Content\Script\Plug\layui\font\iconfont.eot" />
     <Content Include="Content\Script\Plug\layui\font\iconfont.ttf" />
     <Content Include="Content\Script\Plug\layui\font\iconfont.woff" />
+    <Content Include="Areas\Algorithm\Views\web.config" />
+    <Content Include="Areas\Algorithm\Views\Sort\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\AddDic\Index.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -244,7 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

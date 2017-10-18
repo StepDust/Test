@@ -1,9 +1,9 @@
 ﻿/* 将a标签充满容器 */
 .com-a-block {
-    padding: 1%;
+    padding: 9px;
     transition: .2s;
-    display: inline-block;
-    width: 98%;
+    display: block;
+    width: calc(100%-0);
     height: 100%;
     color: #01AAED;
 }
@@ -19,10 +19,11 @@
 }
 
     .com-a-block-anim:hover {
-        padding-left: 2%;
-        width: 97%;
+        padding-left: 18px;
+        /*width:calc(100%-9);*/
         /*border-color: rgba(1,1,1,0);*/
     }
+
 /* #region 分页样式 */
 /* 页码样式 */
 .pagelist {
@@ -85,15 +86,4 @@
             background-color: #ddd;
         }
 
-    /* 第一个span圆角 */
-    .pagelist .l-btns span:first-child,
-    .pagelist .default span:first-child {
-    }
-
-    /* 最后一个span圆角 */
-    .pagelist .l-btns span:last-child,
-    .pagelist .default span:last-child,
-    .pagelist .default a:last-child {
-        /*margin-right: 5px;*/
-    }
 /* #endregion */

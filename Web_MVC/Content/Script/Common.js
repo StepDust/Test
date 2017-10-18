@@ -3,7 +3,14 @@
 $(this).bind("keydown", function (e) {
     // 禁用刷新
     if (e.key == "F5" && e.keyCode == 116) {
-        parent.layer.iframeSrc(parent.iframe, location.href);
+
+        // 去掉id
+        var index = location.href.lastIndexOf('#');
+        var url = location.href;
+        if (index > 0)
+            url = location.href.substring(0, index);
+
+        parent.layer.iframeSrc(parent.iframe, url);
         return false;
     }
 

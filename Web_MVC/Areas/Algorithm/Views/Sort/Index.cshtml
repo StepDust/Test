@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[,] str =
+    {
+        {"桶排序","one" }
+    };
+}
+@* 侧边栏 *@
+@Html.Partial("_Sidebar", str)
+
+
+<fieldset name="@str[0,1]">
+    <legend>@str[0, 0]</legend>
+</fieldset>
