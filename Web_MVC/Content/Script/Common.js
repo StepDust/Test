@@ -10,7 +10,7 @@ $(this).bind("keydown", function (e) {
         if (index > 0)
             url = location.href.substring(0, index);
 
-        parent.layer.iframeSrc(parent.iframe, url);
+        parent.iframe.prop("src", url);
         return false;
     }
 
@@ -98,3 +98,43 @@ function AjaxAlert(url, data) {
         }
     });
 }
+
+// 悬浮
+function Float(sel) {
+    var element = $(sel);
+    if (element.length <= 0)
+        return false;
+    // 获取当前元素离浏览器顶部距离
+    var top = element.position().top - $("body").css("padding-top").replace('px', '');
+    // 获取当前元素的定位方式
+    var pos = element.css("position");
+    var back = "#fff";
+
+    var width = element.width() - 15;
+    var height = element.height() + top;
+    var copy = element.clone();
+    copy.css({
+        display: "none",
+        opacity: 0
+    });
+    // 将拷贝标签添加至父级
+    $(element).parent().append(copy);
+
+    element.css({
+        opacity: 0,
+        top: top
+    });
+
+    copy.css({
+        display: 'block',
+        opacity: 100,
+        width: "100%",
+        "padding-top": top,
+        position: "fixed",
+        'z-index': "999",
+        'background-color': back,
+        left: 5,
+        top: 0
+    });
+
+};

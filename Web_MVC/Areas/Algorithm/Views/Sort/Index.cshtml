@@ -4,33 +4,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     string[,] str =
     {
+        { "前言","t"},
         {"桶排序","one" },
-        {"冒泡排序","two" }
+        {"冒泡排序","two" },
+        {"快速排序*","Three" }
     };
 }
-@* 侧边栏 *@
-@Html.Partial("_Sidebar", str)
 
-<!-- 桶排序 -->
-<fieldset id="@str[0,1]">
-    <legend>@str[0, 0]</legend>
-    <blockquote class="layui-elem-quote ">
-        <p>优点：非常快，简单</p>
-        <p>缺点：消耗空间，无法处理小数，仅仅只能排序</p>
-        <p>题目：一年的全国高考考生人数为500 万，分数使用标准分，最低100 ，最高900 ，没有小数，要求对这500 万元素的数组进行排序。</p>
-    </blockquote>
-    <blockquote class="layui-elem-quote layui-quote-nm layui-row">
-        <b class="layui-col-sm1">思路：</b>
-        <p class="layui-col-sm11">建立长度为801的数组，按每人减去100分，转为0~800的索引，每出现一个数字，对应索引加一，顺序输出数组</p>
-    </blockquote>
-
-    <blockquote class="layui-elem-quote layui-quote-nm">
-        <div class="layui-row layui-input-item-r">
-            <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割，[Min:100,Max:900]" class="layui-input"></div>
-            <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/BucketSort')">排序</button></div>
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title title-pin">
+        @{
+            for (int i = 0; i < str.Length / 2; i++) {
+                <li class="@(i==0?"layui-this":"")">@str[i, 0]</li>
+            }
+        }
+    </ul>
+    <div class="layui-tab-content">
+        <!-- 前言 -->
+        <div class="layui-tab-item layui-show">
+            <blockquote class="layui-elem-quote ">
+                <p>存 在 数 组 ：3，9，2，5，5，7，9</p>
+                <p>稳 定 排 序 ：两个5不会交换位置</p>
+                <p>不稳定排序：两个5可能交换位置</p>
+                <p>优 缺 举 例 ：假如发奖学金，排在前三个的有奖，结果一排序把原来在第三位的并列第三名给弄到第四位了，他估计不会乐意</p>
+            </blockquote>
         </div>
-    </blockquote>
-    <pre class="layui-code code" lay-title="C#">
+        <!-- 桶排序 -->
+        <div class="layui-tab-item">
+            <blockquote class="layui-elem-quote">
+                <p>优点：非常快，简单</p>
+                <p>缺点：消耗空间，无法处理小数，仅仅只能排序，不稳定</p>
+                <p>时间复杂度： O(M+N)</p>
+            </blockquote>
+            <blockquote class="layui-elem-quote layui-quote-nm layui-row ">
+                <b class="layui-col-sm1">思路：</b>
+                <p class="layui-col-sm11">建立长度为合适的数组，每出现一个数字，对应索引加一，最后顺序输出数组</p>
+            </blockquote>
+
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <div class="layui-row layui-input-item-r">
+                    <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割，[Min:100,Max:900]" class="layui-input"></div>
+                    <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/BucketSort')">排序</button></div>
+                </div>
+            </blockquote>
+            <pre class="layui-code code" lay-title="C#">
         /// <summary>
         /// 桶排序
         /// </summary>
@@ -57,37 +74,37 @@
             for (int i = 0; i < num.Length; i++) {
                 // 当 num[i] 为0时，表示 i 没有出现过
                 if (num[i] <= 0) continue;
-                // 输出 num[i] 个 i 
+                // 输出 num[i] 个 i
                 for (int j = 0; j < num[i]; j++)
                     list.Add(i);
             }
             return list.ToArray();
         }
       </pre>
-</fieldset>
-<!-- 冒泡排序 -->
-<fieldset id="@str[1,1]">
-    <legend>@str[1, 0]</legend>
-    <blockquote class="layui-elem-quote ">
-        <p>优点：适用广泛，稳定</p>
-        <p>缺点：较慢，时间复杂度高</p>
-        <p>题目：一年的全国高考考生人数为500 万，分数使用标准分，最低100 ，最高900 ，没有小数，要求对这500 万元素的数组进行排序。</p>
-    </blockquote>
-    <blockquote class="layui-elem-quote layui-quote-nm layui-row">
-        <b class="layui-col-sm1">思路：</b>
-        <p class="layui-col-sm11">
-        取第一个依次与第二、三、四...个比较（第一个循环），每次比较时，判断哪个数更小，较小数放置第一位，全部比较完毕后为“一趟”<br />
-        然后取第二个，继续依次与第三、四...个比较（第二个循环）</p>
-    </blockquote>
-
-    <blockquote class="layui-elem-quote layui-quote-nm">
-        <div class="layui-row layui-input-item-r">
-            <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割" class="layui-input"></div>
-            <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/BubbleSort')">排序</button></div>
         </div>
-    </blockquote>
-    <!--代码块-->
-    <pre class="layui-code code" lay-title="C#">
+        <!-- 冒泡排序 -->
+        <div class="layui-tab-item ">
+            <blockquote class="layui-elem-quote ">
+                <p>优点：适用广泛，稳定</p>
+                <p>缺点：较慢，时间复杂度高</p>
+                <p>时间复杂度：O(N<sup>2</sup>)</p>
+            </blockquote>
+            <blockquote class="layui-elem-quote layui-quote-nm layui-row">
+                <b class="layui-col-sm1">思路：</b>
+                <p class="layui-col-sm11">
+                    取第一个依次与第二、三、四...个比较（第一个循环），每次比较时，判断哪个数更小，较小数放置第一位，全部比较完毕后为“一趟”<br />
+                    然后取第二个，继续依次与第三、四...个比较（第二个循环）
+                </p>
+            </blockquote>
+
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <div class="layui-row layui-input-item-r">
+                    <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割" class="layui-input"></div>
+                    <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/BubbleSort')">排序</button></div>
+                </div>
+            </blockquote>
+            <!--代码块-->
+            <pre class="layui-code code" lay-title="C#">
         /// <summary>
         /// 冒泡排序
         /// </summary>
@@ -110,4 +127,91 @@
             return arr;
         }
       </pre>
-</fieldset>
+        </div>
+        <!-- 快速排序 -->
+        <div class="layui-tab-item ">
+            <blockquote class="layui-elem-quote ">
+                <p>优点：冒泡排序优化，最常用，排序更快</p>
+                <p>缺点：不稳定</p>
+                <p>时间复杂度：O (N<i>log</i>N)</p>
+            </blockquote>
+            <blockquote class="layui-elem-quote layui-quote-nm layui-row">
+                <b class="layui-col-sm1">思路：</b>
+                <p class="layui-col-sm11">
+                    取一个参考值（k），将数组中，比k小的数字放在k的左边，比k大的数字放在k的右边（第一个循环）<br />
+                    然后分别让k左边和k右边的数组重复第一步（第二个循环）
+                </p>
+            </blockquote>
+
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <div class="layui-row layui-input-item-r">
+                    <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割" class="layui-input"></div>
+                    <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/QuickSort')">排序</button></div>
+                </div>
+            </blockquote>
+
+            <!--代码块-->
+            <pre class="layui-code code" lay-title="C#">
+        /// <summary>
+        /// 快速排序
+        /// </summary>
+        /// <param name="arr">待排序数组< /param>
+        /// <param name="start">开始索引< /param>
+        /// <param name="end">结束索引< /param>
+        /// <returns></returns>
+        public static double[] Quicksort(double[] arr, int start = -1, int end = -1) {
+
+            // 递归退出条件
+            if (start < 0 && arr.Length <= start)
+                return arr;
+            if (end < 0 && arr.Length <= end)
+                return arr;
+            if (end < start)
+                return arr;
+
+            // 初始化值
+            if (start == -1)
+                start = 0;
+            if (end == -1)
+                end = arr.Length - 1;
+
+            int i = start;
+            int j = end;
+
+            // 随机获取参考值
+            Random ran = new Random();
+            double k = arr[ran.Next(start, end + 1)];
+
+            // 从后向前找
+            for (; i < j; j--) {
+                // 当后面的数小于参考值时
+                if (arr[j] <= k) {
+                    // 从前向后找
+                    for (; i < j; i++) {
+                        // 当前面的数大于参考值时
+                        if (k <= arr[i]) {
+                            // 交换前后值
+                            arr[i] += arr[j];
+                            arr[j] = arr[i] - arr[j];
+                            arr[i] = arr[i] - arr[j];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // 排序右边数组
+            arr = Quicksort(arr, start, i - 1);
+            // 排序左边数组
+            arr = Quicksort(arr, i + 1, end);
+
+            return arr;
+        }
+      </pre>
+        </div>
+    </div>
+</div>
+
+
+
+

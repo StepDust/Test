@@ -4,15 +4,6 @@
     ViewBag.Title = "Default";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .com-a-block i {
-        display: none;
-    }
-
-    .layui-tab-item .com-a-block:last-child {
-        border-color: rgba(1,1,1,0);
-    }
-</style>
 
 <form action="@Url.Action("Default", "Home")" method="post" class="layui-form">
     <fieldset>
@@ -36,71 +27,3 @@
         </div>
     </fieldset>
 </form>
-
-<fieldset>
-    <legend>目录</legend>
-
-    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-        <ul class="layui-tab-title">
-            <li>Web功能</li>
-            <li class="layui-this">算法学习</li>
-        </ul>
-        <div class="layui-tab-content">
-            @* Web功能 *@
-            <div class="layui-tab-item ">
-                <a href="@Url.Action("index", "AddDic")" class="com-a-block com-a-block-anim">
-                    Lang字典添加
-                    <i>2017-10-16，始<br /> 2017-10-17，止</i>
-                </a>
-            </div>
-            @* 算法学习 *@
-            <div class="layui-tab-item layui-show">
-                <a href="@Url.Action("Index", "Sort", new { area = "Algorithm" })" class="com-a-block com-a-block-anim">
-                排序
-                <i>2017-10-18，始<br /> 2017-10-18，桶排序</i>
-                </a>
-            </div>
-        </div>
-    </div>
-</fieldset>
-
-<script>
-    $(function () {
-
-        var tab = $(".layui-tab-item");
-        // 添加序号
-        for (var i = 0; i < tab.length; i++) {
-            var a = $(tab[i]).children(".com-a-block-anim");
-            for (var j = 0; j < a.length; j++) {
-                var index;
-                $(a).eq(j).html(bq(j + 1) + "、" + $(a).eq(j).html()).hover(
-                    function () {
-                        var html = $(this).children("i").html();
-                        if (html) {
-                            index = layer.tips(html, this, {
-                                tips: [3, '#3595CC'],
-                                time: 3000
-                            });
-                        }
-
-                    },
-                    function () { layer.close(index); }
-                );
-            }
-
-        }
-    });
-
-    // 补为两个长度
-    function bq(num) {
-        if (num < 10)
-            return "0" + num;
-        return num;
-    }
-
-    function tip() {
-
-        //layer.tips('Hi，我是tips', $(this));
-    }
-
-</script>

@@ -34,14 +34,15 @@ namespace Common {
         /// 字符串转Double数组
         /// </summary>
         /// <param name="str"></param>
+        /// <param name="c"></param>
         /// <returns></returns>
-        public static double[] GetStrToDoubleArr(string str) {
+        public static double[] GetStrToDoubleArr(string str,char c=',') {
 
             // 字符矫正
             str = DataCheck.RepLanguage(str);
 
             List<double> list = new List<double>();
-            string[] s = str.Split(',');
+            string[] s = str.Split(c);
             for (int i = 0; i < s.Length; i++) {
                 if (DataCheck.CheckReg(s[i], DataCheck.Reg_Num)) {
                     list.Add(double.Parse(s[i]));

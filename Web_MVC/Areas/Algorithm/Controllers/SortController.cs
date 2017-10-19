@@ -33,8 +33,14 @@ namespace EBuy.Areas.Algorithm.Controllers {
         public void BubbleSort(string input) {
             ResWrite(Sort.BubbleSort(Utils.GetStrToDoubleArr(input)).ToString(" , "));
         }
-        
 
+        /// <summary>
+        /// 快速排序
+        /// </summary>
+        /// <param name="input"></param>
+        public void Quicksort(string input) {
+            ResWrite(Sort.Quicksort(Utils.GetStrToDoubleArr(input)).ToString(" , "));
+        }
 
     }
 }
