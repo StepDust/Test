@@ -39,7 +39,7 @@ namespace Common {
                 if (num[i] <= 0) continue;
                 // 输出 num[i] 个 i 
                 for (int j = 0; j < num[i]; j++)
-                    list.Add(i);
+                    list.Add(i + diff);
             }
             return list.ToArray();
         }
@@ -76,13 +76,15 @@ namespace Common {
         public static double[] Quicksort(double[] arr, int start = -1, int end = -1) {
 
             // 递归退出条件
-            if (start < 0 && arr.Length <= start)
-                return arr;
-            if (end < 0 && arr.Length <= end)
-                return arr;
-            if (end < start)
-                return arr;
-            
+            if (start != -1 & start != -1) {
+                if (start < 0 || arr.Length <= start)
+                    return arr;
+                if (end < 0 || arr.Length <= end)
+                    return arr;
+                if (end <= start)
+                    return arr;
+            }
+
             // 初始化值
             if (start == -1)
                 start = 0;

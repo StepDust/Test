@@ -27,13 +27,19 @@ namespace EBuy {
         public void ResWrite(string str) {
 
             try {
+                Icon i = Icon.Success;
+                if (string.IsNullOrEmpty(str)) {
+                    str = "请输入正确的数据！";
+                    i = Icon.Error;
+                }
 
-                ResObj res = new ResObj("排序结果", str, Icon.Success);
+
+                ResObj res = new ResObj("返回结果", str, i);
 
                 Response.Write(Utils.ObjectToJson(res));
             }
             catch (Exception e) {
-                ResObj res = new ResObj("错误信息",e.StackTrace+"报错，"+e.Message, Icon.Error);
+                ResObj res = new ResObj("错误信息", e.StackTrace + "报错，" + e.Message, Icon.Error);
                 Response.Write(Utils.ObjectToJson(res));
             }
         }

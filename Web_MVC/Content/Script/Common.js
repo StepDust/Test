@@ -32,9 +32,8 @@ $(this).bind("keydown", function (e) {
         }
 
         if (a) {
-            layer.msg($(a).html());
             if ($(a).prop("href"))
-                parent.layer.iframeSrc(parent.iframe, $(a).prop("href"));
+                parent.iframe.prop("src", $(a).prop("href"));
             else
                 layer.msg(msg, {
                     icon: 5,

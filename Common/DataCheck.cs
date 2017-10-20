@@ -12,7 +12,7 @@ namespace Common {
         /// <summary>
         /// 是否为数字，包含（整数，小数，负数）
         /// </summary>
-        public const string Reg_Num = @"^-?[0-9]+.?[0-9]*$";
+        public const string Reg_Num = @"^[\-+]{0,1}[0-9]{1,}[.]{0,1}[0-9]{0,}$";
 
 
         #endregion

@@ -33,6 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -223,6 +224,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Algorithm\AlgorithmAreaRegistration.cs" />
     <Compile Include="Areas\Algorithm\Controllers\SortController.cs" />
+    <Compile Include="Areas\Algorithm\Controllers\StrucController.cs" />
     <Compile Include="Controllers\AddDicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Manager.cs" />
@@ -272,6 +274,7 @@
     <Content Include="Content\Script\Plug\FontIcon\scss\_screen-reader.scss" />
     <Content Include="Content\Script\Plug\FontIcon\scss\_stacked.scss" />
     <Content Include="Content\Script\Plug\FontIcon\scss\_variables.scss" />
+    <Content Include="Areas\Algorithm\Views\Struc\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -279,6 +282,7 @@
     <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\AddDic\Index.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Shared\_Input.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

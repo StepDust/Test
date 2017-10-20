@@ -3,12 +3,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string[,] str =
-    {
+    {   // 名称，方法
         { "前言","t"},
-        {"桶排序","one" },
-        {"冒泡排序","two" },
-        {"快速排序*","Three" }
+        {"桶排序","BucketSort" },
+        {"冒泡排序","BubbleSort" },
+        {"快速排序*","QuickSort" }
     };
+    int index = 1;
 }
 
 <div class="layui-tab layui-tab-brief">
@@ -36,17 +37,15 @@
                 <p>缺点：消耗空间，无法处理小数，仅仅只能排序，不稳定</p>
                 <p>时间复杂度： O(M+N)</p>
             </blockquote>
-            <blockquote class="layui-elem-quote layui-quote-nm layui-row ">
-                <b class="layui-col-sm1">思路：</b>
-                <p class="layui-col-sm11">建立长度为合适的数组，每出现一个数字，对应索引加一，最后顺序输出数组</p>
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <b>思路：</b>
+                建立长度为合适的数组，每出现一个数字，对应索引加一，最后顺序输出数组
             </blockquote>
 
-            <blockquote class="layui-elem-quote layui-quote-nm">
-                <div class="layui-row layui-input-item-r">
-                    <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割，[Min:100,Max:900]" class="layui-input"></div>
-                    <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/BucketSort')">排序</button></div>
-                </div>
-            </blockquote>
+            @* 测试文本框 *@
+            @Html.Partial("_Input",
+           new ViewDataDictionary { { "Url", Url.Action(str[index++, 1], "Sort") }, { "Title", "排序" }, { "Des", "+，[100,900]" } })
+
             <pre class="layui-code code" lay-title="C#">
         /// <summary>
         /// 桶排序
@@ -76,7 +75,7 @@
                 if (num[i] <= 0) continue;
                 // 输出 num[i] 个 i
                 for (int j = 0; j < num[i]; j++)
-                    list.Add(i);
+                    list.Add(i + diff);
             }
             return list.ToArray();
         }
@@ -90,19 +89,17 @@
                 <p>时间复杂度：O(N<sup>2</sup>)</p>
             </blockquote>
             <blockquote class="layui-elem-quote layui-quote-nm layui-row">
-                <b class="layui-col-sm1">思路：</b>
-                <p class="layui-col-sm11">
-                    取第一个依次与第二、三、四...个比较（第一个循环），每次比较时，判断哪个数更小，较小数放置第一位，全部比较完毕后为“一趟”<br />
-                    然后取第二个，继续依次与第三、四...个比较（第二个循环）
-                </p>
+                <b>思路：</b>
+
+                取第一个依次与第二、三、四...个比较（第一个循环），每次比较时，判断哪个数更小，较小数放置第一位，全部比较完毕后为“一趟”<br />
+                然后取第二个，继续依次与第三、四...个比较（第二个循环）
+
             </blockquote>
 
-            <blockquote class="layui-elem-quote layui-quote-nm">
-                <div class="layui-row layui-input-item-r">
-                    <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割" class="layui-input"></div>
-                    <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/BubbleSort')">排序</button></div>
-                </div>
-            </blockquote>
+            @* 测试文本框 *@
+            @Html.Partial("_Input",
+           new ViewDataDictionary { { "Url", Url.Action(str[index++, 1], "Sort") }, { "Title", "排序" } })
+
             <!--代码块-->
             <pre class="layui-code code" lay-title="C#">
         /// <summary>
@@ -136,19 +133,16 @@
                 <p>时间复杂度：O (N<i>log</i>N)</p>
             </blockquote>
             <blockquote class="layui-elem-quote layui-quote-nm layui-row">
-                <b class="layui-col-sm1">思路：</b>
-                <p class="layui-col-sm11">
-                    取一个参考值（k），将数组中，比k小的数字放在k的左边，比k大的数字放在k的右边（第一个循环）<br />
-                    然后分别让k左边和k右边的数组重复第一步（第二个循环）
-                </p>
+                <b>思路：</b>
+
+                取一个参考值（k），将数组中，比k小的数字放在k的左边，比k大的数字放在k的右边（第一个循环）<br />
+                然后分别让k左边和k右边的数组重复第一步（第二个循环）
+
             </blockquote>
 
-            <blockquote class="layui-elem-quote layui-quote-nm">
-                <div class="layui-row layui-input-item-r">
-                    <div class="layui-col-sm11"><input placeholder="输入数字，逗号分割" class="layui-input"></div>
-                    <div class="layui-col-sm1"><button class="layui-btn layui-btn-block" onclick="Algo(this,'/Sort/QuickSort')">排序</button></div>
-                </div>
-            </blockquote>
+            @* 测试文本框 *@
+            @Html.Partial("_Input",
+           new ViewDataDictionary { { "Url", Url.Action(str[index++, 1], "Sort") }, { "Title", "排序" } })
 
             <!--代码块-->
             <pre class="layui-code code" lay-title="C#">
@@ -162,12 +156,14 @@
         public static double[] Quicksort(double[] arr, int start = -1, int end = -1) {
 
             // 递归退出条件
-            if (start < 0 && arr.Length <= start)
-                return arr;
-            if (end < 0 && arr.Length <= end)
-                return arr;
-            if (end < start)
-                return arr;
+            if (start != -1 & start != -1) {
+                if (start < 0 || arr.Length <= start)
+                    return arr;
+                if (end < 0 || arr.Length <= end)
+                    return arr;
+                if (end <= start)
+                    return arr;
+            }
 
             // 初始化值
             if (start == -1)
@@ -211,7 +207,5 @@
         </div>
     </div>
 </div>
-
-
 
 

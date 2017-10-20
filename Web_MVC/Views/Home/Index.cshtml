@@ -34,7 +34,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href=""><i class="layui-icon"></i></a></li>
+                <li class="layui-nav-item"><a href=""><i class="fa fa-power-off fa-fw " style="font-size:20px;" ></i></a></li>
             </ul>
         </div>
 
@@ -43,7 +43,7 @@
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree  " lay-filter="test">
                     <li class="layui-nav-item layui-this">
-                        <a href="#" data-url="@Url.Action("Default", "Home", new { area = "" })"><i class="fa fa-home"> 主页</i></a>
+                        <a href="#" data-url="@Url.Action("Default", "Home", new { area = "" })"><i class="fa fa-home fa-fw"></i> 主页</a>
                     </li>
                     <li class="layui-nav-item">
                         <a class="" href="javascript:;"><i class="fa fa-desktop fa-fw"></i> Web功能</a>
@@ -60,7 +60,7 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">算法学习</a>
+                        <a class="" href="javascript:;"><i class="fa fa-code fa-fw"></i> 算法学习</a>
                         <dl class="layui-nav-child">
                             <dd>
                                 <a href="#" data-url="@Url.Action("Index", "Sort", new { area = "Algorithm" })">
@@ -73,24 +73,24 @@
                                 </a>
                             </dd>
                             <dd>
-                                <a href="#" data-url="@Url.Action("Index", "Sort", new { area = "Algorithm" })">
+                                <a href="#" data-url="@Url.Action("Index", "Struc", new { area = "Algorithm" })">
                                     栈，队列，链表
                                     <i class="msg">
-                                        2017-10-18，桶排序
-                                        <br /> 2017-10-18，冒泡排序
-                                        <br /> 2017-10-19，快速排序
+                                        2017-10-19，队列
+                                        <br /> 2017-10-19，栈
+                                        <br /> 2017-10-19，链表
                                     </i>
                                 </a>
                             </dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a class="" href="javascript:;">工具网站</a>
+                        <a class="" href="javascript:;"><i class="fa fa-wrench fa-fw"></i> 工具网站</a>
                         <dl class="layui-nav-child">
                             <dd><a href="#" data-url="http://fontawesome.dashgame.com/">字体图标</a></dd>
+                            <dd><a href="#" data-url="http://fly.layui.com/">Fly社区</a></dd>
                         </dl>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -100,7 +100,7 @@
             <iframe id="iframe" style="height:99%;width:100%;border:none;" src="@Url.Action("Default", "Home")"></iframe>
         </div>
 
-        <div class="layui-footer" style="text-align:center;">
+        <div class="layui-footer" style="text-align:center;width:100%;">
             <!-- 底部固定区域 -->
             轻剑惊鸿藏锋，重剑大巧不工
         </div>
@@ -156,7 +156,7 @@
                         var html = $(this).children("i").html();
                         if (html) {
                             index = layer.tips(html, this, {
-                                tips: 4,
+                                tips: [4, '#009688'],
                                 time: 3000
                             });
                         }
