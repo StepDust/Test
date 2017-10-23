@@ -1,0 +1,60 @@
+﻿@using Models
+@using Common
+@model ReqData<LoginIP>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[,] str =
+{   // 名称，方法
+        { "登录列表","t"}
+    };
+}
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title title-pin">
+        @{
+            for (int i = 0; i < str.Length / 2; i++) {
+                <li class="@(i==0?"layui-this":"")">@str[i, 0]</li>
+            }
+        }
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <table class="layui-table table-center">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>外网IP</th>
+                        <th>内网IP</th>
+                        <th>城市</th>
+                        <th>运营商</th>
+                        <th>主机名称</th>
+                        <th>主机系统</th>
+                        <th>物理路径(Mac)</th>
+                        <th>最后登录</th>
+                        <th>登录次数</th>
+                    </tr>
+                </thead>
+                @{
+                    foreach (var item in Model.DataList) {
+                        <tr>
+                            <td>@item.id</td>
+                            <td>@item.extranetIP</td>
+                            <td>@item.ipv4</td>
+                            <td>@item.city</td>
+                            <td>@(item.@operator)</td>
+                            <td>@item.hostName</td>
+                            <td>@item.System</td>
+                            <td>@item.mac</td>
+                            <td>@item.loginTime</td>
+                            <td>@item.counts</td>
+                        </tr>
+                    }
+                }
+            </table>
+            @Html.Raw(Model.PageContent)
+        </div>
+    </div>
+</div>
+@section jq{
+    @Html.Partial("_Lock")
+}

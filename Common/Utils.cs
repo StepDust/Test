@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Management;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,10 @@ using System.Web.Mvc;
 using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 using System;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace Common {
     /// <summary>
@@ -36,7 +41,7 @@ namespace Common {
         /// <param name="str"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static double[] GetStrToDoubleArr(string str,char c=',') {
+        public static double[] GetStrToDoubleArr(string str, char c = ',') {
 
             // 字符矫正
             str = DataCheck.RepLanguage(str);
@@ -48,7 +53,7 @@ namespace Common {
                     list.Add(double.Parse(s[i]));
                 }
             }
-            
+
             return list.ToArray();
         }
 
@@ -224,6 +229,166 @@ namespace Common {
                 return _url;
             }
             return _url + DelLastChar(urlParams.ToString(), '&');
+        }
+
+        #endregion
+
+        #region 客户端信息
+
+        /// <summary>
+        /// 返回登录信息
+        /// </summary>
+        /// <returns></returns>
+        public static LoginInfo GetLoginInfo() {
+            LoginInfo info = new LoginInfo();
+            info.IPv4 = GetIPv4();
+            string[] str = GetExternalInfo().Split(' ');
+            info.ExtranetIP = str[0];
+            info.City = str[1];
+            info.Operator = str[2];
+            info.HostName = GetHostName();
+            info.Mac = GetMac();
+            info.System=GetSystemName()+""+GetSystemType();
+
+            return info;
+        }
+
+        /// <summary>
+        /// 获取内网IP
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIPv4() {
+            IPHostEntry host;
+            string localIP = "?";
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList) {
+                if (ip.AddressFamily.ToString() == "InterNetwork") {
+                    localIP = ip.ToString();
+                    break;
+                }
+            }
+            return localIP;
+        }
+
+        /// <summary>
+        /// 获取外网IP，以及城市和运营商
+        /// </summary>
+        /// <returns></returns>
+        public static string GetExternalInfo() {
+            /*
+             * 不错的外网地址获取网址
+             * http://www.3322.org/dyndns/getip
+             * http://ip.chinaz.com/getip.aspx
+             */
+            string Html = GetUrlHtml("http://ip.chinaz.com/getip.aspx");
+            string[] str = DataCheck.GetRegStrArr(Html, DataCheck.Reg_IP);
+            string city = DataCheck.GetRegStr(Html, DataCheck.Reg_City);
+
+            return str[0] + " " + city;
+        }
+
+        /// <summary>
+        /// 返回主机名称
+        /// </summary>
+        /// <returns></returns>
+        public static string GetHostName() {
+            return Dns.GetHostName();
+        }
+                    
+        /// <summary>  
+        /// 获取本机的Mac
+        /// </summary>  
+        /// <returns></returns>  
+        public static string GetMac() {
+            string madAddr = null;
+            try {
+                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+                ManagementObjectCollection moc2 = mc.GetInstances();
+                foreach (ManagementObject mo in moc2) {
+                    if (Convert.ToBoolean(mo["IPEnabled"]) == true) {
+                        madAddr = mo["MacAddress"].ToString();
+                        madAddr = madAddr.Replace(':', '-');
+                    }
+                    mo.Dispose();
+                }
+                if (madAddr == null) {
+                    return "unknown";
+                }
+                else {
+                    return madAddr;
+                }
+            }
+            catch (Exception) {
+                return "unknown";
+            }
+        }
+
+        /// <summary>  
+        /// 获取操作系统名称  
+        /// </summary>  
+        /// <returns>操作系统名称</returns>  
+        public static string GetSystemName() {
+            try {
+                string strSystemName = string.Empty;
+                ManagementObjectSearcher mos = new ManagementObjectSearcher("root\\CIMV2", "SELECT PartComponent FROM Win32_SystemOperatingSystem");
+                foreach (ManagementObject mo in mos.Get()) {
+                    strSystemName = mo["PartComponent"].ToString();
+                }
+                mos = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption FROM Win32_OperatingSystem");
+                foreach (ManagementObject mo in mos.Get()) {
+                    strSystemName = mo["Caption"].ToString();
+                }
+                return strSystemName;
+            }
+            catch {
+                return "unknown";
+            }
+        }
+
+        /// <summary>  
+        /// 获取操作系统类型  
+        /// </summary>  
+        /// <returns>操作系统类型</returns>  
+        public static string GetSystemType() {
+            try {
+                string strSystemType = string.Empty;
+                ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
+                ManagementObjectCollection moc = mc.GetInstances();
+                foreach (ManagementObject mo in moc) {
+                    strSystemType = mo["SystemType"].ToString();
+                }
+                moc = null;
+                mc = null;
+                return strSystemType;
+            }
+            catch {
+                return "unknown";
+            }
+        }
+
+        /// <summary>
+        /// 返回指定网址的HTML代码
+        /// </summary>
+        /// <param name="Url"></param>
+        public static string GetUrlHtml(string Url) {
+            string Html = "";
+            WebRequest request = WebRequest.Create(Url);
+
+            // 返回Response
+            WebResponse response = request.GetResponse();
+            // 读取对应网址HTML源码
+            StreamReader stream = new StreamReader(response.GetResponseStream());
+            Html = stream.ReadToEnd();
+
+            // 关闭资源响应对象
+            response.Close();
+            response.Dispose();
+
+            // 关闭文件流
+            stream.Close();
+            stream.Dispose();
+
+            return Html;
         }
 
         #endregion

@@ -68,6 +68,9 @@
     <Compile Include="Lang.cs">
       <DependentUpon>Demo.tt</DependentUpon>
     </Compile>
+    <Compile Include="LoginIP.cs">
+      <DependentUpon>Demo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Menu01.cs">
       <DependentUpon>Demo.tt</DependentUpon>
     </Compile>

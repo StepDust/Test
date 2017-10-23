@@ -64,6 +64,7 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -225,7 +226,9 @@
     <Compile Include="Areas\Algorithm\AlgorithmAreaRegistration.cs" />
     <Compile Include="Areas\Algorithm\Controllers\SortController.cs" />
     <Compile Include="Areas\Algorithm\Controllers\StrucController.cs" />
-    <Compile Include="Controllers\AddDicController.cs" />
+    <Compile Include="Areas\WebFunction\Controllers\AddDicController.cs" />
+    <Compile Include="Areas\WebFunction\Controllers\LoginController.cs" />
+    <Compile Include="Areas\WebFunction\WebFunctionAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Manager.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -275,14 +278,17 @@
     <Content Include="Content\Script\Plug\FontIcon\scss\_stacked.scss" />
     <Content Include="Content\Script\Plug\FontIcon\scss\_variables.scss" />
     <Content Include="Areas\Algorithm\Views\Struc\Index.cshtml" />
+    <Content Include="Areas\WebFunction\Views\web.config" />
+    <Content Include="Areas\WebFunction\Views\Login\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Home\Default.cshtml" />
-    <Content Include="Views\AddDic\Index.cshtml" />
+    <Content Include="Areas\WebFunction\Views\AddDic\Index.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Shared\_Input.cshtml" />
+    <Content Include="Views\Shared\_Lock.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

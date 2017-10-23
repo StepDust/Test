@@ -50,6 +50,7 @@
     <Compile Include="BaseDal.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="Demo\LangService.cs" />
+    <Compile Include="Demo\LoginIPService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

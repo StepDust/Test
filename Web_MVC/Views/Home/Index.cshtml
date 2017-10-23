@@ -34,7 +34,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href=""><i class="fa fa-power-off fa-fw " style="font-size:20px;" ></i></a></li>
+                <li class="layui-nav-item"><a href=""><i class="fa fa-power-off fa-fw " style="font-size:20px;"></i></a></li>
             </ul>
         </div>
 
@@ -49,12 +49,21 @@
                         <a class="" href="javascript:;"><i class="fa fa-desktop fa-fw"></i> Web功能</a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a href="#" data-url="@Url.Action("index", "AddDic")">
+                                <a href="#" data-url="@Url.Action("index", "AddDic",new { area="WebFunction"})">
                                     Lang字典添加
                                     <i class="msg">
                                         2017-10-16，始
                                         <br /> 2017-10-17，止
                                     </i>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="#" data-url="@Url.Action("index", "Login", new { area = "WebFunction" })">
+                                登录记录
+                                <i class="msg">
+                                2017-10-23，始
+                                <br /> 2017-10-23，止
+                                </i>
                                 </a>
                             </dd>
                         </dl>
@@ -129,6 +138,9 @@
                 $(".layui-body").stop().animate({
                     "left": "0px"
                 }, 100);
+                $(".layui-footer").stop().animate({
+                    "left": "0px"
+                }, 100);
                 $(this).find("a").css("transform", "rotateZ(-90deg)");
 
             } else {
@@ -136,6 +148,9 @@
                     "width": "200px"
                 }, 100);
                 $(".layui-body").stop().animate({
+                    "left": "200px"
+                }, 100);
+                $(".layui-footer").stop().animate({
                     "left": "200px"
                 }, 100);
                 $(this).find("a").css("transform", "rotateZ(0deg)");

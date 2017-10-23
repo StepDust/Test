@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DemoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Lang">
           <Key>
             <PropertyRef Name="id" />
@@ -12,6 +12,21 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="msgid" Type="nvarchar(max)" />
           <Property Name="msgstr" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="LoginIP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="extranetIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="ipv4" Type="nvarchar" MaxLength="50" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="operator" Type="nvarchar" MaxLength="50" />
+          <Property Name="hostName" Type="nvarchar" MaxLength="100" />
+          <Property Name="mac" Type="nvarchar" MaxLength="100" />
+          <Property Name="System" Type="nvarchar" MaxLength="100" />
+          <Property Name="loginTime" Type="datetime" />
+          <Property Name="counts" Type="int" />
         </EntityType>
         <EntityType Name="Menu01">
           <Key>
@@ -31,11 +46,11 @@
         </EntityType>
         <EntityContainer Name="DemoModelStoreContainer">
           <EntitySet Name="Lang" EntityType="Self.Lang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginIP" EntityType="Self.LoginIP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu01" EntityType="Self.Menu01" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Menu02" EntityType="Self.Menu02" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -67,7 +82,23 @@
           <EntitySet Name="Lang" EntityType="Self.Lang" />
           <EntitySet Name="Menu01" EntityType="Self.Menu01" />
           <EntitySet Name="Menu02" EntityType="Self.Menu02" />
+          <EntitySet Name="LoginIP" EntityType="DemoModel.LoginIP" />
         </EntityContainer>
+        <EntityType Name="LoginIP">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="extranetIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ipv4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="operator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hostName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="mac" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="System" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="loginTime" Type="DateTime" Precision="3" />
+          <Property Name="counts" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -98,6 +129,22 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="pid" ColumnName="pid" />
                 <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginIP">
+            <EntityTypeMapping TypeName="DemoModel.LoginIP">
+              <MappingFragment StoreEntitySet="LoginIP">
+                <ScalarProperty Name="counts" ColumnName="counts" />
+                <ScalarProperty Name="loginTime" ColumnName="loginTime" />
+                <ScalarProperty Name="System" ColumnName="System" />
+                <ScalarProperty Name="mac" ColumnName="mac" />
+                <ScalarProperty Name="hostName" ColumnName="hostName" />
+                <ScalarProperty Name="operator" ColumnName="operator" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="ipv4" ColumnName="ipv4" />
+                <ScalarProperty Name="extranetIP" ColumnName="extranetIP" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

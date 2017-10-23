@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace EBuy {
 
     public class Manager : Controller {
-
+                
         /// <summary>
         /// 设置Response状态
         /// </summary>

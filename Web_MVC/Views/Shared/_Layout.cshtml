@@ -13,14 +13,16 @@
     <link href="~/Content/Script/Plug/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/Script/Plug/FontIcon/css/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/CSS/Common.css" rel="stylesheet" />
+    <!-- JS文件引用 -->
     <script src="~/Content/Script/jquery-3.2.1.min.js"></script>
+
     @RenderSection("css", false)
 </head>
 <body style="padding:5px;">
 
-        @RenderBody()
-    
-    <!-- JS文件引用 -->
+    @RenderBody()
+
+
     <script src="~/Content/Script/Plug/layui/layui.all.js"></script>
     <script src="~/Content/Script/Common.js"></script>
     <script>
@@ -70,7 +72,7 @@
         });
 
         Float(".title-pin");
-      
+
     </script>
 
     @RenderSection("jq", false)

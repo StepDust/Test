@@ -14,6 +14,16 @@ namespace Common {
         /// </summary>
         public const string Reg_Num = @"^[\-+]{0,1}[0-9]{1,}[.]{0,1}[0-9]{0,}$";
 
+        /// <summary>
+        /// 是否为IP地址
+        /// </summary>
+        public const string Reg_IP = "" +
+            "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\." +
+            "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
+            "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
+            "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)";
+
+        public const string Reg_City = @"address:'(.{0,})'";
 
         #endregion
 
@@ -147,6 +157,41 @@ namespace Common {
                 if (CheckSQL(text))
                     text = def;
             return text;
+        }
+
+        /// <summary>
+        /// 返回原字符中，满足正则表达式的字符串数组
+        /// </summary>
+        /// <param name="text">原字符串</param>
+        /// <param name="reg">正则表达式</param>
+        /// <returns></returns>
+        public static string[] GetRegStrArr(string text, string regStr) {
+            Regex reg = new Regex(regStr);
+
+            MatchCollection mc = reg.Matches(text);
+            if (mc.Count <= 0)
+                return new string[1];
+
+            string[] str = new string[mc.Count];
+            int index = 0;
+            foreach (Match item in mc)
+                str[index++] = item.Value;
+
+            return str;
+
+        }
+
+        /// <summary>
+        /// 返回原字符串中指定位置的字符串
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="regStr"></param>
+        /// <returns></returns>
+        public static string GetRegStr(string text, string regStr) {
+            Regex reg = new Regex(regStr);
+            Match mc = reg.Match(text);
+            if (mc.Length <= 0) return null;
+            return mc.Groups[1].ToString();
         }
 
         #endregion

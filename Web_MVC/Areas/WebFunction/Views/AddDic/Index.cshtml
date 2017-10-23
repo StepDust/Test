@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form action="/AddDic/Index" method="post" class="layui-form">
+<form action="@Url.Action("Index","AddDic",new { area="WebFunction"})" method="post" class="layui-form">
     <fieldset>
         <legend>存入字典</legend>
         <div class="layui-form-item">
