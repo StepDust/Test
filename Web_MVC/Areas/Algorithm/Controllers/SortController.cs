@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace EBuy.Areas.Algorithm.Controllers {
     /// <summary>
-    /// 排序
+    /// 排序算法
     /// </summary>
     public class SortController : Manager {
 

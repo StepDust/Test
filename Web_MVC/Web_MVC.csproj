@@ -110,6 +110,7 @@
   <ItemGroup>
     <Content Include="Content\CSS\Common.css" />
     <Content Include="Content\Images\5.jpg" />
+    <Content Include="Content\Images\Search.png" />
     <Content Include="Content\Script\Common.js" />
     <Content Include="Content\Script\jquery-3.2.1.min.js" />
     <Content Include="Content\Script\Plug\FontIcon\css\font-awesome.css" />
@@ -224,6 +225,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Algorithm\AlgorithmAreaRegistration.cs" />
+    <Compile Include="Areas\Algorithm\Controllers\SearchController.cs" />
     <Compile Include="Areas\Algorithm\Controllers\SortController.cs" />
     <Compile Include="Areas\Algorithm\Controllers\StrucController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\AddDicController.cs" />
@@ -280,6 +282,7 @@
     <Content Include="Areas\Algorithm\Views\Struc\Index.cshtml" />
     <Content Include="Areas\WebFunction\Views\web.config" />
     <Content Include="Areas\WebFunction\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Algorithm\Views\Search\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
