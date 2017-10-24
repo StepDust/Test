@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[,] str =
+{       // 名称，方法
+        {"城市地图","City" }//,
+        //{"最少转机","Least" }
+    };
+    int index = 0;
+}
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title title-pin">
+        @{
+            for (int i = 0; i < str.Length / 2; i++) {
+                <li class="@(i==0?"layui-this":"")">@str[i, 0]</li>
+            }
+        }
+    </ul>
+    <div class="layui-tab-content">
+        <!-- 城市地图 -->
+        <div class="layui-tab-item layui-show">
+            <blockquote class="layui-elem-quote ">
+                <p>有五座城市</p>
+                <img src="~/Content/Images/Tu.png" class="layer-image" />
+                <p>一号城市到二号城市的距离为2，1 2 2</p>
+                <p>一号城市到五号城市的距离为10，1 5 10</p>
+                <p>二号城市到三号城市的距离为3，2 3 3</p>
+                <p>二号城市到五号城市的距离为7，2 5 7</p>
+                <p>三号城市到一号城市的距离为4，3 1 4</p>
+                <p>三号城市到四号城市的距离为4，3 4 4</p>
+                <p>四号城市到五号城市的距离为5，4 5 5</p>
+                <p>五号城市到三号城市的距离为3，5 3 3</p>
+                <p>求指定城市到指定城市之间的最短路径是多少？</p>
+            </blockquote>
+
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <b>思路：</b>使用深度优先算法，查找每一种可行的路线，并记录最小值
+            </blockquote>
+
+            @* 测试文本框 *@
+            @Html.Partial("_Input",
+           new ViewDataDictionary { { "Url", Url.Action(str[index++, 1], "Search") }, { "Title", "计算" }, { "Des", "输入起始城市和终点城市，逗号分割" } })
+
+        </div>
+    </div>
+</div>
