@@ -13,6 +13,7 @@ namespace EBuy.Areas.Algorithm.Controllers {
         /// </summary>
         /// <returns></returns>
         public ActionResult Index() {
+            Water();
             return View();
         }
 
@@ -208,5 +209,130 @@ namespace EBuy.Areas.Algorithm.Controllers {
 
         #endregion
 
+        #region 水管工
+
+        public void Water() {
+            int[,] Arr = new int[5, 4] {
+                {5,3,5,3},
+                {1,5,3,0},
+                {2,3,5,1},
+                {6,1,1,5},
+                {1,5,5,4},
+            };
+
+            Stack<string> stack = WaterPipe(Arr, new Stack<string>(), 0, 0, 3);
+        }
+
+        bool IsEnd = false;
+
+        /// <summary>
+        /// 水管工游戏
+        /// </summary>
+        /// <param name="Arr">地图数组</param>
+        /// <param name="list">记录路径</param>
+        /// <param name="r">当前行</param>
+        /// <param name="c">当前列</param>
+        /// <param name="o">入水方向</param>
+        /// <returns></returns>
+        public Stack<string> WaterPipe(int[,] Arr, Stack<string> list, int r = 0, int c = 0, int o = 3) {
+
+            // 防止索引超出
+            if (r < 0 || c < 0) return list;
+            if (r >= Arr.GetLength(0) || c >= Arr.GetLength(1)) return list;
+
+            // 如果当前位置为0，即为树，走不通
+            if (Arr[r, c] == 0) return list;
+            // 判断当前位置管道是否为弯的
+            bool IsCurved = Arr[r, c] / 5 < 1;
+
+            string str = r + "," + c;
+            // 若当前路径已经走过，返回
+            if (list.Contains(str))
+                return list;
+
+            list.Push(str);
+
+            // 规定入水方向：上(1)，下(2)，左(3)，右(4)             
+            int top = 1;
+            int up = 2;
+            int left = 3;
+            int right = 4;
+
+            // 当到达最后一个格子时
+            if (r == Arr.GetLength(0) - 1 && c == Arr.GetLength(1) - 1) {
+                if ((IsCurved && o == top) || (!IsCurved && o == left))
+                    IsEnd = true;
+            }
+            // 从上方入水
+            else if (o == top) {
+                if (IsCurved) {
+                    // 向左走，入水口在右边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c - 1, right);
+                    // 向右走，入水口在左边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, left);
+                }
+                else {
+                    // 向下走，入水口在上边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, top);
+                }
+            }
+            // 从下方入水
+            else if (o == up) {
+                if (IsCurved) {
+                    // 向左走，入水口在右边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c - 1, right);
+                    // 向右走，入水口在左边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, left);
+                }
+                else {
+                    // 向上走，入水口在下边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, up);
+                }
+            }
+            // 从左方入水
+            else if (o == left) {
+                if (IsCurved) {
+                    // 向上走，入水口在下边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r - 1, c, up);
+                    // 向下走，入水口在上边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, top);
+                }
+                else {
+                    // 向右走，入水口在左边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, left);
+                }
+            }
+            // 从右方入水
+            else if (o == right) {
+                if (IsCurved) {
+                    // 向上走，入水口在下边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r - 1, c, up);
+                    // 向下走，入水口在上边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, top);
+                }
+                else {
+                    // 向左走，入水口在右边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, right);
+                }
+            }
+            // 若尚未结束，移除第一个数据
+            if (!IsEnd)
+                list.Pop();
+            return list;
+        }
+
+        #endregion
     }
 }

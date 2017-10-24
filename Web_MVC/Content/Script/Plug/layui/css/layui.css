@@ -30,7 +30,7 @@ a:active, a:hover {
 
 img {
     display: inline-block;
-    border: none
+    border: none;
 }
 
 li {
@@ -3684,5 +3684,10 @@ body .layui-util-face {
     border-radius: 0px 2px 2px 0px;
 }
 /* #endregion */
+
+.layer-image{
+    border:1px solid #ccc;
+    border-radius:2px;
+}
 
 /* #endregion */

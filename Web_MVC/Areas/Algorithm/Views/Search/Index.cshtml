@@ -6,7 +6,8 @@
 {   // 名称，方法
         { "题目","t"},
         {"广度优先搜索","Breadth" },
-        {"深度优先搜索","Depth" }
+        {"深度优先搜索","Depth" },
+        {"水管工","Water" }
     };
     int index = 1;
 }
@@ -30,7 +31,7 @@
 
             <blockquote class="layui-elem-quote layui-quote-nm">
                 <b>例：</b>小哼降落在(3,6)，求与(3,6)相邻的红色方块面积
-                <p><img src="~/Content/Images/Search.png" style="border:1px solid #ccc;border-radius:2px;" /></p>
+                <p><img src="~/Content/Images/Search.png" class="layer-image" /></p>
             </blockquote>
         </div>
         <!-- 广度优先 -->
@@ -157,7 +158,6 @@
             @Html.Partial("_Input",
            new ViewDataDictionary { { "Url", Url.Action(str[index++, 1], "Search") }, { "Title", "计算" }, { "Des", "对应\"题目\"地图，输入初始坐标，逗号隔开" } })
 
-
             <pre class="layui-code code" lay-title="C#">
                 
         /// <summary>
@@ -175,10 +175,10 @@
                 return 0;
             if (Arr[r, c] <= 0)
                 return 0;
-
+ 
             int Sum = Arr[r, c];
             Arr[r, c] = -1;
-
+ 
             // 向上找
             Sum += DepthFirst(Arr, r, c - 1);
             // 向下找
@@ -187,10 +187,137 @@
             Sum += DepthFirst(Arr, r - 1, c);
             // 向右找
             Sum += DepthFirst(Arr, r + 1, c);
-
+ 
             return Sum;
         }
 </pre>
+        </div>
+        <!-- 水管工游戏 -->
+        <div class="layui-tab-item">
+            <blockquote class="layui-elem-quote">
+                <p>一组N*M的方格，在每个方格中已经铺设了水管，每一个数字代表一种水管，现只能旋转水管来拼接路径，从左上角开始，右下角结束，求水管路径</p>
+                <p>
+                    <img src="~/Content/Images/w1.png" class="layer-image" />
+                    <img src="~/Content/Images/W.png" class="layer-image" />
+                </p>
+            </blockquote>
+
+            <blockquote class="layui-elem-quote layui-quote-nm">
+                <b>思路：</b>使用深度优先搜索，依次遍历，设置大量条件，减少递归次数
+            </blockquote>
+
+            <pre class="layui-code code" lay-title="C#">
+        // 结束标记
+        bool IsEnd = false;
+ 
+        /// <summary>
+        /// 水管工游戏
+        /// </summary>
+        /// <param name="Arr">地图数组< /param>
+        /// <param name="list">记录路径< /param>
+        /// <param name="r">当前行< /param>
+        /// <param name="c">当前列< /param>
+        /// <param name="o">入水方向< /param>
+        /// <returns></returns>
+        public Stack< string> WaterPipe(int[,] Arr, Stack< string> list, int r = 0, int c = 0, int o = 3) {
+ 
+            // 防止索引超出
+            if (r < 0 || c < 0) return list;
+            if (r >= Arr.GetLength(0) || c >= Arr.GetLength(1)) return list;
+ 
+            // 如果当前位置为0，即为树，走不通
+            if (Arr[r, c] == 0) return list;
+            // 判断当前位置管道是否为弯的
+            bool IsCurved = Arr[r, c] / 5 < 1;
+ 
+            string str = r + "," + c;
+            // 若当前路径已经走过，返回
+            if (list.Contains(str))
+                return list;
+ 
+            list.Push(str);
+ 
+            // 规定入水方向：上(1)，下(2)，左(3)，右(4)             
+            int top = 1;
+            int up = 2;
+            int left = 3;
+            int right = 4;
+ 
+            // 当到达最后一个格子时
+            if (r == Arr.GetLength(0) - 1 && c == Arr.GetLength(1) - 1) {
+                if ((IsCurved && o == top) || (!IsCurved && o == left))
+                    IsEnd = true;
+            }
+            // 从上方入水
+            else if (o == top) {
+                if (IsCurved) {
+                    // 向左走，入水口在右边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c - 1, right);
+                    // 向右走，入水口在左边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, left);
+                }
+                else {
+                    // 向下走，入水口在上边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, top);
+                }
+            }
+            // 从下方入水
+            else if (o == up) {
+                if (IsCurved) {
+                    // 向左走，入水口在右边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c - 1, right);
+                    // 向右走，入水口在左边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, left);
+                }
+                else {
+                    // 向上走，入水口在下边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, up);
+                }
+            }
+            // 从左方入水
+            else if (o == left) {
+                if (IsCurved) {
+                    // 向上走，入水口在下边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r - 1, c, up);
+                    // 向下走，入水口在上边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, top);
+                }
+                else {
+                    // 向右走，入水口在左边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, left);
+                }
+            }
+            // 从右方入水
+            else if (o == right) {
+                if (IsCurved) {
+                    // 向上走，入水口在下边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r - 1, c, up);
+                    // 向下走，入水口在上边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r + 1, c, top);
+                }
+                else {
+                    // 向左走，入水口在右边
+                    if (!IsEnd)
+                        WaterPipe(Arr, list, r, c + 1, right);
+                }
+            }
+            // 若尚未结束，移除第一个数据
+            if (!IsEnd)
+                list.Pop();
+            return list;
+        }
+            </pre>
         </div>
     </div>
 </div>
