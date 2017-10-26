@@ -11,14 +11,14 @@ namespace Web_MVC.Controllers {
     /// 添加语言包数据
     /// </summary>
     public class HomeController : Manager {
-
+        
         /// <summary>
         /// 父窗页面
         /// </summary>
         /// <returns></returns>
         public ActionResult Index() {
             LoginInfo info = Utils.GetLoginInfo();
-            
+
             if (Session["Login"] == null) {
                 LoginIPService bll_login = new LoginIPService();
                 LoginIP login = bll_login.FindEntity(c =>
@@ -60,9 +60,14 @@ namespace Web_MVC.Controllers {
             foreach (var item in Enum.GetValues(typeof(Icon)))
                 dic.Add((int)item, item.ToString());
 
-            data.DropList = Utils.BingDrop(dic, data.Icon ?? -1, false);
+            ViewBag.icon = Utils.BingDrop(dic, data.Icon ?? -1, false);
+            ViewBag.MsgStr = data.MsgStr;
 
-            return View(data);
+            LoginInfo info = Utils.GetLoginInfo();
+
+            ViewBag.m = Request.ServerVariables;
+
+            return View(info);
         }
 
         [HttpPost]

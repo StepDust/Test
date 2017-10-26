@@ -245,10 +245,13 @@ namespace Common {
             string[] str = GetExternalInfo().Split(' ');
             info.ExtranetIP = str[0];
             info.City = str[1];
-            info.Operator = str[2];
+            if (str.Length >= 3)
+                info.Operator = str[2];
+            else
+                info.Operator = "未知运营商";
             info.HostName = GetHostName();
             info.Mac = GetMac();
-            info.System=GetSystemName()+""+GetSystemType();
+            info.System = GetSystemName() + " " + GetSystemType();
 
             return info;
         }
@@ -258,16 +261,45 @@ namespace Common {
         /// </summary>
         /// <returns></returns>
         public static string GetIPv4() {
-            IPHostEntry host;
-            string localIP = "?";
-            host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList) {
-                if (ip.AddressFamily.ToString() == "InterNetwork") {
-                    localIP = ip.ToString();
-                    break;
+            string userIP = "未获取用户IP";
+
+            try {
+                if (System.Web.HttpContext.Current == null
+            || System.Web.HttpContext.Current.Request == null
+            || System.Web.HttpContext.Current.Request.ServerVariables == null)
+                    return "";
+
+                string CustomerIP = "";
+
+                //CDN加速后取到的IP   
+                CustomerIP = System.Web.HttpContext.Current.Request.Headers["Cdn-Src-Ip"];
+                if (!string.IsNullOrEmpty(CustomerIP)) {
+                    return CustomerIP;
                 }
+
+                CustomerIP = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+
+                if (!String.IsNullOrEmpty(CustomerIP))
+                    return CustomerIP;
+
+                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null) {
+                    CustomerIP = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                    if (CustomerIP == null)
+                        CustomerIP = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+                }
+                else {
+                    CustomerIP = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+
+                }
+
+                if (string.Compare(CustomerIP, "unknown", true) == 0)
+                    return System.Web.HttpContext.Current.Request.UserHostAddress;
+                return CustomerIP;
             }
-            return localIP;
+            catch { }
+
+            return userIP;
         }
 
         /// <summary>
@@ -292,9 +324,13 @@ namespace Common {
         /// </summary>
         /// <returns></returns>
         public static string GetHostName() {
-            return Dns.GetHostName();
+            // 根据目标ip地址的获取ip对象
+            IPAddress ip = IPAddress.Parse(HttpContext.Current.Request.UserHostAddress);
+            IPAddress[] addressList = Dns.GetHostByName(Dns.GetHostName()).AddressList;
+            IPHostEntry ihe = Dns.GetHostEntry(ip);    //根据ip对象创建主机对象
+            return ihe.HostName;
         }
-                    
+
         /// <summary>  
         /// 获取本机的Mac
         /// </summary>  

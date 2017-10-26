@@ -13,7 +13,7 @@ namespace EBuy.Areas.WebFunction.Controllers {
         public ActionResult Index(ReqData<LoginIP> data) {
             LoginIPService bll_login = new LoginIPService();
             data.DataList = bll_login.LoadEntities(data, c => true, c => c.loginTime, false).ToList();
-            data.PageUrl = Utils.GetUrlInfo();
+            data.PageUrl = Utils.GetUrl();
             data.GetPageList();
 
             return View(data);

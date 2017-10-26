@@ -8,7 +8,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">   
+
     <title>@ViewBag.Title</title>
+    <script>
+        if (top == self) {
+            location.href = "@Url.Action("Index","Home",new { area="" })";
+            
+        }
+    </script>
+
     <!-- CSS文件引用 -->
     <link href="~/Content/Script/Plug/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/Script/Plug/FontIcon/css/font-awesome.css" rel="stylesheet" />
@@ -26,7 +37,7 @@
     <script src="~/Content/Script/Plug/layui/layui.all.js"></script>
     <script src="~/Content/Script/Common.js"></script>
     <script>
-
+        
         // 固定块
         layui.util.fixbar({
             bar1: "&#xe68e;",
@@ -72,6 +83,9 @@
         });
 
         Float(".title-pin");
+
+
+
 
     </script>
 

@@ -6,21 +6,25 @@
 }
 
 <script>
-    layer.prompt({
-        title: '输入口令',
-        formType: 1,
-        shade: 1,
-        offset:['25%','25%'],
-        value:'#06#',
-        closeBtn: false,
-        success: function () {
-            $(".layui-layer-prompt").find(".layui-layer-btn1").remove();
-        }
-    }, function (pass, index) {
-        if(pass=="@pwd")
-            layer.close(index);
-        else {
-            layer.msg("口令错误");
-        }
-    });
+    if (localStorage.pwd == undefined||localStorage.pwd.indexOf(";" + "@pwd" + ";") < 0) {
+        layer.prompt({
+            title: '输入口令',
+            formType: 1,
+            shade: 1,
+            offset: ['25%', '25%'],
+            value: '#06#',
+            closeBtn: false,
+            success: function () {
+                $(".layui-layer-prompt").find(".layui-layer-btn1").remove();
+            }
+        }, function (pass, index) {
+            if (pass == "@pwd") {
+                localStorage.pwd += ";" + pass + ";";
+                layer.close(index);
+            }
+            else {
+                layer.msg("口令错误");
+            }
+        });
+    }
 </script>
