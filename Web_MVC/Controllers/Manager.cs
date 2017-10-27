@@ -21,7 +21,7 @@ namespace EBuy {
         }
 
         /// <summary>
-        /// 返回排序结果
+        /// 返回计算结果
         /// </summary>
         /// <param name="str"></param>
         public void ResWrite(string str) {

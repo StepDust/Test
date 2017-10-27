@@ -22,7 +22,6 @@
         <div class="layui-tab-item layui-show">
             <blockquote class="layui-elem-quote ">
                 <p>有五座城市</p>
-                <img src="~/Content/Images/Tu.png" class="layer-image" />
                 <p>一号城市到二号城市的距离为2，1 2 2</p>
                 <p>一号城市到五号城市的距离为10，1 5 10</p>
                 <p>二号城市到三号城市的距离为3，2 3 3</p>
@@ -32,6 +31,8 @@
                 <p>四号城市到五号城市的距离为5，4 5 5</p>
                 <p>五号城市到三号城市的距离为3，5 3 3</p>
                 <p>求指定城市到指定城市之间的最短路径是多少？</p>
+                <img src="~/Content/Images/Chart01.png" class="layer-image" />
+                <img src="~/Content/Images/Chart02.png" class="layer-image" />
             </blockquote>
 
             <blockquote class="layui-elem-quote layui-quote-nm">
@@ -40,8 +41,47 @@
 
             @* 测试文本框 *@
             @Html.Partial("_Input",
-           new ViewDataDictionary { { "Url", Url.Action(str[index++, 1], "Search") }, { "Title", "计算" }, { "Des", "输入起始城市和终点城市，逗号分割" } })
+           new ViewDataDictionary { { "Url", Url.Action(str[index++, 1], "Chart") }, { "Title", "计算" }, { "Des", "输入起始城市和终点城市，逗号分割" } })
 
+            <pre class="layui-code">
+        
+        // 最小路径
+        int Min = -1;
+ 
+        /// <summary>
+        /// 深度查找城市路径
+        /// </summary>
+        /// <param name="Arr">路径地图< /param>
+        /// <param name="r">起点< /param>
+        /// <param name="sum">所用路径长度< /param>
+        /// <param name="c">终点< /param>
+        /// <returns></returns>
+        public void CityLong(int[,] Arr, int r, int sum, int c) {
+            // 当起点即为终点时，抵达目的地
+            if (r == c) {
+                // 若最小值大于当前的路径长度
+                if (Min > sum||Min< 0) 
+                    Min=sum;
+                    return;
+                }
+            int temp=0;
+ 
+            // 寻找能够从城市r去往的下一个城市
+            for (int i = 0; i < Arr.GetLength(0); i++) {
+                // 找到下一个城市
+                if (Arr[r, i] > 0) {
+                    // 标记下一个城市已经走过
+                    temp = Arr[r, i];
+                    Arr[r, i] = -1;
+                    // 从下一个城市出发
+                    CityLong(Arr, i, sum + temp, c);
+                    // 还原
+                    Arr[r, i] = temp;
+                }
+            }
+ 
+        }
+</pre>
         </div>
     </div>
 </div>

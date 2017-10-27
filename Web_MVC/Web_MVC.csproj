@@ -110,7 +110,9 @@
   <ItemGroup>
     <Content Include="Content\CSS\Common.css" />
     <Content Include="Content\Images\5.jpg" />
+    <Content Include="Content\Images\Chart01.png" />
     <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\Chart02.png" />
     <Content Include="Content\Images\Search.png" />
     <Content Include="Content\Images\W.png" />
     <Content Include="Content\Images\w1.png" />
