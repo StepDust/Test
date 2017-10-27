@@ -15,6 +15,10 @@ namespace Common {
         /// </summary>
         public const string Name_Demo = "DemoEntities";
 
+        /// <summary>
+        /// CodeFirst数据库
+        /// </summary>
+        public const string Name_CodeFirst = "CodeFirst";
         #endregion
 
         /// <summary>
