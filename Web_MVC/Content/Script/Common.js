@@ -59,7 +59,11 @@ function GetMao(id) {
     }
 }
 
-// 算法模块，ajax提交数据
+/**
+ * 算法模块，ajax提交数据
+ * @param {当前按钮} obj
+ * @param {请求路径} url
+ */
 function Algo(obj, url) {
 
     var val = $(obj).parents(".layui-row").find(".layui-input").eq(0).val();
@@ -73,7 +77,11 @@ function Algo(obj, url) {
 
 }
 
-// ajax返回弹框
+/**
+ * ajax返回弹框
+ * @param {跳转路径} url
+ * @param {数据} data
+ */
 function AjaxAlert(url, data) {
     $.ajax({
         url: url,
@@ -98,7 +106,10 @@ function AjaxAlert(url, data) {
     });
 }
 
-// 悬浮
+/**
+ * 选项卡悬浮
+ * @param {选择器} sel
+ */
 function Float(sel) {
     var element = $(sel);
     if (element.length <= 0)

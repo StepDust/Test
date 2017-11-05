@@ -42,84 +42,96 @@
         <div class="layui-side layui-bg-black  ">
             <div class="layui-side-scroll  ">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree  " lay-filter="test">
-                    <li class="layui-nav-item layui-this">
-                        <a href="#" data-url="@Url.Action("Default", "Home", new { area = "" })"><i class="fa fa-home fa-fw"></i> 首页</a>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a class="" href="javascript:;"><i class="fa fa-desktop fa-fw"></i> Web功能</a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="#" data-url="@Url.Action("index", "AddDic",new { area="WebFunction"})">
-                                    Lang字典添加
-                                    <i class="msg">
-                                        2017-10-16，始
-                                        <br /> 2017-10-17，止
-                                    </i>
-                                </a>
-                            </dd>
-                            <dd>
-                                <a href="#" data-url="@Url.Action("index", "Login", new { area = "WebFunction" })">
-                                    登录记录
-                                    <i class="msg">
-                                        2017-10-23，始
-                                        <br /> 2017-10-23，止
-                                    </i>
-                                </a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;"><i class="fa fa-code fa-fw"></i> 算法学习</a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="#" data-url="@Url.Action("Index", "Sort", new { area = "Algorithm" })">
-                                    各种排序
-                                    <i class="msg">
-                                        2017-10-18，桶排序
-                                        <br /> 2017-10-18，冒泡排序
-                                        <br /> 2017-10-19，快速排序
-                                    </i>
-                                </a>
-                            </dd>
-                            <dd>
-                                <a href="#" data-url="@Url.Action("Index", "Struc", new { area = "Algorithm" })">
-                                    栈，队列，链表
-                                    <i class="msg">
-                                        2017-10-19，队列
-                                        <br /> 2017-10-19，栈
-                                        <br /> 2017-10-19，链表
-                                    </i>
-                                </a>
-                            </dd>
-                            <dd>
-                                <a href="#" data-url="@Url.Action("Index", "Search", new { area = "Algorithm" })">
-                                    搜索
-                                    <i class="msg">
-                                        2017-10-23，广度优先搜索
-                                        <br /> 2017-10-23，深度优先搜索
-                                        <br /> 2017-10-24，水管工游戏
-                                    </i>
-                                </a>
-                            </dd>
-                            <dd>
-                                <a href="#" data-url="@Url.Action("Index", "Chart", new { area = "Algorithm" })">
-                                    图的遍历
-                                    <i class="msg">
-                                        2017-10-26，城市地图
-                                    </i>
-                                </a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a class="" href="javascript:;"><i class="fa fa-wrench fa-fw"></i> 工具网站</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="#" data-url="http://fontawesome.dashgame.com/">字体图标</a></dd>
-                            <dd><a href="#" data-url="http://fly.layui.com/">Fly社区</a></dd>
-                        </dl>
-                    </li>
-                </ul>
+                @Html.Raw(ViewBag.nav)
+
+                @*<ul class="layui-nav layui-nav-tree  " lay-filter="test">
+                        <li class="layui-nav-item layui-this">
+                            <a href="#" data-url="@Url.Action("Default", "Home", new { area = "" })"><i class="fa fa-home fa-fw"></i> 首页</a>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;"><i class="fa fa-desktop fa-fw"></i> Web功能</a>
+                            <dl class="layui-nav-child">
+                                <dd>
+                                    <a href="#" data-url="@Url.Action("index", "AddNav",new { area="WebFunction"})">
+                                        左侧导航
+                                        <i class="msg">
+                                            2017-11-04，始
+                                            <br /> 2017-10-17，止
+                                        </i>
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="#" data-url="@Url.Action("index", "AddDic",new { area="WebFunction"})">
+                                        Lang字典添加
+                                        <i class="msg">
+                                            2017-10-16，始
+                                            <br /> 2017-10-17，止
+                                        </i>
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="#" data-url="@Url.Action("index", "Login", new { area = "WebFunction" })">
+                                        登录记录
+                                        <i class="msg">
+                                            2017-10-23，始
+                                            <br /> 2017-10-23，止
+                                        </i>
+                                    </a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a class="" href="javascript:;"><i class="fa fa-code fa-fw"></i> 算法学习</a>
+                            <dl class="layui-nav-child">
+                                <dd>
+                                    <a href="#" data-url="@Url.Action("Index", "Sort", new { area = "Algorithm" })">
+                                        各种排序
+                                        <i class="msg">
+                                            2017-10-18，桶排序
+                                            <br /> 2017-10-18，冒泡排序
+                                            <br /> 2017-10-19，快速排序
+                                        </i>
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="#" data-url="@Url.Action("Index", "Struc", new { area = "Algorithm" })">
+                                        栈，队列，链表
+                                        <i class="msg">
+                                            2017-10-19，队列
+                                            <br /> 2017-10-19，栈
+                                            <br /> 2017-10-19，链表
+                                        </i>
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="#" data-url="@Url.Action("Index", "Search", new { area = "Algorithm" })">
+                                        搜索
+                                        <i class="msg">
+                                            2017-10-23，广度优先搜索
+                                            <br /> 2017-10-23，深度优先搜索
+                                            <br /> 2017-10-24，水管工游戏
+                                        </i>
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="#" data-url="@Url.Action("Index", "Chart", new { area = "Algorithm" })">
+                                        图的遍历
+                                        <i class="msg">
+                                            2017-10-26，城市地图
+                                            <br />2017-11-04，最少转机
+                                        </i>
+                                    </a>
+                                </dd>
+                            </dl>
+                        </li>
+                        <li class="layui-nav-item">
+                            <a class="" href="javascript:;"><i class="fa fa-wrench fa-fw"></i> 工具网站</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="#" data-url="http://fontawesome.dashgame.com/">字体图标</a></dd>
+                                <dd><a href="#" data-url="http://fly.layui.com/">Fly社区</a></dd>
+                            </dl>
+                        </li>
+                    </ul>*@
             </div>
         </div>
 
@@ -177,38 +189,26 @@
 
 
         });
-
+        
         // 添加序号
-        var tab = $(".layui-nav-item");
+        var tabItem = $(".layui-nav-tree li,.layui-nav-tree dd");
         // 添加序号
-        for (var i = 0; i < tab.length; i++) {
-            var a = $(tab[i]).find(".layui-nav-child a");
-            for (var j = 0; j < a.length; j++) {
-                var index;
-                $(a).eq(j).html(bq(j + 1) + "、" + $(a).eq(j).html()).hover(
-                    function () {
-                        var html = $(this).children("i").html();
-                        if (html) {
-                            index = layer.tips(html, this, {
-                                tips: [4, '#009688'],
-                                time: 3000
-                            });
-                        }
-
-                    },
-                    function () { layer.close(index); }
-                );
-            }
-
+        for (var i = 0; i < tabItem.length; i++) {
+            var index;
+            $(tabItem[i]).hover(
+                function () {
+                    var html = $(this).find("i").html();
+                    if (html) {
+                        index = layer.tips(html, this, {
+                            tips: [4, '#009688'],
+                            time: 3000
+                        });
+                    }
+                },
+                function () { layer.close(index); }
+            );
         }
-
-        // 补为两个长度
-        function bq(num) {
-            if (num < 10)
-                return "0" + num;
-            return num;
-        }
-
+        
     </script>
 </body>
 </html>

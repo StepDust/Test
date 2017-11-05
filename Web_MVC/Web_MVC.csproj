@@ -34,6 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -235,6 +237,7 @@
     <Compile Include="Areas\Algorithm\Controllers\SortController.cs" />
     <Compile Include="Areas\Algorithm\Controllers\StrucController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\AddDicController.cs" />
+    <Compile Include="Areas\WebFunction\Controllers\AddNavController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\LoginController.cs" />
     <Compile Include="Areas\WebFunction\WebFunctionAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -243,6 +246,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\NavData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -290,6 +294,7 @@
     <Content Include="Areas\WebFunction\Views\Login\Index.cshtml" />
     <Content Include="Areas\Algorithm\Views\Search\Index.cshtml" />
     <Content Include="Areas\Algorithm\Views\Chart\Index.cshtml" />
+    <Content Include="Areas\WebFunction\Views\AddNav\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

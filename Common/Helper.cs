@@ -50,6 +50,8 @@ namespace Common {
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second) {
             if (first == null)
                 return second;
+            if (second == null)
+                return first;
             return first.Compose(second, Expression.And);
         }
 
@@ -63,6 +65,8 @@ namespace Common {
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second) {
             if (first == null)
                 return second;
+            if (second == null)
+                return first;
             return first.Compose(second, Expression.Or);
         }
     }

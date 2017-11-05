@@ -28,11 +28,55 @@ namespace Common {
         /// <param name="oldStr">旧字符串</param>
         /// <param name="newStr">新字符串</param>
         /// <returns></returns>
-        public static string ReplaceStr(string str, string oldStr, string newStr) {
+        public static string ReplaceStr(string str, string oldStr, string newStr)
+        {
             if (string.IsNullOrEmpty(oldStr)) {
                 return "";
             }
             return str.Replace(oldStr, newStr);
+        }
+
+        /// <summary>
+        /// 计算指定字符串中，指定字符出现次数
+        /// </summary>
+        /// <param name="str">原字符串</param>
+        /// <param name="s">要计数的字符</param>
+        /// <returns></returns>
+        public static int GetStrCount(string str, string s)
+        {
+            int count = 0;
+            for (int i = 0; i < str.Length - s.Length;) {
+                if (s == str.Substring(i, s.Length)) {
+                    count++;
+                    i += s.Length;
+                }
+                else
+                    i++;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 将字符串长度补至指定长度（默认在字符串前方补齐）
+        /// </summary>
+        /// <param name="obj">待补长对象</param>
+        /// <param name="length">指定长度</param>
+        /// <param name="str">用以补长的字符</param>
+        /// <param name="IsAppend">是否在对象，后方补长</param>
+        /// <param name="IsOver">是否允许溢出</param>
+        /// <returns></returns>
+        public static string GetStrToLen(object obj, int length, string str, bool IsAppend = false, bool IsOver = true)
+        {
+            string text = obj + "";
+            while (text.Length < length) {
+                if (IsAppend)
+                    text += str;
+                else
+                    text = str + text;
+            }
+            if (IsOver)
+                return text;
+            return text.Substring(0, length);
         }
 
         /// <summary>
@@ -41,7 +85,8 @@ namespace Common {
         /// <param name="str"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public static double[] GetStrToDoubleArr(string str, char c = ',') {
+        public static double[] GetStrToDoubleArr(string str, char c = ',')
+        {
 
             // 字符矫正
             str = DataCheck.RepLanguage(str);
@@ -64,7 +109,8 @@ namespace Common {
         /// <param name="strchar">指定字符</param>
         /// <param name="num">倒数第几个指定字符</param>
         /// <returns></returns>
-        public static string DelLastChar(string str, string strchar, int num = 1) {
+        public static string DelLastChar(string str, string strchar, int num = 1)
+        {
             if (string.IsNullOrEmpty(str))
                 return "";
 
@@ -85,7 +131,8 @@ namespace Common {
         /// <param name="str">原字符</param>
         /// <param name="c">指定字符</param>
         /// <returns></returns>
-        public static string DelLastChar(string str, char c) {
+        public static string DelLastChar(string str, char c)
+        {
             if (string.IsNullOrEmpty(str))
                 return "";
             int index = str.LastIndexOf(c);
@@ -102,7 +149,8 @@ namespace Common {
         /// <param name="format">拼接格式，默认为Json格式</param>
         /// <param name="Split">分割符号</param>
         /// <returns></returns>
-        public static string MosaicKeyVal(Dictionary<object, object> dic, string format = " '{0}':'{1}' ", string Split = ",") {
+        public static string MosaicKeyVal(Dictionary<object, object> dic, string format = " '{0}':'{1}' ", string Split = ",")
+        {
 
             StringBuilder str = new StringBuilder();
 
@@ -125,15 +173,70 @@ namespace Common {
             return str.ToString(); ;
         }
 
+        /// <summary>
+        /// 路径的反斜杠统一
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string PathHandle(string path)
+        {
+            path = ReplaceStr(path, "/", "\\");
+            if (path.IndexOf("\\") == 0)
+                path = path.Substring(1);
+            path = DelLastChar(path, '\\');
+            return path;
+        }
+
+        /// <summary>
+        /// 在字符串后添加指定长度的指定字符
+        /// </summary>
+        /// <param name="str">原字符</param>
+        /// <param name="s">指定字符串</param>
+        /// <param name="count">指定长度</param>
+        /// <returns></returns>
+        public static string StrAppend(string oldStr, string str, int count)
+        {
+            StringBuilder sb = new StringBuilder(oldStr);
+            for (int i = 0; i < count; i++)
+                sb.Append(str);
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// 在字符串前添加指定长度的指定字符
+        /// </summary>
+        /// <param name="str">原字符</param>
+        /// <param name="s">指定字符串</param>
+        /// <param name="count">指定长度</param>
+        /// <returns></returns>
+        public static string StrAppendTo(string oldStr, string str, int count)
+        {
+            StringBuilder sb = new StringBuilder(oldStr);
+            for (int i = 0; i < count; i++)
+                sb.Insert(0, str);
+            return sb.ToString();
+        }
+
         #region Json
 
-        // 从一个对象信息生成Json串
-        public static string ObjectToJson(object obj) {
+        /// <summary>
+        ///  对象转Json
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ObjectToJson(object obj)
+        {
             return JsonConvert.SerializeObject(obj);
         }
 
-        // 从一个Json串生成对象信息
-        public static object JsonToObject(string jsonString, object obj) {
+        /// <summary>
+        /// Json转对象
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static object JsonToObject(string jsonString, object obj)
+        {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
             MemoryStream mStream = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
             return serializer.ReadObject(mStream);
@@ -149,7 +252,8 @@ namespace Common {
         /// 返回当前请求的Url，包含参数
         /// </summary>
         /// <returns></returns>
-        public static string GetUrlInfo() {
+        public static string GetUrlInfo()
+        {
             return HttpContext.Current.Request.RawUrl;
         }
 
@@ -157,7 +261,8 @@ namespace Common {
         /// 返回当前请求的Url，包含Post参数
         /// </summary>
         /// <returns></returns>
-        public static string GetPostUrlInfo() {
+        public static string GetPostUrlInfo()
+        {
             string url = GetUrlInfo();
             if (url.Contains('?'))
                 url += "&";
@@ -176,7 +281,8 @@ namespace Common {
         /// 返回当前请求的Url，不包含参数
         /// </summary>
         /// <returns></returns>
-        public static string GetUrl() {
+        public static string GetUrl()
+        {
             string url = GetUrlInfo();
             int index = url.IndexOf("?");
             if (index > 0)
@@ -185,9 +291,28 @@ namespace Common {
         }
 
         /// <summary>
+        /// 返回跳转路径
+        /// </summary>
+        /// <param name="url">待跳转路径</param>
+        /// <returns></returns>
+        public static string GetActionUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url)) return "";
+
+            int now = GetStrCount(url, "/");
+            if (now == 0)
+                now++;
+
+            url = DelLastChar(GetUrl(), "/", now) + "/" + url;
+
+            return url;
+        }
+
+        /// <summary>
         /// URL字符编码
         /// </summary>
-        public static string UrlEncode(string str) {
+        public static string UrlEncode(string str)
+        {
             if (string.IsNullOrEmpty(str)) {
                 return "";
             }
@@ -198,7 +323,8 @@ namespace Common {
         /// <summary>
         /// URL字符解码
         /// </summary>
-        public static string UrlDecode(string str) {
+        public static string UrlDecode(string str)
+        {
             if (string.IsNullOrEmpty(str)) {
                 return "";
             }
@@ -212,7 +338,8 @@ namespace Common {
         /// <param name="_keys">参数名称</param>
         /// <param name="_values">参数值</param>
         /// <returns>String</returns>
-        public static string CombUrlTxt(string _url, string _keys, params string[] _values) {
+        public static string CombUrlTxt(string _url, string _keys, params string[] _values)
+        {
             StringBuilder urlParams = new StringBuilder();
             try {
                 string[] keyArr = _keys.Split(new char[] { '&' });
@@ -239,7 +366,8 @@ namespace Common {
         /// 返回登录信息
         /// </summary>
         /// <returns></returns>
-        public static LoginInfo GetLoginInfo() {
+        public static LoginInfo GetLoginInfo()
+        {
             LoginInfo info = new LoginInfo();
             info.IPv4 = GetIPv4();
             string[] str = GetExternalInfo().Split(' ');
@@ -260,7 +388,8 @@ namespace Common {
         /// 获取内网IP
         /// </summary>
         /// <returns></returns>
-        public static string GetIPv4() {
+        public static string GetIPv4()
+        {
             string userIP = "未获取用户IP";
 
             try {
@@ -306,7 +435,8 @@ namespace Common {
         /// 获取外网IP，以及城市和运营商
         /// </summary>
         /// <returns></returns>
-        public static string GetExternalInfo() {
+        public static string GetExternalInfo()
+        {
             /*
              * 不错的外网地址获取网址
              * http://www.3322.org/dyndns/getip
@@ -323,7 +453,8 @@ namespace Common {
         /// 返回主机名称
         /// </summary>
         /// <returns></returns>
-        public static string GetHostName() {
+        public static string GetHostName()
+        {
             // 根据目标ip地址的获取ip对象
             IPAddress ip = IPAddress.Parse(HttpContext.Current.Request.UserHostAddress);
             IPAddress[] addressList = Dns.GetHostByName(Dns.GetHostName()).AddressList;
@@ -335,7 +466,8 @@ namespace Common {
         /// 获取本机的Mac
         /// </summary>  
         /// <returns></returns>  
-        public static string GetMac() {
+        public static string GetMac()
+        {
             string madAddr = null;
             try {
                 ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
@@ -363,7 +495,8 @@ namespace Common {
         /// 获取操作系统名称  
         /// </summary>  
         /// <returns>操作系统名称</returns>  
-        public static string GetSystemName() {
+        public static string GetSystemName()
+        {
             try {
                 string strSystemName = string.Empty;
                 ManagementObjectSearcher mos = new ManagementObjectSearcher("root\\CIMV2", "SELECT PartComponent FROM Win32_SystemOperatingSystem");
@@ -385,7 +518,8 @@ namespace Common {
         /// 获取操作系统类型  
         /// </summary>  
         /// <returns>操作系统类型</returns>  
-        public static string GetSystemType() {
+        public static string GetSystemType()
+        {
             try {
                 string strSystemType = string.Empty;
                 ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
@@ -406,7 +540,8 @@ namespace Common {
         /// 返回指定网址的HTML代码
         /// </summary>
         /// <param name="Url"></param>
-        public static string GetUrlHtml(string Url) {
+        public static string GetUrlHtml(string Url)
+        {
             string Html = "";
             WebRequest request = WebRequest.Create(Url);
 
@@ -440,7 +575,8 @@ namespace Common {
         /// <param name="linkUrl">链接地址，__id__代表页码</param>
         /// <param name="centSize">中间页码数量</param>
         /// <returns></returns>
-        public static string OutPageList(int pageSize, int pageIndex, int totalCount, string linkUrl, int centSize, string typeName = "") {
+        public static string OutPageList(int pageSize, int pageIndex, int totalCount, string linkUrl, int centSize, string typeName = "")
+        {
 
             string pageId = "__id__";
             if (string.IsNullOrEmpty(linkUrl))
@@ -531,7 +667,8 @@ namespace Common {
         /// <param name="PageList"></param>
         /// <param name="linkUrl"></param>
         /// <returns></returns>
-        private static string OutPagingHtml(string PageList, string linkUrl, int pageSize, string typeName, int totalCount) {
+        private static string OutPagingHtml(string PageList, string linkUrl, int pageSize, string typeName, int totalCount)
+        {
 
             string repStr = "&pageindex";
 
@@ -605,7 +742,8 @@ namespace Common {
         /// <param name="allVal">“全部”的值</param>
         /// <param name="allStr">“全部”文本</param>
         /// <returns></returns>
-        public static List<SelectListItem> BingDrop<k, v>(Dictionary<k, v> dic, k selVal, bool isAll = true, string allVal = "-1", string allStr = "全  部") {
+        public static List<SelectListItem> BingDrop<k, v>(Dictionary<k, v> dic, k selVal, bool isAll = true, string allVal = "-1", string allStr = "全  部")
+        {
             List<SelectListItem> list = new List<SelectListItem>();
 
             foreach (k key in dic.Keys) {
@@ -625,7 +763,8 @@ namespace Common {
         /// <param name="SelVal">默认选中的值</param>
         /// <param name="StarVal">初始值，默认为索引的开始：0</param>
         /// <returns></returns>
-        public static List<SelectListItem> BingDrop(object[] Arr, int SelVal, int StarVal = 0) {
+        public static List<SelectListItem> BingDrop(object[] Arr, int SelVal, int StarVal = 0)
+        {
             List<SelectListItem> list = new List<SelectListItem>();
 
             for (int i = 0; i < Arr.Length; i++) {
@@ -643,7 +782,8 @@ namespace Common {
         /// <param name="Val">值</param>
         /// <param name="IsSel">是否选中</param>
         /// <returns></returns>
-        private static SelectListItem CreatSelectListItem(string Text, string Val, bool IsSel) {
+        private static SelectListItem CreatSelectListItem(string Text, string Val, bool IsSel)
+        {
             SelectListItem item = new SelectListItem() {
                 Text = Text,
                 Value = Val,
@@ -654,5 +794,32 @@ namespace Common {
 
         #endregion
 
+        #region List处理
+
+        /// <summary>
+        /// 将Tree结构转为平铺
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<T> TreeToList<T>(List<T> tree, string field)
+        {
+            if (tree == null)
+                return null;
+            List<T> list = new List<T>();
+
+            foreach (T item in tree) {
+                list.Add(item);
+
+                List<T> child = Reflex.GetValByField<List<T>>(item, field);
+
+                List<T> temp = TreeToList(child, field);
+                if (temp != null && temp.Count > 0)
+                    list.AddRange(temp);
+            }
+            return list;
+        }
+
+
+        #endregion
     }
 }

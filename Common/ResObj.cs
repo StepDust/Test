@@ -191,6 +191,38 @@ namespace Common {
         public static string LayerMsg(string msg, int? icon, string url = "", int anim = -1, int time = 2000) {
             return LayerMsg(msg, GetIcon(icon ?? -1), url, anim, time);
         }
+
+        /// <summary>
+        /// 返回script代码，便于Eval
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="icon"></param>
+        /// <param name="url"></param>
+        /// <param name="anim"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static string LayerScript(string msg, Icon icon, string url = "", int anim = -1, int time = 2000)
+        {
+            string script = LayerMsg(msg, icon, url, anim, time);
+            script = script.Replace("<script>", "").Replace("</script>", "");
+            return script;
+        }
+
+        /// <summary>
+        /// 返回script代码，便于Eval
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="icon"></param>
+        /// <param name="url"></param>
+        /// <param name="anim"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static string LayerScript(string msg, int? icon, string url = "", int anim = -1, int time = 2000)
+        {
+            return LayerScript(msg, GetIcon(icon ?? -1), url, anim, time);
+        }
+
+
         #endregion
 
         #region 字典转换

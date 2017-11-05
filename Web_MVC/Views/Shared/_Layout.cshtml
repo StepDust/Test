@@ -10,13 +10,12 @@
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">   
+    <meta http-equiv="expires" content="0">
 
     <title>@ViewBag.Title</title>
     <script>
         if (top == self) {
             location.href = "@Url.Action("Index","Home",new { area="" })";
-            
         }
     </script>
 
@@ -37,7 +36,7 @@
     <script src="~/Content/Script/Plug/layui/layui.all.js"></script>
     <script src="~/Content/Script/Common.js"></script>
     <script>
-        
+
         // 固定块
         layui.util.fixbar({
             bar1: "&#xe68e;",
@@ -82,10 +81,26 @@
             }); //引用code方法
         });
 
+        // 监听表单提交事件
+        layui.use('form', function () {
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(btn)', function (data) {
+
+                var url = $(data.elem).data("url");
+
+                if (!url)
+                    return true;
+
+                $.post(url, data.field, function (res) { eval(res); })
+
+                return false;
+            });
+
+        });
+
         Float(".title-pin");
-
-
-
 
     </script>
 
