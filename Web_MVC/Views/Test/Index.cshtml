@@ -10,17 +10,17 @@
     }
 }
 
-<form action="/Test/Index" method="post">
-    <p><input type="text" placeholder="文件夹" name="path" value="@ViewBag.path" /></p>
-    <p><input type="text" placeholder="文件类型" name="type" value="@ViewBag.type" /></p>
-    <p><input type="text" placeholder="保存路径" name="save" value="@ViewBag.save" /></p>
-    <p><input type="text" placeholder="保存名称" name="name" value="@ViewBag.name" /></p>
-    <p> <input type="submit" value="查找，共：@list.Count" /></p>
+<form action="/Test/Index" method="post" class="layui-form">
+    <p><input type="text" placeholder="文件夹" name="path" value="@ViewBag.path" class="layui-input"/></p>
+    <p><input type="text" placeholder="文件类型" name="type" value="@ViewBag.type" class="layui-input"/></p>
+    <p><input type="text" placeholder="保存路径" name="save" value="@ViewBag.save" class="layui-input"/></p>
+    <p><input type="text" placeholder="保存名称" name="name" value="@ViewBag.name" class="layui-input"/></p>
+    <p> <input type="submit" value="查找，共：@list.Count" class="layui-btn layui-btn-danger"/></p>
 </form>
 
-<form action="/Test/Join" method="post">
-    <p><input type="text" placeholder="文件夹" name="path" value="@ViewBag.join" /></p>
-    <p> <input type="submit" value="整合" /></p>
+<form action="/Test/Join" method="post" class="layui-form">
+    <p><input type="text" placeholder="文件夹" name="path" value="@ViewBag.join" class="layui-input"/></p>
+    <p> <input type="submit" value="整合" class="layui-btn layui-btn-danger"/></p>
 </form>
 
 <table>

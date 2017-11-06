@@ -13,24 +13,26 @@ namespace EBuy.Areas.Algorithm.Controllers {
     /// </summary>
     public class SortController : Manager {
 
-        public ActionResult Index() {
-
+        public ActionResult Index()
+        {
             return View();
         }
-        
+
         /// <summary>
         /// 桶排序
         /// </summary>
         /// <param name="input"></param>
-        public void BucketSort(string input) {
+        public void BucketSort(string input)
+        {
             ResWrite(Sort.BucketSort(Utils.GetStrToDoubleArr(input), 100, 800).ToString(" , "));
         }
-        
+
         /// <summary>
         /// 冒泡排序
         /// </summary>
         /// <param name="input"></param>
-        public void BubbleSort(string input) {
+        public void BubbleSort(string input)
+        {
             ResWrite(Sort.BubbleSort(Utils.GetStrToDoubleArr(input)).ToString(" , "));
         }
 
@@ -38,7 +40,8 @@ namespace EBuy.Areas.Algorithm.Controllers {
         /// 快速排序
         /// </summary>
         /// <param name="input"></param>
-        public void Quicksort(string input) {
+        public void Quicksort(string input)
+        {
             ResWrite(Sort.Quicksort(Utils.GetStrToDoubleArr(input)).ToString(" , "));
         }
 

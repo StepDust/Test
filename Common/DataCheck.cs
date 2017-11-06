@@ -12,18 +12,28 @@ namespace Common {
         /// <summary>
         /// 是否为数字，包含（整数，小数，负数）
         /// </summary>
-        public const string Reg_Num = @"^[\-+]{0,1}[0-9]{1,}[.]{0,1}[0-9]{0,}$";
+        public static string Reg_Num => @"^[\-+]{0,1}[0-9]{1,}[.]{0,1}[0-9]*$";
+
+        public static string Reg_Eng => @"[a-zA-Z]*";
 
         /// <summary>
         /// 是否为IP地址
         /// </summary>
-        public const string Reg_IP = "" +
+        public static string Reg_IP => "" +
             "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\." +
             "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
             "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\." +
             "(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)";
 
-        public const string Reg_City = @"address:'(.{0,})'";
+        /// <summary>
+        /// 匹配城市
+        /// </summary>
+        public static string Reg_City => @"address:'(.{0,})'";
+
+        /// <summary>
+        /// 指定字符之间的数据，要给两个参数
+        /// </summary>
+        public static string Reg_BetWeen => @".*{0}([\s\S]*) .*{1}";
 
         #endregion
 
@@ -36,7 +46,8 @@ namespace Common {
         /// <param name="regStr">正则表达式</param>
         /// <param name="def">默认返回值</param>
         /// <returns></returns>
-        public static string CheckReg(string con, string regStr, string def) {
+        public static string CheckReg(string con, string regStr, string def)
+        {
             if (CheckReg(con, regStr))
                 return con;
 
@@ -51,7 +62,8 @@ namespace Common {
         /// <param name="con">初始字符</param>
         /// <param name="regStr">正则表达式</param>
         /// <returns></returns>
-        public static bool CheckReg(string con, string regStr) {
+        public static bool CheckReg(string con, string regStr)
+        {
             if (string.IsNullOrEmpty(con))
                 con = "";
             if (string.IsNullOrEmpty(regStr))
@@ -64,7 +76,8 @@ namespace Common {
         /// </summary>
         /// <param name="contents">预检测的内容</param>
         /// <returns>返回True或false</returns>
-        public static bool CheckSQL(string contents) {
+        public static bool CheckSQL(string contents)
+        {
             bool bReturnValue = false;
             if (contents.Length > 0) {
                 //convert to lower
@@ -91,7 +104,8 @@ namespace Common {
         /// <param name="con">初始字符</param>
         /// <param name="ToWestern">是否替换至西文字符</param>
         /// <returns></returns>
-        public static string RepLanguage(string con, bool ToWestern = true) {
+        public static string RepLanguage(string con, bool ToWestern = true)
+        {
 
             string[,] arr =  {
                 {"（", "(" },{ "）", ")" },// 括号
@@ -128,7 +142,8 @@ namespace Common {
         /// <param name="max">最大值</param>
         /// <param name="def">默认值(不填时，默认值为最小值)</param>
         /// <returns></returns>
-        public static int? GetNumInMinToMax(ref int? num, int min, int max, int? def = null) {
+        public static int? GetNumInMinToMax(ref int? num, int min, int max, int? def = null)
+        {
             // 若def没有值，将最小值给它
             if (!def.HasValue)
                 def = min;
@@ -149,7 +164,8 @@ namespace Common {
         /// <param name="Ischeck">是否开启敏感字符校验</param>
         /// <param name="def">默认的值，字符串为空时，赋此值</param>
         /// <returns></returns>
-        public static string GetSecurityStr(ref string text, bool Ischeck = true, string def = "") {
+        public static string GetSecurityStr(ref string text, bool Ischeck = true, string def = "")
+        {
             if (string.IsNullOrEmpty(text))
                 return text = def;
             text = text.Trim();
@@ -165,7 +181,8 @@ namespace Common {
         /// <param name="text">原字符串</param>
         /// <param name="reg">正则表达式</param>
         /// <returns></returns>
-        public static string[] GetRegStrArr(string text, string regStr) {
+        public static string[] GetRegStrArr(string text, string regStr)
+        {
             Regex reg = new Regex(regStr);
 
             MatchCollection mc = reg.Matches(text);
@@ -178,7 +195,6 @@ namespace Common {
                 str[index++] = item.Value;
 
             return str;
-
         }
 
         /// <summary>
@@ -187,7 +203,8 @@ namespace Common {
         /// <param name="text"></param>
         /// <param name="regStr"></param>
         /// <returns></returns>
-        public static string GetRegStr(string text, string regStr) {
+        public static string GetRegStr(string text, string regStr)
+        {
             Regex reg = new Regex(regStr);
             Match mc = reg.Match(text);
             if (mc.Length <= 0) return null;
