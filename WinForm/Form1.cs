@@ -26,8 +26,6 @@ namespace WinForm {
         /// <param name="msg"></param>
         private delegate void textInvoke(string msg, Color Color);
 
-        private delegate void textInvoke(string msg, Color Color);
-
         GSQ_WebService _GSQ_WebService = new GSQ_WebService();
 
         private void F_Main_Load(object sender, EventArgs e)
@@ -57,7 +55,7 @@ namespace WinForm {
                 if (item is CheckBox) {
                     temp = item as CheckBox;
                     if (temp.Checked) {
-                        Thread thread = new Thread(crawler.Start(""));
+                        //Thread thread = new Thread(null);
                     }
                 }
 
@@ -72,7 +70,7 @@ namespace WinForm {
         /// 写入日志
         /// </summary>
         /// <param name="msg"></param>
-        /// <param name="IsErr">是否为错误日志</param>
+        /// <param name="Color">文字颜色</param>
         private void SetLog(string msg, Color Color)
         {
             // 是否在其它线程调用此控件
