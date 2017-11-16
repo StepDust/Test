@@ -1,5 +1,6 @@
 ﻿using Common;
 using Models;
+using System;
 using System.Data.Entity;
 using System.Runtime.Remoting.Messaging;
 
@@ -24,6 +25,8 @@ namespace Factory {
                     switch (ConStrName) {
                         case Config.Name_Demo:// 
                             dbContext = new  DemoEntities(); break;
+                        case Config.Name_GSQ:
+                            dbContext = new GSQ_PaChongEntities(); break;
                     }
                     // 创建了实例后存入
                     if (dbContext != null)
@@ -31,7 +34,7 @@ namespace Factory {
                 }
                 return dbContext;
             }
-            catch{
+            catch(Exception e) {
                 return null;
             }
         }

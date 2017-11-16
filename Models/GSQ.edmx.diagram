@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e60ad19f7a4745098dfaf9f71e7b9bda" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_DataItem" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_DataItemDetail" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Log" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Manager" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Manager_Role" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Manager_Role_Value" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Navigation" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_News" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_NewsClass" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_NewsWords" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Users" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_UsersInterest" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_UsersNews" Width="1.5" PointX="4.875" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Web" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Words" Width="1.5" PointX="0.875" PointY="8.875" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

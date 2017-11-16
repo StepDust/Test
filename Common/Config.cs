@@ -19,6 +19,11 @@ namespace Common {
         /// CodeFirst数据库
         /// </summary>
         public const string Name_CodeFirst = "CodeFirst";
+
+        /// <summary>
+        /// GSQ_PaChong数据库
+        /// </summary>
+        public const string Name_GSQ = "GSQ_PaChongEntities";
         #endregion
 
         /// <summary>
@@ -29,7 +34,7 @@ namespace Common {
         private static Configuration GetConfig(string Porject) {
 
             // 获取当前项目根路径
-            string path = HttpContext.Current.Server.MapPath("~");
+            string path = Path.GetFullPath("~");
 
             // 若要跳转至其他项目路径
             if (!string.IsNullOrEmpty(Porject))

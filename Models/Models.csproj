@@ -33,10 +33,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -70,6 +70,66 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Demo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="GSQ.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GSQ.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GSQ.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_DataItem.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_DataItemDetail.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Log.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Manager.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Manager_Role.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Manager_Role_Value.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Navigation.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_News.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_NewsClass.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_NewsWords.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Users.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_UsersInterest.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_UsersNews.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Web.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GSQ_Words.cs">
+      <DependentUpon>GSQ.tt</DependentUpon>
+    </Compile>
     <Compile Include="Lang.cs">
       <DependentUpon>Demo.tt</DependentUpon>
     </Compile>
@@ -95,6 +155,13 @@
     <None Include="Demo.edmx.diagram">
       <DependentUpon>Demo.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="GSQ.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GSQ.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="GSQ.edmx.diagram">
+      <DependentUpon>GSQ.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +174,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Demo.edmx</DependentUpon>
       <LastGenOutput>Demo.cs</LastGenOutput>
+    </Content>
+    <Content Include="GSQ.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GSQ.edmx</DependentUpon>
+      <LastGenOutput>GSQ.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="GSQ.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GSQ.edmx</DependentUpon>
+      <LastGenOutput>GSQ.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
