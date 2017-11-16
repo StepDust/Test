@@ -237,9 +237,27 @@ namespace Common {
         /// <returns></returns>
         public static object JsonToObject(string jsonString, object obj)
         {
+            if (obj == null)
+                obj = new object();
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
             MemoryStream mStream = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
             return serializer.ReadObject(mStream);
+        }
+
+        #endregion
+
+        #region 字符串编码
+
+        /// <summary>
+        /// 转为UTF-8编码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string GetUtf8(string str)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(str);
+            string res = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+            return res;
         }
 
         #endregion

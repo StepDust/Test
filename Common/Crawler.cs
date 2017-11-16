@@ -40,7 +40,7 @@ namespace Common {
         /// <param name="regex">匹配正则</param>
         /// <param name="proxy">代理服务IP</param>
         /// <returns></returns>
-        public async Task<string> Start(string uriStr, string regex, WebProxy proxy = null)
+        public async Task<string> Start(string uriStr, string regex="", WebProxy proxy = null)
         {
             return await Task.Run(() => {
                 string pageSource = string.Empty;
@@ -149,7 +149,7 @@ namespace Common {
         /// <param name="url">爬虫地址</param>
         /// <param name="treadID">线程ID</param>
         /// <param name="pageSource">页面源代码</param>
-        /// <param name="milliseconds">爬虫请求执行事件</param>
+        /// <param name="milliseconds">爬虫请求执行时间</param>
         public OnCompletedEventArgs(Uri url, int treadID, string pageSource, string regex, long milliseconds)
         {
             this.Uri = url;

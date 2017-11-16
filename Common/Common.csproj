@@ -77,6 +77,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Crawler.cs" />
     <Compile Include="DataCheck.cs" />
+    <Compile Include="Encryption.cs" />
     <Compile Include="FileAction.cs" />
     <Compile Include="GTKey.cs" />
     <Compile Include="Helper.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="ResObj.cs" />
     <Compile Include="Serialize.cs" />
     <Compile Include="Sort.cs" />
+    <Compile Include="Translate.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
