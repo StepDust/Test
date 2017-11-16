@@ -130,6 +130,35 @@ namespace Common {
             return con;
         }
 
+        /// <summary>
+        /// 替换指定格式字符串
+        /// </summary>
+        /// <param name="con">原字符串</param>
+        /// <param name="regex">正则表达式</param>
+        /// <param name="str">新字符</param>
+        /// <returns></returns>
+        public static string RepStr(string con, string regex, string str)
+        {
+            if (string.IsNullOrEmpty(con)) return "";
+            return Regex.Replace(con, regex, str);
+        }
+
+        /// <summary>
+        /// 字符串去空格，去回车
+        /// </summary>
+        /// <param name="con">原字符串</param>
+        /// <param name="num">空格长度</param>
+        /// <returns></returns>
+        public static string RepTrim(string con, int num = 1)
+        {
+            num++;
+            // 去空格
+            con = RepStr(con, "[ ]{" + num + ",}", "");
+            // 去回车和制表符
+            con = RepStr(con, "[\n\r\t]*", "");
+            return con;
+        }
+
         #endregion
 
         #region 数据校验，Get

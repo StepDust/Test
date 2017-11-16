@@ -1,0 +1,74 @@
+﻿@using Common
+@using EBuy.Areas.WebFunction.Controllers
+@model ReqData<News>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[,] str =
+{       // 名称，方法
+        {"菜单列表","Index" }//,
+        //{"最少转机","Least" }
+    };
+}
+@section css{
+    <style>
+        .h {
+            padding: 10px;
+            transition: .2s;
+        }
+
+            .h label {
+                font-weight: bold;
+            }
+
+            .h:hover {
+                background-color: #eee;
+                color: #444;
+            }
+    </style>
+}
+
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title title-pin">
+        @{
+            for (int i = 0; i < str.Length / 2; i++) {
+                <li class="@(i==0?"layui-this":"")">@str[i, 0]</li>
+            }
+        }
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <form method="post" class="layui-form" action="@Url.Action("Index","Crawler",new { area="WebFunction" })">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">侧边栏</label>
+                    <div class="layui-input-block">
+                        <select name="url">
+                            <option value="https://www.ithome.com/">IT之家</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit>
+                            保存更改
+                        </button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+
+            <fieldset class="layui-field-title">
+                <legend>抓取内容</legend>
+
+            </fieldset>
+
+            @foreach (var item in Model.DataList) {
+                <div class="layui-row">
+                    <div class="layui-col-sm12 h">
+                        <a href="@item.Url">@item.Title</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

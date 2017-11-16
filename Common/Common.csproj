@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Crawler.cs" />
     <Compile Include="DataCheck.cs" />
     <Compile Include="FileAction.cs" />
     <Compile Include="GTKey.cs" />

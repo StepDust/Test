@@ -67,6 +67,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -227,6 +228,7 @@
     <Content Include="Content\Script\Plug\layui\lay\modules\util.js" />
     <Content Include="Content\Script\Plug\Pin\jquery.pin.js" />
     <Content Include="Global.asax" />
+    <Content Include="Regex.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +240,8 @@
     <Compile Include="Areas\Algorithm\Controllers\StrucController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\AddDicController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\AddNavController.cs" />
+    <Compile Include="Areas\WebFunction\Controllers\CrawlerController.cs" />
+    <Compile Include="Areas\WebFunction\Controllers\LanguageController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\LoginController.cs" />
     <Compile Include="Areas\WebFunction\WebFunctionAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -296,6 +300,7 @@
     <Content Include="Areas\Algorithm\Views\Chart\Index.cshtml" />
     <Content Include="Areas\WebFunction\Views\AddNav\Index.cshtml" />
     <Content Include="App_Data\Nav.data" />
+    <Content Include="Areas\WebFunction\Views\Crawler\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -312,7 +317,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\WebFunction\Views\Language\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
