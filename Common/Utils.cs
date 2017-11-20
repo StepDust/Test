@@ -12,6 +12,9 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Xml;
+using Sgml;
+using System.Xml.XPath;
 
 namespace Common {
     /// <summary>
@@ -215,6 +218,59 @@ namespace Common {
             for (int i = 0; i < count; i++)
                 sb.Insert(0, str);
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 首字母大写
+        /// </summary>
+        /// <param name="str">原字符串</param>
+        /// <param name="con">单词个数</param>
+        /// <returns></returns>
+        public static string StrToUpper(string str, int con = -1)
+        {
+            if (string.IsNullOrEmpty(str))
+                return "";
+
+            StringBuilder builder = new StringBuilder();
+
+            string[] Arr = str.Split(' ');
+
+            if (Arr.Length <= con)
+                con = -1;
+
+            for (int i = 0; i < Arr.Length; i++) {
+                string t = Arr[i];
+
+                if (string.IsNullOrEmpty(t))
+                    continue;
+
+                if (con == -1)
+                    t = t.Substring(0, 1).ToUpper() + t.Substring(1);
+                else {
+                    str = str.ToLower();
+
+                    return str.Substring(0, 1).ToUpper() + str.Substring(1);
+                }
+
+                builder.Append(t + " ");
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// 截取指定长度字符串
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static string StrSub(string str, int len)
+        {
+            if (string.IsNullOrEmpty(str))
+                return "";
+
+            if (str.Length < len)
+                return str;
+            return str.Substring(0, len);
         }
 
         #region Json
@@ -578,6 +634,26 @@ namespace Common {
             stream.Dispose();
 
             return Html;
+        }
+
+        /// <summary>
+        /// 从URL读取HTML，并转为XML格式
+        /// </summary>
+        /// <param name="Url"></param>
+        /// <returns></returns>
+        public static XmlDocument GetUrlXML(string Url)
+        {
+            SgmlReader reader = null;
+
+            reader = new SgmlReader {
+                DocType = "HTML",
+                InputStream = new StringReader(GetUrlHtml(Url))
+            };
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(reader);
+
+            return doc;
         }
 
         #endregion

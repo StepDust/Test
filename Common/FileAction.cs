@@ -111,5 +111,35 @@ namespace Common {
             return ReadBetweenStr(path, startStr, endStr);
         }
 
+        /// <summary>
+        /// 更改文件
+        /// </summary>
+        /// <param name="path">绝对路径</param>
+        /// <param name="con">内容</param>
+        public static void AppendStr(string path, string con)
+        {
+            // 判断是否为绝对路径
+            if (!DataCheck.CheckReg(path[0] + "", DataCheck.Reg_Eng))
+                return;
+            int indexSuffix = path.LastIndexOf('.');
+            int indexSlash = path.LastIndexOf('\\');
+
+            if (indexSlash == -1 || indexSuffix == -1)
+                return;
+            if (indexSuffix <= indexSlash)
+                return;
+
+            string FileName = path.Substring(indexSlash);
+
+            path = path.Substring(0, indexSlash);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            StreamWriter writer = new StreamWriter(path + FileName, true, Encoding.UTF8);
+            writer.Write(con);
+            writer.Flush();
+            writer.Dispose();
+        }
+
     }
 }

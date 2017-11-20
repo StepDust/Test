@@ -34,7 +34,7 @@ namespace Common {
         private static Configuration GetConfig(string Porject) {
 
             // 获取当前项目根路径
-            string path = Path.GetFullPath("~");
+            string path = HttpContext.Current.Server.MapPath("~");
 
             // 若要跳转至其他项目路径
             if (!string.IsNullOrEmpty(Porject))

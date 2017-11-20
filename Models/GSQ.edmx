@@ -109,15 +109,15 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="NewTypeDetailId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NewTypeDetailId" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
-          <Property Name="title" Type="char" MaxLength="10" />
-          <Property Name="Images" Type="char" MaxLength="10" />
-          <Property Name="author" Type="char" MaxLength="10" />
-          <Property Name="url" Type="char" MaxLength="10" />
-          <Property Name="sourcewebsite" Type="char" MaxLength="10" />
-          <Property Name="num" Type="char" MaxLength="10" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Images" Type="nvarchar" MaxLength="100" />
+          <Property Name="author" Type="nvarchar" MaxLength="100" />
+          <Property Name="url" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="sourcewebsite" Type="text" Nullable="false" />
+          <Property Name="num" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GSQ_NewsClass">
           <Key>
@@ -315,15 +315,15 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="NewTypeDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewTypeDetailId" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="title" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="Images" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="author" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="url" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="sourcewebsite" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="num" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sourcewebsite" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="num" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="GSQ_NewsClass">
           <Key>
@@ -378,11 +378,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Reglx" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="createdate" Type="DateTime" />
+          <Property Name="createdate" Type="DateTime" Precision="0" />
           <Property Name="ReglxTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ReglxAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ReglxContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

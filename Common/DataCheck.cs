@@ -14,7 +14,7 @@ namespace Common {
         /// </summary>
         public static string Reg_Num => @"^[\-+]{0,1}[0-9]{1,}[.]{0,1}[0-9]*$";
 
-        public static string Reg_Eng => @"[a-zA-Z]*";
+        public static string Reg_Eng => @"[a-zA-Z]+";
 
         /// <summary>
         /// 是否为IP地址

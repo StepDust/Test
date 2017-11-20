@@ -51,7 +51,8 @@
   <ItemGroup>
     <Compile Include="BaseDal.cs" />
     <Compile Include="BaseService.cs" />
-    <Compile Include="CodeFirst\GSQ_WebService.cs" />
+    <Compile Include="GSQ_PaChong\GSQ_NewsService.cs" />
+    <Compile Include="GSQ_PaChong\GSQ_WebService.cs" />
     <Compile Include="Demo\LangService.cs" />
     <Compile Include="Demo\LoginIPService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,7 +83,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GSQ_PaChong\" />
+    <Folder Include="CodeFirst\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

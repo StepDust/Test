@@ -9,7 +9,7 @@ namespace Common {
     /// <summary>
     /// 翻译类
     /// </summary>
-    class Translate {
+    public class Translate {
 
         /// <summary>
         /// 
@@ -39,45 +39,44 @@ namespace Common {
         /// <param name="path">保存路径</param>
         public Dictionary<string, string> BaiduTranslate(Dictionary<string, string> dic, string Lan, string path)
         {
-            string url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
-
-            // 拼接翻译类型参数
-            string[] lanArr = Lan.Split(';');
-            url += "from=" + lanArr[0];// 翻译源语言
-            url += "&to=" + lanArr[1];//  译文语言
-            url += "&appid=" + appid;// 接口ID
-
             Dictionary<string, string> res = new Dictionary<string, string>();
-            Crawler crawler = new Crawler();
-            // 请求结束执行
-            crawler.OnCompleted += (s, e) => {
 
-                BaiduTransAPI tran = new BaiduTransAPI();
-
-                string cc = Utils.ObjectToJson(tran);
-                tran = Utils.JsonToObject(e.PageSource, tran) as BaiduTransAPI;
+            foreach (var key in dic.Keys) {
+                string[] lanArr = Lan.Split(';');
+                BaiduTransAPI tran = BaiduTranslate(dic[key], lanArr[0], lanArr[1]);
 
                 if (tran.trans_result.Count > 0)
                     res.Add(tran.trans_result[0].src, tran.trans_result[0].dst);
                 else {
-                    string k = DataCheck.GetRegStr(e.Uri.ToString(), "&q=(.+?)&");
-                    res.Add(k, ">>>>>>>>>>翻译失败  " + tran.error_code + "  " + tran.error_msg);
+                    res.Add(dic[key], ">>>>>>>>>>翻译失败  " + tran.error_code + "  " + tran.error_msg);
                 }
-            };
-
-            foreach (var key in dic.Keys) {
-                int salt = new Random((int)DateTime.Now.Ticks).Next();
-                string u = url;
-                u += "&salt=" + salt;// 随机数
-                u += "&q=" + HttpUtility.UrlEncode(dic[key]);// 翻译内容，需转码
-                u += "&sign=" + HttpUtility.UrlEncode(Encryption.EncryptMD5(appid + dic[key] + salt + appkey));// 签名
-                BaiduTransAPI tran = GetReqObj<BaiduTransAPI>(u);
-
-
             }
 
             return res;
+        }
 
+        /// <summary>
+        /// 百度翻译
+        /// </summary>
+        /// <param name="str">待翻译文字</param>
+        /// <param name="form"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public BaiduTransAPI BaiduTranslate(string str, string form, string to)
+        {
+            string url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
+
+            // 拼接翻译类型参数
+            url += "from=" + form;// 翻译源语言
+            url += "&to=" + to;//  译文语言
+            url += "&appid=" + appid;// 接口ID
+            int salt = new Random((int)DateTime.Now.Ticks).Next();
+            string u = url;
+            u += "&salt=" + salt;// 随机数
+            u += "&q=" + HttpUtility.UrlEncode(str);// 翻译内容，需转码
+            u += "&sign=" + HttpUtility.UrlEncode(Encryption.EncryptMD5(appid + str + salt + appkey));// 签名
+            BaiduTransAPI tran = GetReqObj<BaiduTransAPI>(u);
+            return tran;
         }
 
 
@@ -97,7 +96,7 @@ namespace Common {
     /// <summary>
     /// 百度翻译结果对象
     /// </summary>
-    partial class BaiduTransAPI {
+    public class BaiduTransAPI {
         /// <summary>
         /// 翻译源语言
         /// </summary>

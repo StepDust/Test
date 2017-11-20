@@ -8,6 +8,10 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Web.Script;
+using OpenQA.Selenium.PhantomJS;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Common {
     /// <summary>
@@ -34,13 +38,23 @@ namespace Common {
         public CookieContainer CookiesContainer { get; set; }
 
         /// <summary>
+        /// 定义PhantomJS内核参数
+        /// </summary>
+        private PhantomJSOptions _options;
+
+        /// <summary>
+        /// 定义Selenium驱动配置
+        /// </summary>
+        private PhantomJSDriverService _service;
+
+        /// <summary>
         /// 开始抓取数据
         /// </summary>
         /// <param name="uriStr">地址</param>
         /// <param name="regex">匹配正则</param>
         /// <param name="proxy">代理服务IP</param>
         /// <returns></returns>
-        public async Task<string> Start(string uriStr, string regex="", WebProxy proxy = null)
+        public async Task<string> Start(string uriStr, string regex = "", WebProxy proxy = null)
         {
             return await Task.Run(() => {
                 string pageSource = string.Empty;
@@ -86,7 +100,7 @@ namespace Common {
                     // 获取请求响应
                     respose = (HttpWebResponse)request.GetResponse();
                     // 将Cookie加入容器，并保存登录状态
-                    foreach (Cookie item in respose.Cookies) {
+                    foreach (System.Net.Cookie item in respose.Cookies) {
                         this.CookiesContainer.Add(item);
                     }
                     // 获取响应流
@@ -122,6 +136,47 @@ namespace Common {
                 return pageSource;
             });
         }
+
+        public async Task Start(string uriStr, Operation operation, Script script = null)
+        {
+            await Task.Run(() => {
+
+                Uri uri = new Uri(uriStr);
+                // 触发开启事件
+                if (this.OnStart != null) this.OnStart(this, new OnStartEventArgs(uri));
+                // 实例化PhantomJS的WebDricer
+                PhantomJSDriver driver = new PhantomJSDriver(_service, _options);
+
+                try {
+                    DateTime watch = DateTime.Now;
+
+                    // 请求Url
+                    driver.Navigate().GoToUrl(uriStr);
+                    // 执行JavaScript代码
+                    if (script != null) driver.ExecuteAsyncScript(script.Code, script.Args);
+                    // 执行网页操作
+                    if (operation.Action != null) operation.Action.Invoke(driver);
+                    // 设置超时时间
+                    WebDriverWait driverWatch = new WebDriverWait(driver, TimeSpan.FromMilliseconds(operation.timeout));
+                    if (operation.Condition != null) driverWatch.Until(operation.Condition);
+
+                    // 获取线程ID
+                    int threadId = Thread.CurrentThread.ManagedThreadId;
+                    // 获取执行时间
+                    long milliseconds = DateTime.Now.Subtract(watch).Milliseconds;
+                    string pageSource = driver.PageSource;
+                    // 触发结束事件
+                    if (this.OnCompleted != null) this.OnCompleted(this, new OnCompletedEventArgs(uri, threadId, pageSource, driver, milliseconds));
+                }
+                catch (Exception e) {
+                    if (this.OnError != null) this.OnError(this, e);
+                }
+                finally {
+                    driver.Close();
+                    driver.Quit();
+                }
+            });
+        }
     }
 
     /// <summary>
@@ -151,11 +206,27 @@ namespace Common {
         /// <param name="pageSource">页面源代码</param>
         /// <param name="milliseconds">爬虫请求执行时间</param>
         public OnCompletedEventArgs(Uri url, int treadID, string pageSource, string regex, long milliseconds)
-        {
+        {           
             this.Uri = url;
             this.TreadID = treadID;
             this.PageSource = pageSource;
             this.Regex = regex;
+            this.Milliseconds = milliseconds;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url">爬虫地址</param>
+        /// <param name="treadID">线程ID</param>
+        /// <param name="pageSource">页面源代码</param>
+        /// <param name="milliseconds">爬虫请求执行时间</param>
+        public OnCompletedEventArgs(Uri url, int treadID, string pageSource, PhantomJSDriver driver, long milliseconds)
+        {
+            this.Uri = url;
+            this.TreadID = treadID;
+            this.PageSource = pageSource;
+            this.Driver = driver;
             this.Milliseconds = milliseconds;
         }
 
@@ -179,10 +250,29 @@ namespace Common {
         /// </summary>
         public string Regex { get; set; }
 
+        public PhantomJSDriver Driver { get; set; }
+
         /// <summary>
         /// 爬虫请求执行时间
         /// </summary>
         public long Milliseconds { get; private set; }
+
+    }
+
+    public class Operation {
+
+        public Action<PhantomJSDriver> Action;
+
+        public Func<IWebDriver, bool> Condition;
+
+        public int timeout { get; set; } = 5000;
+    }
+
+    public class Script {
+
+        public string Code;
+
+        public object[] Args;
 
     }
 
