@@ -35,6 +35,8 @@ namespace Common {
         /// </summary>
         public static string Reg_BetWeen => @".*{0}([\s\S]*) .*{1}";
 
+        public static string Reg_Url => @"(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]";
+
         #endregion
 
         #region 校验字符，Check

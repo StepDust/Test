@@ -14,6 +14,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
             return View();
         }
 
+        #region 翻译
+
         /// <summary>
         /// 翻译
         /// </summary>
@@ -25,7 +27,7 @@ namespace EBuy.Areas.WebFunction.Controllers {
             string content = FileAction.ReadToStr(path);
             Dictionary<string, string> dic = new Dictionary<string, string>();
 
-            string reg = "msgid \"(?<msgid>.*)\" \r\nmsgstr \"(?<msgstr>.*)\"";
+            string reg = "msgid \"(?<msgid>.*)\"\r\nmsgstr \"(?<msgstr>.*)\"";
 
             string[] strArr = DataCheck.GetRegStrArr(content, reg);
 
@@ -36,102 +38,69 @@ namespace EBuy.Areas.WebFunction.Controllers {
                 }
             }
 
+            SaveLanJs(dic);
             // 发送翻译请求
-            Dictionary<string, string> dicRes= BaiduTranslate(dic, Lan, "");
+            // Dictionary<string, string> dicRes= BaiduTranslate(dic, Lan, "");
 
-
-            return View();
+            return Content(ResObj.LayerMsg("转换成功！", Icon.Success, "Index"));
         }
 
-        /// <summary>
-        /// 百度翻译
-        /// </summary>
-        /// <param name="dic">字典数据</param>
-        /// <param name="Lan">翻译类型</param>
-        /// <param name="path">保存路径</param>
-        public Dictionary<string, string> BaiduTranslate(Dictionary<string, string> dic, string Lan, string path)
+        public void SaveLanJs(Dictionary<string, string> dic)
         {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("var lang = '';\n");
+            builder.Append("/**\n");
+            builder.Append("* 获取指定名称的cookie的值\n");
+            builder.Append("* @param {string} objName\n");
+            builder.Append("*/\n");
+            builder.Append("function getCookie(objName) {\n");
+            builder.Append("    var arrStr = document.cookie.split('; ');\n");
+            builder.Append("    for (var i = 0; i < arrStr.length; i++) {\n");
+            builder.Append("        var temp = arrStr[i].split('=');\n");
+            builder.Append("        if (temp[0] == objName) return unescape(temp[1]);\n");
+            builder.Append("    }\n");
+            builder.Append("    return '';\n");
+            builder.Append("}\n");
+            builder.Append("\n\n");
+            builder.Append("var CN = {\n");
+            builder.Append("    GetLang: function (name) {\n");
+            builder.Append("        // 判断中文英文\n");
+            builder.Append("        if (lang == '')\n");
+            builder.Append("            lang = getCookie('culture');\n");
+            builder.Append("        if (lang != 'zh-CN' || lang != 'en')\n");
+            builder.Append("            lang = 'zh-CN';\n");
+            builder.Append("\n");
+            builder.Append("        if (lang == 'zh-CN')\n");
+            builder.Append("            return name;\n");
+            builder.Append("        var str = '';\n");
+            builder.Append("        switch (name) { \n");
 
-            string url = "http://api.fanyi.baidu.com/api/trans/vip/translate?";
-            string appid = "20171116000095832";
-            string appkey = "PuVyBlMqMOOjqfks4GJ7";
+            foreach (var item in dic.Keys) {
 
-            // 拼接翻译类型参数
-            string[] lanArr = Lan.Split(';');
-            url += "from=" + lanArr[0];// 翻译源语言
-            url += "&to=" + lanArr[1];//  译文语言
-            url += "&appid=" + appid;// 接口ID
+                string key = DataCheck.RepLanguage(item).Replace("'", "\\\'");
+                string val = DataCheck.RepLanguage(dic[item]).Replace("'", "\\\'");
 
-            Dictionary<string, string> res = new Dictionary<string, string>();
-            Crawler crawler = new Crawler();
-            // 请求结束执行
-            crawler.OnCompleted += (s, e) => {
-
-                BaiduTransAPI tran = new BaiduTransAPI();
-
-                string cc = Utils.ObjectToJson(tran);
-                tran = Utils.JsonToObject(e.PageSource, tran) as BaiduTransAPI;
-
-                if (tran.trans_result.Count > 0)
-                    res.Add(tran.trans_result[0].src, tran.trans_result[0].dst);
-                else {
-                    string k = DataCheck.GetRegStr(e.Uri.ToString(),"&q=(.+?)&");
-                    res.Add(k, ">>>>>>>>>>翻译失败  " + tran.error_code + "  " + tran.error_msg);
-                }
-            };
-
-            foreach (var key in dic.Keys) {
-                int salt = new Random((int)DateTime.Now.Ticks).Next();
-                string u = url;
-                u += "&salt=" + salt;// 随机数
-                u += "&q=" + HttpUtility.UrlEncode(dic[key]);// 翻译内容，需转码
-                u += "&sign=" + HttpUtility.UrlEncode(Encryption.EncryptMD5(appid + dic[key] + salt + appkey));// 签名
-                crawler.Start(u).Wait();
+                builder.Append($"            case '{key}': str = '{val}'; break;\n");
             }
+            builder.Append($"            default : str = name; break;\n");
 
-            return res;
+            builder.Append("        }\n");
+            builder.Append("        return str;\n");
+            builder.Append("    }\n");
+            builder.Append("}\n");
+
+            FileAction.AppendStr("F:\\Lang.js", builder.ToString());
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public class BaiduTransAPI {
-            /// <summary>
-            /// 翻译源语言
-            /// </summary>
-            public string from { get; set; }
-            /// <summary>
-            /// 译文语言
-            /// </summary>
-            public string to { get; set; }
-            /// <summary>
-            /// 翻译结果
-            /// </summary>
-            public List<TransRes> trans_result { get { if (t == null) t = new List<TransRes>(); return t; } set { t = value; } }
-            private List<TransRes> t;
+        #endregion
 
-            /// <summary>
-            /// 错误代码
-            /// </summary>
-            public string error_code { get; set; }
-            /// <summary>
-            /// 错误消息
-            /// </summary>
-            public string error_msg { get; set; }
+        #region js中文替换
 
-            public class TransRes {
-                /// <summary>
-                /// 翻译源文字
-                /// </summary>
-                public string src { get; set; }
-                /// <summary>
-                /// 译文
-                /// </summary>
-                public string dst { get; set; }
-            }
 
-        }
+
+        #endregion
+
 
     }
 }

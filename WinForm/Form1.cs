@@ -71,6 +71,17 @@ namespace WinForm {
         }
 
         /// <summary>
+        /// 一个小时定时清理日志信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void t_clear_Tick(object sender, EventArgs e)
+        {
+            SetLogTxt(txt_log.Text);
+            txt_log.Text = "";
+        }
+
+        /// <summary>
         /// 关闭窗口
         /// </summary>
         /// <param name="sender"></param>
@@ -82,7 +93,7 @@ namespace WinForm {
             SetLogTxt($"" +
                 "==========>\n" +
                 DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss ffff") + "\t关闭窗体！\n" +
-                $"\t\t\t\t\t\t\t运行时间：{lb_time.Text}\t抓取数量：{lb_num.Text}\t总数量：{lb_con.Text}\n" +
+                $"\t\t\t\t\t\t\t运行时间：{lb_time.Text}\t抓取数量：{lb_num.Text}\t总数量：{lb_con.Text}\t爬取网站：{lb_all.Text} \n" +
                 "==========>\n");
             Environment.Exit(0);
         }
@@ -132,6 +143,25 @@ namespace WinForm {
                 int.TryParse(text.Substring(0, text.Length - 2), out n);
                 n += num;
                 lb_con.Text = n + " 个";
+            }
+        }
+
+        /// <summary>
+        /// 更新全部数量
+        /// </summary>
+        /// <param name="num"></param>
+        public void UpAll(int num)
+        {
+            if (lb_num.InvokeRequired) {
+                UpLabel up = new UpLabel(UpAll);
+                this.Invoke(up, num);
+            }
+            else {
+                int n = 0;
+                string text = lb_all.Text;
+                int.TryParse(text.Substring(1, text.Length - 2), out n);
+                n += num;
+                lb_all.Text = "共 " + n + " 个";
             }
         }
 
@@ -247,6 +277,7 @@ namespace WinForm {
                                 wy.SetLog += new Web_WangYi.textInvoke(SetLog);
                                 wy.UpNum += new Web_WangYi.UpLabel(UpNum);
                                 wy.UpCon += new Web_WangYi.UpLabel(UpCon);
+                                wy.UpAll += new Web_WangYi.UpLabel(UpAll);
 
                                 Thread t1 = new Thread(new ThreadStart(wy.Begin));
                                 t1.Name = url.name;
@@ -292,7 +323,6 @@ namespace WinForm {
             //}
         }
 
-
-
+        
     }
 }

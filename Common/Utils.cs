@@ -656,6 +656,26 @@ namespace Common {
             return doc;
         }
 
+        /// <summary>
+        /// 将字符串转为Xml格式
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static XmlDocument GetXml(string context)
+        {
+            SgmlReader reader = null;
+
+            reader = new SgmlReader {
+                DocType = "HTML",
+                InputStream = new StringReader(context)
+            };
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(reader);
+
+            return doc;
+        }
+
         #endregion
 
         #region 分页处理

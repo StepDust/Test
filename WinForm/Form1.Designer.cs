@@ -29,6 +29,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_Main));
             this.gb_UrlList = new System.Windows.Forms.GroupBox();
             this.pl_info = new System.Windows.Forms.Panel();
+            this.lb_all = new System.Windows.Forms.Label();
             this.cb_all = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lb_con = new System.Windows.Forms.Label();
@@ -44,6 +45,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt_log = new System.Windows.Forms.RichTextBox();
             this.t_con = new System.Windows.Forms.Timer(this.components);
+            this.t_clear = new System.Windows.Forms.Timer(this.components);
             this.gb_UrlList.SuspendLayout();
             this.pl_info.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -67,6 +69,7 @@
             // pl_info
             // 
             this.pl_info.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pl_info.Controls.Add(this.lb_all);
             this.pl_info.Controls.Add(this.cb_all);
             this.pl_info.Controls.Add(this.label3);
             this.pl_info.Controls.Add(this.lb_con);
@@ -79,6 +82,15 @@
             this.pl_info.Name = "pl_info";
             this.pl_info.Size = new System.Drawing.Size(277, 68);
             this.pl_info.TabIndex = 2;
+            // 
+            // lb_all
+            // 
+            this.lb_all.AutoSize = true;
+            this.lb_all.Location = new System.Drawing.Point(192, 27);
+            this.lb_all.Name = "lb_all";
+            this.lb_all.Size = new System.Drawing.Size(47, 12);
+            this.lb_all.TabIndex = 6;
+            this.lb_all.Text = "共 0 个";
             // 
             // cb_all
             // 
@@ -240,6 +252,12 @@
             this.t_con.Interval = 1000;
             this.t_con.Tick += new System.EventHandler(this.t_con_Tick);
             // 
+            // t_clear
+            // 
+            this.t_clear.Enabled = true;
+            this.t_clear.Interval = 3600000;
+            this.t_clear.Tick += new System.EventHandler(this.t_clear_Tick);
+            // 
             // F_Main
             // 
             this.AcceptButton = this.bt_Start;
@@ -256,6 +274,7 @@
             this.Name = "F_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "数据爬虫";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.F_Main_FormClosing);
             this.Load += new System.EventHandler(this.F_Main_Load);
             this.gb_UrlList.ResumeLayout(false);
@@ -286,6 +305,8 @@
         private System.Windows.Forms.Button bt_clear;
         private System.Windows.Forms.CheckBox cb_all;
         private System.Windows.Forms.Timer t_con;
+        private System.Windows.Forms.Label lb_all;
+        private System.Windows.Forms.Timer t_clear;
     }
 }
 

@@ -40,12 +40,12 @@ namespace Common {
         /// <summary>
         /// 定义PhantomJS内核参数
         /// </summary>
-        private PhantomJSOptions _options;
+        private PhantomJSOptions _options = new PhantomJSOptions();
 
         /// <summary>
         /// 定义Selenium驱动配置
         /// </summary>
-        private PhantomJSDriverService _service;
+        private PhantomJSDriverService _service = PhantomJSDriverService.CreateDefaultService();
 
         /// <summary>
         /// 开始抓取数据
@@ -145,7 +145,7 @@ namespace Common {
                 // 触发开启事件
                 if (this.OnStart != null) this.OnStart(this, new OnStartEventArgs(uri));
                 // 实例化PhantomJS的WebDricer
-                PhantomJSDriver driver = new PhantomJSDriver(_service, _options);
+                PhantomJSDriver driver = new PhantomJSDriver(_service);
 
                 try {
                     DateTime watch = DateTime.Now;
@@ -169,6 +169,7 @@ namespace Common {
                     if (this.OnCompleted != null) this.OnCompleted(this, new OnCompletedEventArgs(uri, threadId, pageSource, driver, milliseconds));
                 }
                 catch (Exception e) {
+
                     if (this.OnError != null) this.OnError(this, e);
                 }
                 finally {
@@ -206,7 +207,7 @@ namespace Common {
         /// <param name="pageSource">页面源代码</param>
         /// <param name="milliseconds">爬虫请求执行时间</param>
         public OnCompletedEventArgs(Uri url, int treadID, string pageSource, string regex, long milliseconds)
-        {           
+        {
             this.Uri = url;
             this.TreadID = treadID;
             this.PageSource = pageSource;
