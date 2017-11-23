@@ -118,6 +118,7 @@ namespace EBuy.Areas.WebFunction.Controllers {
             RepFilePara.dic = GetLanPo(path_po);
             RepFilePara.path = path_js;
             RepFilePara.outpath = path_out;
+            RepFilePara.errInfo = new List<string>();
             Thread thread;
 
             // 循环所有文件
