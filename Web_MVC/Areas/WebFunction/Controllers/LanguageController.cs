@@ -1,13 +1,16 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
 namespace EBuy.Areas.WebFunction.Controllers {
-    public class LanguageController : Controller {
+    public class LanguageController : Manager {
         // GET: WebFunction/Language
         public ActionResult Index()
         {
@@ -97,7 +100,164 @@ namespace EBuy.Areas.WebFunction.Controllers {
 
         #region js中文替换
 
+        public ActionResult RepFile(string path_js, string path_po, string path_out)
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            #region 文件数据读取
 
+            List<FileInfo> JSFileList = FileAction.ReadDir(path_js, "js");
+            string PoFileCon = FileAction.ReadToStr(path_po);
+
+            if (JSFileList == null || JSFileList.Count <= 0)
+                return Error("不存在此目录，或目录下无对应文件！", "Index", false);
+            if (string.IsNullOrEmpty(PoFileCon))
+                return Error("找不到语言包文件！", "Index", false);
+
+            #endregion
+
+            #region 语言包数据获取
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            string reg = "msgid \"(?<msgid>.*)\"\r\nmsgstr \"(?<msgstr>.*)\"";
+
+            string[] strArr = DataCheck.GetRegStrArr(PoFileCon, reg);
+
+            foreach (var str in strArr) {
+                MatchCollection res = Regex.Matches(str, reg, RegexOptions.IgnoreCase);
+                foreach (Match item in res) {
+                    dic.Add(item.Groups["msgid"].Value, item.Groups["msgstr"].Value);
+                }
+            }
+
+            #endregion
+
+            // 赋予必要参数
+            RepFilePara.dic = dic;
+            RepFilePara.path = path_js;
+            RepFilePara.outpath = path_out;
+            Thread thread;
+
+            // 循环所有文件
+            foreach (var item in JSFileList) {
+                RepFilePara para = new RepFilePara {
+                    file = item
+                };
+                // 每一个文件，开辟一个线程
+                thread = new Thread(new ThreadStart(para.RepFile));
+                thread.Start();
+            }
+
+            // 输出日志信息，保存为文件
+            StringBuilder builder = new StringBuilder();
+            foreach (var item in RepFilePara.errInfo) {
+                builder.Append(item + "\n");
+            }
+            FileAction.AppendStr(path_out + "\\log.txt", builder.ToString());
+
+            watch.Stop();
+            return Success($"导出成功！开启线程{JSFileList.Count}个，" +
+                $"用时：{watch.ElapsedMilliseconds * 1.0 / 1000 / 60}分钟", "Index", false);
+        }
+
+        /// <summary>
+        /// 文件替换类
+        /// </summary>
+        public class RepFilePara {
+            /// <summary>
+            /// 待匹配文件
+            /// </summary>
+            public FileInfo file;
+            /// <summary>
+            /// 读取路径
+            /// </summary>
+            public static string path;
+            /// <summary>
+            /// 输出路径，配合读取路径，可以将原目录的结构复制出来
+            /// </summary>
+            public static string outpath;
+            /// <summary>
+            /// 语言包字典
+            /// </summary>
+            public static Dictionary<string, string> dic;
+            /// <summary>
+            /// 所有替换信息
+            /// </summary>
+            public static List<string> errInfo = new List<string>();
+
+            public void RepFile()
+            {
+                try {
+                    List<string> list = FileAction.ReadToArr(file.FullName);
+                    string p = file.FullName.Replace(path, outpath);
+
+                    // 匹配注释正则
+                    string regNotes = "[/*]+.*";
+                    // 匹配中文正则
+                    string regChinese = @"([\u4e00-\u9fa5]{1,}[\s，,‘“;(（）)：、:.&\\-a-zA-Z0-9\u4e00-\u9fa5]{0,}[。”’！0-9\u4e00-\u9fa5]{1,})|([\u4e00-\u9fa5]{1})";
+                    int index = 0;
+
+                    foreach (var item in list) {
+                        index++;
+                        // 去掉注释
+                        string str = DataCheck.RepStr(item.Trim(), regNotes, "");
+                        //是否包含中文
+                        if (!DataCheck.CheckReg(str, regChinese))
+                            FileAction.AppendStr(p, item + "\n");
+                        else {
+
+                            // 取出中文
+                            string[] strArr = DataCheck.GetRegStrArr(str, regChinese);
+                            string temp = str;
+
+                            // 在语言包中寻找匹配
+                            foreach (var chinese in strArr) {
+
+                                // 如果没有包含汉字，查找下一个
+                                if (!DataCheck.CheckReg(chinese, "[\u4e00-\u9fa5]+"))
+                                    continue;
+
+                                // 若语言包中存在对应中文，直接替换
+                                if (dic.ContainsKey(chinese)) {
+                                    temp = temp.Replace(chinese, dic[chinese]);
+                                    errInfo.Add($"{chinese}\t{dic[chinese]}\t{file.FullName}");
+                                }
+                                // 否则，去寻找最类似的中文
+                                else {
+                                    // 获取极限长度
+                                    int min = chinese.Length - 2;
+                                    int max = chinese.Length + 2;
+                                    // 判断是否替换
+                                    bool bl = false;
+                                    // 循环字典
+                                    foreach (var key in dic.Keys) {
+                                        // 超出极限长度，则跳出
+                                        if (max < key.Length || key.Length < min)
+                                            continue;
+                                        // 若符合极限长度，且包含当前文字
+                                        if (key.Contains(chinese)) {
+                                            // 进行替换
+                                            temp = temp.Replace(chinese, dic[key]);
+                                            errInfo.Insert(0, $"^{chinese}：{index}行\t{dic[key]}\t{file.FullName}");
+                                            bl = true;
+                                        }
+                                    }
+                                    if (!bl)
+                                        errInfo.Insert(0, $"^^{chinese}：{index}行\t{file.FullName}");
+                                }
+
+                            }
+                            // 将当前行写入文件
+                            FileAction.AppendStr(p, item.Replace(str, temp) + "\n");
+                        }
+                    }
+
+                }
+                catch (Exception e) {
+                    errInfo.Add("错误：" + file.FullName + "\t" + e.Message);
+                }
+            }
+        }
 
         #endregion
 

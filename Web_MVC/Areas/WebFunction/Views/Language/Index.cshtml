@@ -3,8 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     string[,] str =
 {       // 名称，方法
-        {"首页","Index" }//,
-        //{"最少转机","Least" }
+        {"首页","Index" },//,
+        {"JS中文替换","" }
     };
 }
 
@@ -20,8 +20,8 @@
         <!-- 语言包翻译 -->
         <div class="layui-tab-item layui-show">
             <form action="@Url.Action("Translate", "Language")" method="post" class="layui-form">
-                <fieldset class="layui-field-title">
-                    <legend>表单</legend>
+                <fieldset>
+                    <legend>语言翻译</legend>
                     <div class="layui-form-item">
                         <label class="layui-form-label">翻译网站</label>
                         <div class="layui-input-block">
@@ -47,6 +47,37 @@
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <input type="submit" class="layui-btn layui-btn-block" value="翻译" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <!-- JS中文替换 -->
+        <div class="layui-tab-item">
+            <form action="@Url.Action("RepFile", "Language")" method="post" class="layui-form">
+                <fieldset>
+                    <legend>JS中文替换</legend>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"> 语 言 包 </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="path_po" placeholder="请输入语言包路径" class="layui-input" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"> J S 文 件 </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="path_js" placeholder="请输入JS文件夹路径" class="layui-input" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"> 导出路径 </label>
+                        <div class="layui-input-block">
+                            <input type="text" name="path_out" placeholder="请输入JS导出路径" class="layui-input" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="submit" class="layui-btn layui-btn-block" value="开始导出" onclick="Loging()" />
                         </div>
                     </div>
                 </fieldset>
