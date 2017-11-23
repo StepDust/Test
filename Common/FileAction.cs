@@ -37,6 +37,11 @@ namespace Common {
             return str;
         }
 
+        /// <summary>
+        /// 读取文件为集合
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static List<string> ReadToArr(string path)
         {
             if (string.IsNullOrEmpty(path))
@@ -49,7 +54,7 @@ namespace Common {
             if (!File.Exists(path))
                 return null;
 
-            StreamReader read = new StreamReader(path, Encoding.Default);
+            StreamReader read = new StreamReader(path, Encoding.UTF8);
             List<string> res = new List<string>();
 
             while (!read.EndOfStream)
@@ -140,6 +145,62 @@ namespace Common {
             writer.Flush();
             writer.Dispose();
         }
+
+
+        #region 读取文件夹下文件
+
+        /// <summary>
+        /// 读取目录下所有文件，包括子目录
+        /// </summary>
+        /// <param name="path">文件夹绝对路径</param>
+        /// <param name="Suffix">文件后缀名</param>
+        public static List<FileInfo> ReadDir(string path, string Suffix = "*")
+        {
+            List<FileInfo> list = new List<FileInfo>();
+
+            if (Directory.Exists(path)) {
+                // 获取当前目录
+                DirectoryInfo Dir = new DirectoryInfo(path);
+                list.AddRange(SetDirs(Dir, Suffix));
+            }
+            return list.Distinct().ToList();
+        }
+
+        /// <summary>
+        /// 读取目录下所有文件
+        /// </summary>
+        /// <param name="directory"></param>
+        public static List<FileInfo> SetDirs(DirectoryInfo directory, string Suffix = "*")
+        {
+            List<FileInfo> list = new List<FileInfo>();
+            foreach (DirectoryInfo dir in directory.GetDirectories())
+                // 访问子目录
+                list.AddRange(SetDirs(dir, Suffix));
+            // 寻找当前目录下文件
+            list.AddRange(GetFiles(directory, Suffix));
+            return list;
+        }
+
+        /// <summary>
+        /// 读取文件夹下文件
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <param name="Suffix">后缀名，默认为所有文件</param>
+        public static List<FileInfo> GetFiles(DirectoryInfo directory, string Suffix = "*")
+        {
+            List<FileInfo> list = new List<FileInfo>();
+
+            FileInfo[] files = directory.GetFiles();
+
+            // 循环校验后缀名
+            for (int i = 0; i < files.Length; i++) {
+                if (files[i].Extension == "." + Suffix || Suffix == "*")
+                    list.Add(files[i]);
+            }
+            return list;
+        }
+
+        #endregion
 
     }
 }

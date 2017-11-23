@@ -148,3 +148,18 @@ function Float(sel) {
     });
 
 };
+
+/**
+ * 加载层
+ * @param {any} time
+ */
+function Loging(time) {
+    if (time == undefined)
+        time = 99999999;
+
+    layer.msg('加载中...', {
+        time: time
+        ,icon: 16
+        , shade: 0.5
+    });
+}
