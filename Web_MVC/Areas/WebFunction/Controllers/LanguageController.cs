@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -107,33 +108,14 @@ namespace EBuy.Areas.WebFunction.Controllers {
             #region 文件数据读取
 
             List<FileInfo> JSFileList = FileAction.ReadDir(path_js, "js");
-            string PoFileCon = FileAction.ReadToStr(path_po);
 
             if (JSFileList == null || JSFileList.Count <= 0)
                 return Error("不存在此目录，或目录下无对应文件！", "Index", false);
-            if (string.IsNullOrEmpty(PoFileCon))
-                return Error("找不到语言包文件！", "Index", false);
-
-            #endregion
-
-            #region 语言包数据获取
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            string reg = "msgid \"(?<msgid>.*)\"\r\nmsgstr \"(?<msgstr>.*)\"";
-
-            string[] strArr = DataCheck.GetRegStrArr(PoFileCon, reg);
-
-            foreach (var str in strArr) {
-                MatchCollection res = Regex.Matches(str, reg, RegexOptions.IgnoreCase);
-                foreach (Match item in res) {
-                    dic.Add(item.Groups["msgid"].Value, item.Groups["msgstr"].Value);
-                }
-            }
 
             #endregion
 
             // 赋予必要参数
-            RepFilePara.dic = dic;
+            RepFilePara.dic = GetLanPo(path_po);
             RepFilePara.path = path_js;
             RepFilePara.outpath = path_out;
             Thread thread;
@@ -261,6 +243,70 @@ namespace EBuy.Areas.WebFunction.Controllers {
 
         #endregion
 
+        #region 语言包排版
+
+        public ActionResult Layout(string path_po)
+        {
+            Dictionary<string, string> dic = GetLanPo(path_po);
+            List<Po> poList = new List<Po>();
+
+            foreach (var key in dic.Keys) {
+                poList.Add(new Po(key, dic[key]));
+            }
+
+            // 获取最大长度
+            int max = poList.Select(c => c.msgid).Max(c => c.Length);
+            List<Po> res = new List<Po>();
+
+            // 依次取出
+            for (int i = 1; i <= max; i++) {
+                List<Po> temp = poList.Where(c => c.msgid.Length == i).OrderBy(c => c.msgid).ToList();
+                if (temp != null && temp.Count > 0)
+                    res.AddRange(temp);
+            }
+
+            foreach (var item in res) {
+                string con = $"msgid \"{item.msgid}\"\nmsgstr \"{item.msgstr}\"\n\n";
+                FileAction.AppendStr(path_po + "_out", con);
+            }
+            FileAction.AppendStr(path_po + "_out", $"共{res.Count}条！");
+
+            return Success("排版完成！", "Index", false);
+        }
+
+        public class Po {
+            public Po(string msgid, string msgstr)
+            {
+                this.msgid = msgid;
+                this.msgstr = msgstr;
+            }
+            public string msgid;
+            public string msgstr;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 返回语言包数据
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public Dictionary<string, string> GetLanPo(string path)
+        {
+            string PoFileCon = FileAction.ReadToStr(path);
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            string reg = "msgid \"(?<msgid>.*)\"\r\nmsgstr \"(?<msgstr>.*)\"";
+
+            string[] strArr = DataCheck.GetRegStrArr(PoFileCon, reg);
+
+            foreach (var str in strArr) {
+                MatchCollection res = Regex.Matches(str, reg, RegexOptions.IgnoreCase);
+                foreach (Match item in res) {
+                    dic.Add(item.Groups["msgid"].Value, item.Groups["msgstr"].Value);
+                }
+            }
+            return dic;
+        }
 
     }
 }
