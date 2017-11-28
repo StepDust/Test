@@ -224,7 +224,7 @@ namespace Common {
         /// 首字母大写
         /// </summary>
         /// <param name="str">原字符串</param>
-        /// <param name="con">单词个数</param>
+        /// <param name="con">单词个数，默认：-1，即全部</param>
         /// <returns></returns>
         public static string StrToUpper(string str, int con = -1)
         {

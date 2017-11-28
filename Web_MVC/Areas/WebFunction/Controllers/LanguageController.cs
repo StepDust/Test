@@ -175,7 +175,7 @@ namespace EBuy.Areas.WebFunction.Controllers {
                     string p = file.FullName.Replace(path, outpath);
 
                     // 匹配注释正则
-                    string regNotes = "[/*]+.*";
+                    string regNotes = "([/]{2,}|[*]+).*";
                     // 匹配中文正则
                     string regChinese = @"([\u4e00-\u9fa5]{1,}[\s，,‘“;(（）)：、:.&\\-a-zA-Z0-9\u4e00-\u9fa5]{0,}[。”’！0-9\u4e00-\u9fa5]{1,})|([\u4e00-\u9fa5]{1})";
                     int index = 0;
@@ -192,7 +192,7 @@ namespace EBuy.Areas.WebFunction.Controllers {
                             // 取出中文
                             string[] strArr = DataCheck.GetRegStrArr(str, regChinese);
                             string temp = str;
-
+                            string get = "";
                             // 在语言包中寻找匹配
                             foreach (var chinese in strArr) {
 
@@ -202,7 +202,9 @@ namespace EBuy.Areas.WebFunction.Controllers {
 
                                 // 若语言包中存在对应中文，直接替换
                                 if (dic.ContainsKey(chinese)) {
-                                    temp = temp.Replace(chinese, dic[chinese]);
+
+                                    get = dic[chinese];
+                                    temp = temp.Replace(chinese, DataCheck.RepLanguage(dic[chinese], false));
                                     errInfo.Add($"{chinese}\t{dic[chinese]}\t{file.FullName}");
                                 }
                                 // 否则，去寻找最类似的中文
@@ -220,7 +222,7 @@ namespace EBuy.Areas.WebFunction.Controllers {
                                         // 若符合极限长度，且包含当前文字
                                         if (key.Contains(chinese)) {
                                             // 进行替换
-                                            temp = temp.Replace(chinese, dic[key]);
+                                            temp = temp.Replace(chinese, DataCheck.RepLanguage(dic[key], false));
                                             errInfo.Insert(0, $"^{chinese}：{index}行\t{dic[key]}\t{file.FullName}");
                                             bl = true;
                                         }
@@ -228,8 +230,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
                                     if (!bl)
                                         errInfo.Insert(0, $"^^{chinese}：{index}行\t{file.FullName}");
                                 }
-
                             }
+
                             // 将当前行写入文件
                             FileAction.AppendStr(p, item.Replace(str, temp) + "\n");
                         }
@@ -267,7 +269,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
             }
 
             foreach (var item in res) {
-                string con = $"msgid \"{item.msgid}\"\nmsgstr \"{item.msgstr}\"\n\n";
+                // 单词长度小于三个的时候，首字母大写
+                string con = $"msgid \"{item.msgid}\"\nmsgstr \"{Utils.StrToUpper(item.msgstr.Trim(), 2)}\"\n\n";
                 FileAction.AppendStr(path_po + "_out", con);
             }
             FileAction.AppendStr(path_po + "_out", $"共{res.Count}条！");
@@ -296,7 +299,7 @@ namespace EBuy.Areas.WebFunction.Controllers {
         {
             string PoFileCon = FileAction.ReadToStr(path);
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            string reg = "msgid \"(?<msgid>.*)\"\r\nmsgstr \"(?<msgstr>.*)\"";
+            string reg = "msgid \"(?<msgid>.*)\"\nmsgstr \"(?<msgstr>.*)\"";
 
             string[] strArr = DataCheck.GetRegStrArr(PoFileCon, reg);
 
