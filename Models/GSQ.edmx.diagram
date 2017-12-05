@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4cef5cf741ac4781b387d692ae72b797" Name="Diagram1">
+      <Diagram DiagramId="193d740b6f504c4593bb1a9b4abd31db" Name="Diagram1" ZoomLevel="96">
         <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_DataItem" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_DataItemDetail" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GSQ_PaChongModel.GSQ_Log" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />

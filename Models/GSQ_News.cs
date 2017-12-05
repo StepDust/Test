@@ -15,13 +15,15 @@ namespace Models
     public partial class GSQ_News
     {
         public int Id { get; set; }
-        public Nullable<int> NewTypeDetailId { get; set; }
+        public int NewTypeDetailId { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string title { get; set; }
         public string Images { get; set; }
         public string author { get; set; }
         public string url { get; set; }
         public string sourcewebsite { get; set; }
-        public int num { get; set; }
+        public Nullable<int> num { get; set; }
+        public string HtmlContent { get; set; }
+        public string BodyText { get; set; }
     }
 }

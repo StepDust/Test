@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BaseDal.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="GSQ_PaChong\GSQ_DataItemService.cs" />
     <Compile Include="GSQ_PaChong\GSQ_NewsService.cs" />
     <Compile Include="GSQ_PaChong\GSQ_WebService.cs" />
     <Compile Include="Demo\LangService.cs" />

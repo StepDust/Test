@@ -14,9 +14,9 @@ namespace Models
     
     public partial class GSQ_UsersNews
     {
-        public string Id { get; set; }
-        public string UserId { get; set; }
-        public string NewsId { get; set; }
-        public string LookDate { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public int NewsId { get; set; }
+        public Nullable<System.DateTime> LookDate { get; set; }
     }
 }

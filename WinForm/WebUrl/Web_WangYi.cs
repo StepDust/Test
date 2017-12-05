@@ -133,6 +133,19 @@ namespace WinForm.WebUrl {
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
+            // 获取新闻分类
+            string key = Url.Substring(0, Url.Length - 1);
+            key = key.Substring(key.LastIndexOf("/") + 1);
+
+            GSQ_DataItemService _GSQ_DataItemService = new GSQ_DataItemService();
+
+            GSQ_NewsService _GSQ_NewsService = new GSQ_NewsService();
+
+            int? typeId = _GSQ_DataItemService.FindEntity(c => key.ToLower().Contains(c.ItemCode.ToLower()))?.Id;
+
+            if (typeId == null)
+                typeId = 8;
+
             // 爬虫类
             Crawler crawler = new Crawler();
             Operation operation = new Operation() {
@@ -142,7 +155,7 @@ namespace WinForm.WebUrl {
             };
             crawler.OnError += Crawler_OnError;
             crawler.OnCompleted += (s, e) => {
-                Crawler_OnCompleted(e, 1);
+                Crawler_OnCompleted(e, typeId.Value, 1);
             };
 
             crawler.Start(Url, operation, null).Wait();
@@ -214,7 +227,7 @@ namespace WinForm.WebUrl {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Crawler_OnCompleted(OnCompletedEventArgs e, int layer, string Title = "")
+        private void Crawler_OnCompleted(OnCompletedEventArgs e, int layer, int typeID, string Title = "")
         {
             SetLog($"读取网站：{e.Uri.ToString()}\n\t\t\t\t深度：{layer}\t用时：{e.Milliseconds} 毫秒\t线程ID：{e.TreadID}", Color.Gray);
             UpAll(1);
@@ -234,7 +247,9 @@ namespace WinForm.WebUrl {
                     GSQ_News _News = new GSQ_News();
                     _News.title = Title;
                     _News.url = e.Uri.ToString();
-                    _News.sourcewebsite = conNode.InnerHtml;
+                    _News.NewTypeDetailId = typeID;
+                    _News.HtmlContent = conNode.InnerHtml;
+                    _News.BodyText = conNode.InnerText;
                     _News.num = 0;
                     _News.CreateDate = DateTime.Now;
                     _GSQ_NewsService.AddEntity(_News);
@@ -260,9 +275,9 @@ namespace WinForm.WebUrl {
                 };
                 crawler.OnError += Crawler_OnError;
                 crawler.OnCompleted += (s, ex) => {
-                    Crawler_OnCompleted(ex, layer + 1, item.InnerText);
+                    Crawler_OnCompleted(ex, layer + 1, typeID, item.InnerText);
                 };
-                string url = Utils.DelLastChar(e.Uri.ToString(), "/",0);
+                string url = Utils.DelLastChar(e.Uri.ToString(), "/", 0);
                 string href = item.Attributes["href"]?.Value;
                 if (!string.IsNullOrEmpty(href) && !urlList.Contains(href) &&
                     DataCheck.CheckReg(href, DataCheck.Reg_Url) &&

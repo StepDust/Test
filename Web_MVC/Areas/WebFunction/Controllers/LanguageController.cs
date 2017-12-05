@@ -1,4 +1,6 @@
 ﻿using Common;
+using Microsoft.International.Converters.PinYinConverter;
+using NPinyin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,8 +12,10 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
-namespace EBuy.Areas.WebFunction.Controllers {
-    public class LanguageController : Manager {
+namespace EBuy.Areas.WebFunction.Controllers
+{
+    public class LanguageController : Manager
+    {
         // GET: WebFunction/Language
         public ActionResult Index()
         {
@@ -35,9 +39,11 @@ namespace EBuy.Areas.WebFunction.Controllers {
 
             string[] strArr = DataCheck.GetRegStrArr(content, reg);
 
-            foreach (var str in strArr) {
+            foreach (var str in strArr)
+            {
                 MatchCollection res = Regex.Matches(str, reg, RegexOptions.IgnoreCase);
-                foreach (Match item in res) {
+                foreach (Match item in res)
+                {
                     dic.Add(item.Groups["msgid"].Value, item.Groups["msgstr"].Value);
                 }
             }
@@ -79,7 +85,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
             builder.Append("        var str = '';\n");
             builder.Append("        switch (name) { \n");
 
-            foreach (var item in dic.Keys) {
+            foreach (var item in dic.Keys)
+            {
 
                 string key = DataCheck.RepLanguage(item).Replace("'", "\\\'");
                 string val = DataCheck.RepLanguage(dic[item]).Replace("'", "\\\'");
@@ -122,8 +129,10 @@ namespace EBuy.Areas.WebFunction.Controllers {
             Thread thread;
 
             // 循环所有文件
-            foreach (var item in JSFileList) {
-                RepFilePara para = new RepFilePara {
+            foreach (var item in JSFileList)
+            {
+                RepFilePara para = new RepFilePara
+                {
                     file = item
                 };
                 // 每一个文件，开辟一个线程
@@ -133,7 +142,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
 
             // 输出日志信息，保存为文件
             StringBuilder builder = new StringBuilder();
-            foreach (var item in RepFilePara.errInfo) {
+            foreach (var item in RepFilePara.errInfo)
+            {
                 builder.Append(item + "\n");
             }
             FileAction.AppendStr(path_out + "\\log.txt", builder.ToString());
@@ -146,7 +156,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
         /// <summary>
         /// 文件替换类
         /// </summary>
-        public class RepFilePara {
+        public class RepFilePara
+        {
             /// <summary>
             /// 待匹配文件
             /// </summary>
@@ -170,7 +181,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
 
             public void RepFile()
             {
-                try {
+                try
+                {
                     List<string> list = FileAction.ReadToArr(file.FullName);
                     string p = file.FullName.Replace(path, outpath);
 
@@ -180,47 +192,54 @@ namespace EBuy.Areas.WebFunction.Controllers {
                     string regChinese = @"([\u4e00-\u9fa5]{1,}[\s，,‘“;(（）)：、:.&\\-a-zA-Z0-9\u4e00-\u9fa5]{0,}[。”’！0-9\u4e00-\u9fa5]{1,})|([\u4e00-\u9fa5]{1})";
                     int index = 0;
 
-                    foreach (var item in list) {
+                    foreach (var item in list)
+                    {
                         index++;
                         // 去掉注释
                         string str = DataCheck.RepStr(item.Trim(), regNotes, "");
                         //是否包含中文
                         if (!DataCheck.CheckReg(str, regChinese))
                             FileAction.AppendStr(p, item + "\n");
-                        else {
+                        else
+                        {
 
                             // 取出中文
                             string[] strArr = DataCheck.GetRegStrArr(str, regChinese);
                             string temp = str;
                             string get = "";
                             // 在语言包中寻找匹配
-                            foreach (var chinese in strArr) {
+                            foreach (var chinese in strArr)
+                            {
 
                                 // 如果没有包含汉字，查找下一个
                                 if (!DataCheck.CheckReg(chinese, "[\u4e00-\u9fa5]+"))
                                     continue;
 
                                 // 若语言包中存在对应中文，直接替换
-                                if (dic.ContainsKey(chinese)) {
+                                if (dic.ContainsKey(chinese))
+                                {
 
                                     get = dic[chinese];
                                     temp = temp.Replace(chinese, DataCheck.RepLanguage(dic[chinese], false));
                                     errInfo.Add($"{chinese}\t{dic[chinese]}\t{file.FullName}");
                                 }
                                 // 否则，去寻找最类似的中文
-                                else {
+                                else
+                                {
                                     // 获取极限长度
                                     int min = chinese.Length - 2;
                                     int max = chinese.Length + 2;
                                     // 判断是否替换
                                     bool bl = false;
                                     // 循环字典
-                                    foreach (var key in dic.Keys) {
+                                    foreach (var key in dic.Keys)
+                                    {
                                         // 超出极限长度，则跳出
                                         if (max < key.Length || key.Length < min)
                                             continue;
                                         // 若符合极限长度，且包含当前文字
-                                        if (key.Contains(chinese)) {
+                                        if (key.Contains(chinese))
+                                        {
                                             // 进行替换
                                             temp = temp.Replace(chinese, DataCheck.RepLanguage(dic[key], false));
                                             errInfo.Insert(0, $"^{chinese}：{index}行\t{dic[key]}\t{file.FullName}");
@@ -238,7 +257,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
                     }
 
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                     errInfo.Add("错误：" + file.FullName + "\t" + e.Message);
                 }
             }
@@ -253,7 +273,8 @@ namespace EBuy.Areas.WebFunction.Controllers {
             Dictionary<string, string> dic = GetLanPo(path_po);
             List<Po> poList = new List<Po>();
 
-            foreach (var key in dic.Keys) {
+            foreach (var key in dic.Keys)
+            {
                 poList.Add(new Po(key, dic[key]));
             }
 
@@ -262,23 +283,76 @@ namespace EBuy.Areas.WebFunction.Controllers {
             List<Po> res = new List<Po>();
 
             // 依次取出
-            for (int i = 1; i <= max; i++) {
+            for (int i = 1; i <= max; i++)
+            {
                 List<Po> temp = poList.Where(c => c.msgid.Length == i).OrderBy(c => c.msgid).ToList();
                 if (temp != null && temp.Count > 0)
                     res.AddRange(temp);
             }
 
-            foreach (var item in res) {
+
+
+            foreach (var item in res)
+            {
                 // 单词长度小于三个的时候，首字母大写
-                string con = $"msgid \"{item.msgid}\"\nmsgstr \"{Utils.StrToUpper(item.msgstr.Trim(), 2)}\"\n\n";
-                FileAction.AppendStr(path_po + "_out", con);
+                FileAction.AppendStr(path_po + "_out", Line(item.msgid, item.msgstr.Trim()));
             }
             FileAction.AppendStr(path_po + "_out", $"共{res.Count}条！");
 
             return Success("排版完成！", "Index", false);
         }
 
-        public class Po {
+
+        public string Line(string msgid, string msgstr)
+        {
+            Dictionary<string, string> area = new Dictionary<string, string>();
+            area.Add("州", "Prefecture");
+            area.Add("省", "Province");
+            area.Add("市", "City");
+            area.Add("县", "County");
+            area.Add("区", "District");
+            area.Add("镇", "Town");
+            area.Add("乡", "Country");
+
+            string last = msgid.Substring(msgid.Length - 1);
+
+
+            // 若为城市名称
+            if (area.Keys.Contains(last))
+            {
+                msgstr = "";
+                foreach (var item in msgid.Substring(0, msgid.Length - 1))
+                {
+                    // 使用NPingYin插件
+                    string t = Utils.StrToUpper(Pinyin.GetPinyin(item)).Trim();
+
+                    if (Regex.IsMatch(t, "[\u4e00-\u9fa5]"))
+                    {
+                        // 使用微软自带转换插件
+                        ChineseChar p = new ChineseChar(item);
+                        t = p.Pinyins.FirstOrDefault();
+                        if (t == null)
+                            t = item + "";
+                        else
+                            t = t.Substring(0, t.Length - 1);
+                        t = Utils.StrToUpper(t);
+                    }
+
+                    msgstr += t + "'";
+                }
+                msgstr = Utils.DelLastChar(msgstr, "'");
+                msgstr += " " + area[last];
+            }
+
+            // 去掉多重空格
+            Regex regex = new Regex(" +");
+            msgstr = regex.Replace(msgstr, " ");
+
+            return $"msgid \"{msgid}\"\nmsgstr \"{Utils.StrToUpper(msgstr.Trim(), 2)}\"\n\n";
+        }
+
+        public class Po
+        {
             public Po(string msgid, string msgstr)
             {
                 this.msgid = msgid;
@@ -303,9 +377,13 @@ namespace EBuy.Areas.WebFunction.Controllers {
 
             string[] strArr = DataCheck.GetRegStrArr(PoFileCon, reg);
 
-            foreach (var str in strArr) {
+            foreach (var str in strArr)
+            {
                 MatchCollection res = Regex.Matches(str, reg, RegexOptions.IgnoreCase);
-                foreach (Match item in res) {
+                foreach (Match item in res)
+                {
+                    if (dic.Keys.Contains(item.Groups["msgid"].Value))
+                        continue;
                     dic.Add(item.Groups["msgid"].Value, item.Groups["msgstr"].Value);
                 }
             }

@@ -254,7 +254,7 @@ namespace Common {
 
                 builder.Append(t + " ");
             }
-            return builder.ToString();
+            return builder.ToString().Trim();
         }
 
         /// <summary>

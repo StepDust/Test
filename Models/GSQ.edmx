@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GSQ_PaChongModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="GSQ_PaChongModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="GSQ_DataItem">
           <Key>
             <PropertyRef Name="Id" />
@@ -54,7 +54,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Role_Id" Type="int" Nullable="false" />
           <Property Name="Role_Type" Type="int" Nullable="false" />
           <Property Name="User_Name" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -110,14 +110,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NewTypeDetailId" Type="int" />
+          <Property Name="NewTypeDetailId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" />
-          <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
           <Property Name="Images" Type="nvarchar" MaxLength="100" />
           <Property Name="author" Type="nvarchar" MaxLength="100" />
-          <Property Name="url" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="sourcewebsite" Type="text" Nullable="false" />
-          <Property Name="num" Type="int" Nullable="false" />
+          <Property Name="url" Type="nvarchar" MaxLength="300" />
+          <Property Name="sourcewebsite" Type="nvarchar" MaxLength="100" />
+          <Property Name="num" Type="int" />
+          <Property Name="HtmlContent" Type="nvarchar(max)" />
+          <Property Name="BodyText" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="GSQ_NewsClass">
           <Key>
@@ -163,10 +165,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="UserId" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="NewsId" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="LookDate" Type="char" MaxLength="10" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="NewsId" Type="int" Nullable="false" />
+          <Property Name="LookDate" Type="datetime" />
         </EntityType>
         <EntityType Name="GSQ_Web">
           <Key>
@@ -176,7 +178,7 @@
           <Property Name="Url" Type="nvarchar" MaxLength="500" />
           <Property Name="name" Type="nvarchar" MaxLength="200" />
           <Property Name="Reglx" Type="nvarchar" MaxLength="200" />
-          <Property Name="createdate" Type="date" />
+          <Property Name="createdate" Type="datetime" />
           <Property Name="ReglxTitle" Type="nvarchar" MaxLength="200" />
           <Property Name="ReglxAuthor" Type="nvarchar" MaxLength="50" />
           <Property Name="ReglxContent" Type="nvarchar" MaxLength="50" />
@@ -207,7 +209,8 @@
           <EntitySet Name="GSQ_Web" EntityType="Self.GSQ_Web" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GSQ_Words" EntityType="Self.GSQ_Words" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GSQ_PaChongModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -260,7 +263,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Role_Id" Type="Int32" Nullable="false" />
           <Property Name="Role_Type" Type="Int32" Nullable="false" />
           <Property Name="User_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
@@ -316,14 +319,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NewTypeDetailId" Type="Int32" />
+          <Property Name="NewTypeDetailId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Images" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="url" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="sourcewebsite" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="num" Type="Int32" Nullable="false" />
+          <Property Name="url" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="sourcewebsite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="num" Type="Int32" />
+          <Property Name="HtmlContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BodyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="GSQ_NewsClass">
           <Key>
@@ -369,10 +374,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="NewsId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="LookDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="NewsId" Type="Int32" Nullable="false" />
+          <Property Name="LookDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="GSQ_Web">
           <Key>
@@ -382,7 +387,7 @@
           <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Reglx" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="createdate" Type="DateTime" Precision="0" />
+          <Property Name="createdate" Type="DateTime" Precision="3" />
           <Property Name="ReglxTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ReglxAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ReglxContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -396,7 +401,7 @@
           <Property Name="id" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="wordname" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="GSQ_PaChongEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="GSQ_PaChongEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GSQ_DataItem" EntityType="Self.GSQ_DataItem" />
           <EntitySet Name="GSQ_DataItemDetail" EntityType="Self.GSQ_DataItemDetail" />
           <EntitySet Name="GSQ_Log" EntityType="Self.GSQ_Log" />
@@ -418,7 +423,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GSQ_PaChongModelStoreContainer" CdmEntityContainer="GSQ_PaChongEntities">
+        <EntityContainerMapping StorageEntityContainer="GSQ_PaChongModelStoreContainer" CdmEntityContainer="GSQ_PaChongEntities1">
           <EntitySetMapping Name="GSQ_DataItem">
             <EntityTypeMapping TypeName="GSQ_PaChongModel.GSQ_DataItem">
               <MappingFragment StoreEntitySet="GSQ_DataItem">
@@ -537,6 +542,8 @@
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="sourcewebsite" ColumnName="sourcewebsite" />
                 <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="HtmlContent" ColumnName="HtmlContent" />
+                <ScalarProperty Name="BodyText" ColumnName="BodyText" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
