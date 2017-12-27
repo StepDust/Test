@@ -7,11 +7,13 @@ using BLL.Demo;
 using EBuy;
 using System.Text;
 
-namespace Web_MVC.Controllers {
+namespace Web_MVC.Controllers
+{
     /// <summary>
     /// 添加语言包数据
     /// </summary>
-    public class HomeController : Manager {
+    public class HomeController : Manager
+    {
 
         /// <summary>
         /// 父窗页面
@@ -21,12 +23,14 @@ namespace Web_MVC.Controllers {
         {
             LoginInfo info = Utils.GetLoginInfo();
 
-            if (Session["Login"] == null) {
+            if (Session["Login"] == null)
+            {
                 LoginIPService bll_login = new LoginIPService();
                 LoginIP login = bll_login.FindEntity(c =>
                 c.ipv4 == info.IPv4 && c.extranetIP == info.ExtranetIP &&
                 c.hostName == info.HostName && c.System == info.System && c.city == info.City);
-                if (login == null) {
+                if (login == null)
+                {
                     login = new LoginIP();
                     login.ipv4 = info.IPv4;
                     login.extranetIP = info.ExtranetIP;
@@ -40,7 +44,8 @@ namespace Web_MVC.Controllers {
                     Session["Login"] = login;
                     bll_login.AddEntity(login);
                 }
-                else {
+                else
+                {
                     login.counts++;
                     login.loginTime = DateTime.Now;
                     bll_login.EditEntity(login);
@@ -62,7 +67,8 @@ namespace Web_MVC.Controllers {
             if (list == null) return "";
             StringBuilder builder = new StringBuilder();
             builder.Append("<ul class=\"layui-nav layui-nav-tree\" lay-filter=\"test\">");
-            foreach (var item in list) {
+            foreach (var item in list)
+            {
                 builder.Append(GetNavItem(item));
             }
             builder.Append("</ul>");
@@ -100,7 +106,8 @@ namespace Web_MVC.Controllers {
                 return "";
             StringBuilder builder = new StringBuilder();
             builder.Append("<dl class=\"layui-nav-child\">");
-            for (int i = 0; i < list.Count; i++) {
+            for (int i = 0; i < list.Count; i++)
+            {
                 builder.Append("<dd>");
                 builder.Append("    <a href=\"#\" data-url=\"" + list[i].Url + "\"> " + Utils.GetStrToLen((i + 1), 2, "0") + "、" + list[i].Title);
                 builder.Append(GetNavInfo(list[i].Info));
@@ -119,7 +126,8 @@ namespace Web_MVC.Controllers {
         public string GetNavInfo(string info)
         {
             StringBuilder builder = new StringBuilder();
-            if (!string.IsNullOrEmpty(info)) {
+            if (!string.IsNullOrEmpty(info))
+            {
                 builder.Append("<i class=\"msg\">");
                 builder.Append(info);
                 builder.Append("</i>");
@@ -154,10 +162,57 @@ namespace Web_MVC.Controllers {
         [HttpPost]
         public ActionResult Default(string title, int? icon)
         {
-
+            //title = GetNo(title);
             if (string.IsNullOrEmpty(title))
                 title = "Msg";
-            return Content(ResObj.LayerMsg(title, icon, Utils.GetPostUrlInfo()));
+            return Content(ResObj.LayerMsg(title, icon, Utils.GetPostUrlInfo(), -1, 20000));
+        }
+
+        /// <summary>
+        /// 返回数字对应的编号
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public string GetNo(string str)
+        {
+            #region 参数校验
+
+            // 防止为空
+            if (string.IsNullOrEmpty(str))
+                return "";
+            str = str.Trim();
+            // 防止不是数字
+            if (!int.TryParse(str, out int n))
+                return "";
+            // 防止数字太大
+            if (str.Length > 6)
+                return "";
+
+            #endregion
+
+            // 为参数补0，至十万位
+            while (str.Length < 6)
+                str = "0" + str;
+
+            // 获取十万位，和万位
+            string s = str.Substring(0, 2);
+            str = str.Substring(2);
+            // 转为数字
+            if (int.TryParse(s, out int num))
+            {
+                // 不足100,000时，返回原字符串
+                if (num < 10)
+                    str = num + str;
+                // 大于359,999时，超出界限，返回空字符串
+                else if (num > 35)
+                    str = "";
+                // 大于或等于100,000，且小于360,000时
+                else
+                    // 获得数字对应字母，并拼接
+                    str = (char)('A' + num - 10) + str;
+            }
+
+            return str;
         }
 
     }

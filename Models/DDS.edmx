@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DDS_KF_NewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“DDS_KF_New.dbo.DDS_DataItem”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="DDS_DataItem">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="EnabledMark" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="ItemCode" Type="varchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsTree" Type="int" />
+          <Property Name="SortCode" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="EnabledMark" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ByName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“DDS_KF_New.dbo.DDS_DataItemDetail”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="DDS_DataItemDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DataItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="EnabledMark" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUserId" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DataItemId" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="ItemCode" Type="varchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemValue" Type="varchar" MaxLength="50" />
+          <Property Name="QuickQuery" Type="varchar" MaxLength="200" />
+          <Property Name="SimpleSpelling" Type="varchar" MaxLength="200" />
+          <Property Name="IsDefault" Type="int" />
+          <Property Name="SortCode" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="EnabledMark" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ByName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="DDS_KF_NewModelStoreContainer">
+          <EntitySet Name="DDS_DataItem" EntityType="Self.DDS_DataItem" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DDS_DataItem].[Id] AS [Id], 
+    [DDS_DataItem].[ParentId] AS [ParentId], 
+    [DDS_DataItem].[ItemCode] AS [ItemCode], 
+    [DDS_DataItem].[ItemName] AS [ItemName], 
+    [DDS_DataItem].[IsTree] AS [IsTree], 
+    [DDS_DataItem].[SortCode] AS [SortCode], 
+    [DDS_DataItem].[Description] AS [Description], 
+    [DDS_DataItem].[EnabledMark] AS [EnabledMark], 
+    [DDS_DataItem].[CreateDate] AS [CreateDate], 
+    [DDS_DataItem].[CreateUserId] AS [CreateUserId], 
+    [DDS_DataItem].[ModifyDate] AS [ModifyDate], 
+    [DDS_DataItem].[ModifyUserId] AS [ModifyUserId], 
+    [DDS_DataItem].[ByName] AS [ByName]
+    FROM [dbo].[DDS_DataItem] AS [DDS_DataItem]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DDS_DataItemDetail" EntityType="Self.DDS_DataItemDetail" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DDS_DataItemDetail].[Id] AS [Id], 
+    [DDS_DataItemDetail].[DataItemId] AS [DataItemId], 
+    [DDS_DataItemDetail].[ParentId] AS [ParentId], 
+    [DDS_DataItemDetail].[ItemCode] AS [ItemCode], 
+    [DDS_DataItemDetail].[ItemName] AS [ItemName], 
+    [DDS_DataItemDetail].[ItemValue] AS [ItemValue], 
+    [DDS_DataItemDetail].[QuickQuery] AS [QuickQuery], 
+    [DDS_DataItemDetail].[SimpleSpelling] AS [SimpleSpelling], 
+    [DDS_DataItemDetail].[IsDefault] AS [IsDefault], 
+    [DDS_DataItemDetail].[SortCode] AS [SortCode], 
+    [DDS_DataItemDetail].[Description] AS [Description], 
+    [DDS_DataItemDetail].[EnabledMark] AS [EnabledMark], 
+    [DDS_DataItemDetail].[CreateDate] AS [CreateDate], 
+    [DDS_DataItemDetail].[CreateUserId] AS [CreateUserId], 
+    [DDS_DataItemDetail].[ModifyDate] AS [ModifyDate], 
+    [DDS_DataItemDetail].[ModifyUserId] AS [ModifyUserId], 
+    [DDS_DataItemDetail].[ByName] AS [ByName]
+    FROM [dbo].[DDS_DataItemDetail] AS [DDS_DataItemDetail]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DDS_KF_NewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DDS_DataItem">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="EnabledMark" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsTree" Type="Int32" />
+          <Property Name="SortCode" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EnabledMark" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DDS_DataItemDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DataItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="EnabledMark" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUserId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DataItemId" Type="Int32" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ItemValue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuickQuery" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SimpleSpelling" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsDefault" Type="Int32" />
+          <Property Name="SortCode" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EnabledMark" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="DDS_KF_NewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DDS_DataItem" EntityType="Self.DDS_DataItem" />
+          <EntitySet Name="DDS_DataItemDetail" EntityType="Self.DDS_DataItemDetail" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DDS_KF_NewModelStoreContainer" CdmEntityContainer="DDS_KF_NewEntities">
+          <EntitySetMapping Name="DDS_DataItem">
+            <EntityTypeMapping TypeName="DDS_KF_NewModel.DDS_DataItem">
+              <MappingFragment StoreEntitySet="DDS_DataItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="IsTree" ColumnName="IsTree" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnabledMark" ColumnName="EnabledMark" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ByName" ColumnName="ByName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DDS_DataItemDetail">
+            <EntityTypeMapping TypeName="DDS_KF_NewModel.DDS_DataItemDetail">
+              <MappingFragment StoreEntitySet="DDS_DataItemDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DataItemId" ColumnName="DataItemId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemValue" ColumnName="ItemValue" />
+                <ScalarProperty Name="QuickQuery" ColumnName="QuickQuery" />
+                <ScalarProperty Name="SimpleSpelling" ColumnName="SimpleSpelling" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EnabledMark" ColumnName="EnabledMark" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ByName" ColumnName="ByName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

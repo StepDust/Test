@@ -24,6 +24,12 @@ namespace Common {
         /// GSQ_PaChong数据库
         /// </summary>
         public const string Name_GSQ = "GSQ_PaChongEntities";
+
+        /// <summary>
+        /// DDS_KF_New数据库
+        /// </summary>
+        public const string Name_DDS = "DDS_KF_NewEntities";
+
         #endregion
 
         /// <summary>

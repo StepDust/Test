@@ -9,6 +9,12 @@
         <EntityTypeShape EntityType="DemoModel.Menu01" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DemoModel.Menu02" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DemoModel.LoginIP" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DemoModel.DataItem" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DemoModel.DataType" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DemoModel.S_ChatMsg" Width="1.5" PointX="3.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DemoModel.S_Room" Width="1.5" PointX="5.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DemoModel.S_RoomMember" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DemoModel.S_User" Width="1.5" PointX="0.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

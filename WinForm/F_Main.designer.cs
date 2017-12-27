@@ -39,16 +39,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.bt_clear = new System.Windows.Forms.Button();
-            this.bt_Stop = new System.Windows.Forms.Button();
+            this.bt_send = new System.Windows.Forms.Button();
             this.bt_Start = new System.Windows.Forms.Button();
             this.pl_UrlList = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txt_log = new System.Windows.Forms.RichTextBox();
             this.t_con = new System.Windows.Forms.Timer(this.components);
             this.t_clear = new System.Windows.Forms.Timer(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.gb_UrlList.SuspendLayout();
             this.pl_info.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.pl_UrlList.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -168,7 +170,6 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.bt_clear);
-            this.panel1.Controls.Add(this.bt_Stop);
             this.panel1.Controls.Add(this.bt_Start);
             this.panel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel1.Location = new System.Drawing.Point(6, 416);
@@ -188,17 +189,17 @@
             this.bt_clear.UseVisualStyleBackColor = true;
             this.bt_clear.Click += new System.EventHandler(this.bt_clear_Click);
             // 
-            // bt_Stop
+            // bt_send
             // 
-            this.bt_Stop.Cursor = System.Windows.Forms.Cursors.Default;
-            this.bt_Stop.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bt_Stop.Location = new System.Drawing.Point(101, 7);
-            this.bt_Stop.Name = "bt_Stop";
-            this.bt_Stop.Size = new System.Drawing.Size(75, 23);
-            this.bt_Stop.TabIndex = 0;
-            this.bt_Stop.Text = "停止抓取";
-            this.bt_Stop.UseVisualStyleBackColor = true;
-            this.bt_Stop.Click += new System.EventHandler(this.bt_Stop_Click);
+            this.bt_send.Cursor = System.Windows.Forms.Cursors.Default;
+            this.bt_send.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bt_send.Location = new System.Drawing.Point(191, 289);
+            this.bt_send.Name = "bt_send";
+            this.bt_send.Size = new System.Drawing.Size(75, 23);
+            this.bt_send.TabIndex = 0;
+            this.bt_send.Text = "发送消息";
+            this.bt_send.UseVisualStyleBackColor = true;
+            this.bt_send.Click += new System.EventHandler(this.bt_Stop_Click);
             // 
             // bt_Start
             // 
@@ -208,7 +209,7 @@
             this.bt_Start.Name = "bt_Start";
             this.bt_Start.Size = new System.Drawing.Size(75, 23);
             this.bt_Start.TabIndex = 0;
-            this.bt_Start.Text = "开始抓取";
+            this.bt_Start.Text = "开启服务";
             this.bt_Start.UseVisualStyleBackColor = true;
             this.bt_Start.Click += new System.EventHandler(this.bt_Start_Click);
             // 
@@ -216,6 +217,8 @@
             // 
             this.pl_UrlList.AutoScroll = true;
             this.pl_UrlList.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.pl_UrlList.Controls.Add(this.textBox1);
+            this.pl_UrlList.Controls.Add(this.bt_send);
             this.pl_UrlList.Cursor = System.Windows.Forms.Cursors.Default;
             this.pl_UrlList.Location = new System.Drawing.Point(7, 21);
             this.pl_UrlList.Name = "pl_UrlList";
@@ -231,7 +234,7 @@
             this.groupBox1.Size = new System.Drawing.Size(581, 460);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "抓取日志";
+            this.groupBox1.Text = "日志";
             // 
             // txt_log
             // 
@@ -245,6 +248,7 @@
             this.txt_log.Size = new System.Drawing.Size(575, 440);
             this.txt_log.TabIndex = 2;
             this.txt_log.Text = "";
+            this.txt_log.TextChanged += new System.EventHandler(this.txt_log_TextChanged);
             // 
             // t_con
             // 
@@ -257,6 +261,13 @@
             this.t_clear.Enabled = true;
             this.t_clear.Interval = 3600000;
             this.t_clear.Tick += new System.EventHandler(this.t_clear_Tick);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(9, 291);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(176, 21);
+            this.textBox1.TabIndex = 0;
             // 
             // F_Main
             // 
@@ -274,13 +285,14 @@
             this.Name = "F_Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "数据爬虫";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.F_Main_FormClosing);
             this.Load += new System.EventHandler(this.F_Main_Load);
             this.gb_UrlList.ResumeLayout(false);
             this.pl_info.ResumeLayout(false);
             this.pl_info.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.pl_UrlList.ResumeLayout(false);
+            this.pl_UrlList.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -293,7 +305,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button bt_Start;
-        private System.Windows.Forms.Button bt_Stop;
+        private System.Windows.Forms.Button bt_send;
         private System.Windows.Forms.RichTextBox txt_log;
         private System.Windows.Forms.Panel pl_info;
         private System.Windows.Forms.Label label3;
@@ -307,6 +319,7 @@
         private System.Windows.Forms.Timer t_con;
         private System.Windows.Forms.Label lb_all;
         private System.Windows.Forms.Timer t_clear;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

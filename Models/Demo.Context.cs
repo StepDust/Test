@@ -12,12 +12,11 @@ namespace Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using Common;
     
     public partial class DemoEntities : DbContext
     {
         public DemoEntities()
-            : base(Config.ReadConStr(Config.Name_Demo))
+            : base("name=DemoEntities")
         {
         }
     
@@ -30,5 +29,11 @@ namespace Models
         public virtual DbSet<Menu01> Menu01 { get; set; }
         public virtual DbSet<Menu02> Menu02 { get; set; }
         public virtual DbSet<LoginIP> LoginIP { get; set; }
+        public virtual DbSet<DataItem> DataItem { get; set; }
+        public virtual DbSet<DataType> DataType { get; set; }
+        public virtual DbSet<S_ChatMsg> S_ChatMsg { get; set; }
+        public virtual DbSet<S_Room> S_Room { get; set; }
+        public virtual DbSet<S_RoomMember> S_RoomMember { get; set; }
+        public virtual DbSet<S_User> S_User { get; set; }
     }
 }

@@ -5,10 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.Web.Mvc;
+using Models;
 
-namespace EBuy {
+namespace EBuy
+{
 
-    public class Manager : Controller {
+    public class Manager : Controller
+    {
 
         /// <summary>
         /// 设置Response状态
@@ -28,9 +31,11 @@ namespace EBuy {
         public void ResWrite(string str)
         {
 
-            try {
+            try
+            {
                 Icon i = Icon.Success;
-                if (string.IsNullOrEmpty(str)) {
+                if (string.IsNullOrEmpty(str))
+                {
                     str = "请输入正确的数据！";
                     i = Icon.Error;
                 }
@@ -40,9 +45,21 @@ namespace EBuy {
 
                 Response.Write(Utils.ObjectToJson(res));
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 ResObj res = new ResObj("错误信息", e.StackTrace + "报错，" + e.Message, Icon.Error);
                 Response.Write(Utils.ObjectToJson(res));
+            }
+        }
+
+
+        public S_User _User
+        {
+            get
+            {
+                if (Session["S_User"] != null)
+                    return Session["S_User"] as S_User;
+                return null;
             }
         }
 

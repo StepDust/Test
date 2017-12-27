@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Models;
 using Common;
 
-namespace BLL.Demo {
+namespace BLL.Demo
+{
     /// <summary>
     /// 登录IP获取
     /// </summary>
-    public class LoginIPService : BaseService<LoginIP> {
-        public LoginIPService() :base(Config.Name_Demo) {}
+    public class LoginIPService : BaseService<LoginIP>
+    {
+        public LoginIPService() : base(Config.Name_Demo) { }
     }
 }

@@ -1,0 +1,249 @@
+﻿@using EBuy.Areas.WebFunction.Controllers
+@model IndexData
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[,] str =
+{   // 名称，方法
+        { "Socket","t"}
+    };
+}
+@section css{
+    <style>
+        .con {
+            /*border:1px solid #ccc;*/
+            border-radius: 3px;
+            margin: 3px;
+            padding: 7px;
+        }
+
+        .layui-tab-title li {
+            padding: 2px;
+        }
+
+        #log {
+            display: none;
+            padding-top: 20px;
+        }
+
+        .us p {
+            padding: 7px;
+            transition: .2s;
+        }
+
+            .us p label {
+                width: 90%;
+                display: inline-block;
+                transition: .2s;
+            }
+
+                .us p label:hover {
+                    color: #009688;
+                    padding-left: 1%;
+                }
+    </style>
+}
+
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title title-pin">
+        @{
+            for (int i = 0; i < str.Length / 2; i++)
+            {
+                <li class="@(i==0?"layui-this":"")">@str[i, 0]</li>
+            }
+        }
+    </ul>
+    <div class="layui-tab-content">
+        <!-- WebSoket -->
+        <div class="layui-tab-item layui-show">
+            <div class="layui-row">
+                <div class="layui-col-sm3 con">
+
+                    <div class="layui-tab">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this layui-col-sm6"><i class="fa fa-user"></i></li>
+                            <li class="layui-col-sm6"><i class="fa fa-users"></i></li>
+                        </ul>
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show us">
+                                @{
+                                    if (Model.UserList != null && Model.UserList.Count > 0)
+                                    {
+                                        foreach (var item in Model.UserList)
+                                        {
+                                            <p ondblclick="CreateRoom(@item.id)">
+                                                @if (item.LoginState == 1)
+                                                {
+                                                    <span class="layui-badge-dot layui-bg-green"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="layui-badge-dot"></span>
+                                                }
+                                                <label>
+                                                    @item.UserName，
+                                                    @item.Password
+                                                </label>
+                                            </p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>暂无数据</p>
+                                    }
+                                }
+                            </div>
+                            <div class="layui-tab-item">
+                                群聊
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm8 con">
+                    <fieldset class="layui-field-title">
+                        <legend>对话框</legend>
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section jq{
+
+
+    @{
+        if (Model._USer == null)
+        {
+            <script>
+                var l = layer.open({
+                    type: 1,
+                    closeBtn: 0, //不显示关闭按钮
+                    anim: 2,
+                    shade: .9,
+                    offset: ['25%', '25%'],
+                    content: $("#log"),
+                    resize: false,
+                    end: function () {
+                        parent.iframe.prop("src", location.href);
+                    }
+                });
+
+                $("#subLog").click(function () {
+                    var data = {
+                        "UserName": $("#log input[name=UserName]").val(),
+                        "Password": $("#log input[name=Password]").val()
+                    }
+                    $.post("/Soket/LoginSoket", data, function (res) {
+
+                        layer.close(l);
+
+                        if (res != null) {
+                            parent.layer.msg("登录成功", {
+                                icon: 1,
+
+                            });
+                        }
+                        else {
+                            layer.msg("登录失败", {
+                                icon: 0
+                            });
+                        }
+                    });
+
+                });
+            </script>
+        }
+        else
+        {
+            <script src="~/Content/Script/Plug/Socket/socket.io.js"></script>
+            <script>
+
+                var socket = new WebSocket("ws://192.168.20.93:8888");
+
+                // 连接监听
+                socket.onopen = function (res) {
+                    socket.send("嘿嘿嘿！");
+                    parent.layer.msg('服务器已连接！', { icon:1 });
+                };
+                // 建立一个事件监听，监听后台返回来的数据
+                socket.onmessage=function (data) {
+                    parent.layer.msg('这是后台返回来的消息：'+ data);
+                };
+                /**
+                 * 发送消息
+                 */
+                function sendMessageToServer(message) {
+                    socket.send(message);
+                }
+
+                /*
+                * 关闭连接监听器
+                */
+                socket.onclose = function () {
+                    parent.layer.msg('链接已关闭!', { icon: 0 });
+                };
+
+                /**
+                 *创建房间，开始聊天
+                 */
+                function CreateRoom(userID) {
+                    var myID =@(Model._USer!=null? Model._USer.id:-1);
+                    if (userID == myID) {
+                        layer.msg("请不要自言自语！", { icon: 5 });
+                        return;
+                    }
+                    else if (myID == -1) {
+                        layer.msg("数据加载有误，请重新登录！", { icon: 5 });
+                        return;
+                    }
+
+                    $.post("/Soket/CreateRoom", { userID: userID }, function (res) {
+                        StarChat(room)
+                    })
+
+                }
+
+                /**
+                 * 根据返回的房间信息，创建聊天室
+                 */
+                function StarChat(room) {
+                    soc
+
+
+                }
+
+
+
+            </script>
+        }
+    }
+
+
+
+
+
+
+}
+
+<div id="log" class=" layui-col-sm11">
+    <div class="layui-form-item">
+        <label class="layui-form-label"> 账 号 </label>
+        <div class="layui-input-block">
+            <input type="text" name="UserName" placeholder="请输入账号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"> 密 码 </label>
+        <div class="layui-input-block">
+            <input type="password" name="Password" placeholder="请输入密码" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="submit" class="layui-btn layui-btn-block" value="登录" id="subLog">
+        </div>
+    </div>
+</div>
