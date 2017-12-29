@@ -69,8 +69,8 @@ namespace EBuy.Areas.WebFunction.Controllers
             List<DDS_DataItemDetail> list = _DataItemDetailService.LoadEntities(c => c.DataItemId == type).ToList();
 
 
-            string enumType = "C:\\Users\\zsq13\\Desktop\\enumType.txt";
-            string classData = "C:\\Users\\zsq13\\Desktop\\classData.txt";
+            string enumType = "D:\\Code\\enumType.txt";
+            string classData = "D:\\Code\\classData.txt";
 
             // 开头
             FileAction.AppendStr(enumType, $"        #region {_DataItem.ItemName}\n\n");
