@@ -49,20 +49,20 @@ namespace WinForm {
 
         private void F_Main_Load(object sender, EventArgs e)
         {
-            List<GSQ_Web> list = _GSQ_WebService.LoadEntities(c => true).ToList();
-            for (int i = 0; i < list.Count; i++) {
-                CheckBox box = new CheckBox();
-                box.Name = "cb_" + list[i].Id;
-                box.Tag = list[i].Url;
-                box.Text = list[i].name;
+            //List<GSQ_Web> list = _GSQ_WebService.LoadEntities(c => true).ToList();
+            //for (int i = 0; i < list.Count; i++) {
+            //    CheckBox box = new CheckBox();
+            //    box.Name = "cb_" + list[i].Id;
+            //    box.Tag = list[i].Url;
+            //    box.Text = list[i].name;
 
-                // 位置
-                box.Padding = new Padding(3);
-                box.AutoSize = true;
-                box.Width = 35;
-                box.Location = new Point(10, 25 * i);
-                pl_UrlList.Controls.Add(box);
-            }
+            //    // 位置
+            //    box.Padding = new Padding(3);
+            //    box.AutoSize = true;
+            //    box.Width = 35;
+            //    box.Location = new Point(10, 25 * i);
+            //    pl_UrlList.Controls.Add(box);
+            //}
 
         }
 

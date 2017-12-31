@@ -305,44 +305,44 @@ namespace EBuy.Areas.WebFunction.Controllers
 
         public string Line(string msgid, string msgstr)
         {
-            Dictionary<string, string> area = new Dictionary<string, string>();
-            area.Add("州", "Prefecture");
-            area.Add("省", "Province");
-            area.Add("市", "City");
-            area.Add("县", "County");
-            area.Add("区", "District");
-            area.Add("镇", "Town");
-            area.Add("乡", "Country");
+            //Dictionary<string, string> area = new Dictionary<string, string>();
+            //area.Add("州", "Prefecture");
+            //area.Add("省", "Province");
+            //area.Add("市", "City");
+            //area.Add("县", "County");
+            //area.Add("区", "District");
+            //area.Add("镇", "Town");
+            //area.Add("乡", "Country");
 
-            string last = msgid.Substring(msgid.Length - 1);
+            //string last = msgid.Substring(msgid.Length - 1);
 
 
-            // 若为城市名称
-            if (area.Keys.Contains(last))
-            {
-                msgstr = "";
-                foreach (var item in msgid.Substring(0, msgid.Length - 1))
-                {
-                    // 使用NPingYin插件
-                    string t = Utils.StrToUpper(Pinyin.GetPinyin(item)).Trim();
+            //// 若为城市名称
+            //if (area.Keys.Contains(last))
+            //{
+            //    msgstr = "";
+            //    foreach (var item in msgid.Substring(0, msgid.Length - 1))
+            //    {
+            //        // 使用NPingYin插件
+            //        string t = Utils.StrToUpper(Pinyin.GetPinyin(item)).Trim();
 
-                    if (Regex.IsMatch(t, "[\u4e00-\u9fa5]"))
-                    {
-                        // 使用微软自带转换插件
-                        ChineseChar p = new ChineseChar(item);
-                        t = p.Pinyins.FirstOrDefault();
-                        if (t == null)
-                            t = item + "";
-                        else
-                            t = t.Substring(0, t.Length - 1);
-                        t = Utils.StrToUpper(t);
-                    }
+            //        if (Regex.IsMatch(t, "[\u4e00-\u9fa5]"))
+            //        {
+            //            // 使用微软自带转换插件
+            //            ChineseChar p = new ChineseChar(item);
+            //            t = p.Pinyins.FirstOrDefault();
+            //            if (t == null)
+            //                t = item + "";
+            //            else
+            //                t = t.Substring(0, t.Length - 1);
+            //            t = Utils.StrToUpper(t);
+            //        }
 
-                    msgstr += t + "'";
-                }
-                msgstr = Utils.DelLastChar(msgstr, "'");
-                msgstr += " " + area[last];
-            }
+            //        msgstr += t + "'";
+            //    }
+            //    msgstr = Utils.DelLastChar(msgstr, "'");
+            //    msgstr += " " + area[last];
+            //}
 
             // 去掉多重空格
             Regex regex = new Regex(" +");
@@ -373,7 +373,7 @@ namespace EBuy.Areas.WebFunction.Controllers
         {
             string PoFileCon = FileAction.ReadToStr(path);
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            string reg = "msgid \"(?<msgid>.*)\"\nmsgstr \"(?<msgstr>.*)\"";
+            string reg = "msgid \"(?<msgid>.*)\"\r\nmsgstr \"(?<msgstr>.*)\"";
 
             string[] strArr = DataCheck.GetRegStrArr(PoFileCon, reg);
 
