@@ -61,27 +61,6 @@
     <Compile Include="DataType.cs">
       <DependentUpon>Demo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DDS.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DDS.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DDS.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DDS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DDS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DDS.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DDS_DataItem.cs">
-      <DependentUpon>DDS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DDS_DataItemDetail.cs">
-      <DependentUpon>DDS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Demo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,13 +170,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="DDS.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DDS.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DDS.edmx.diagram">
-      <DependentUpon>DDS.edmx</DependentUpon>
-    </None>
     <None Include="Demo.edmx.diagram">
       <DependentUpon>Demo.edmx</DependentUpon>
     </None>
@@ -211,16 +183,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DDS.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DDS.edmx</DependentUpon>
-      <LastGenOutput>DDS.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DDS.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DDS.edmx</DependentUpon>
-      <LastGenOutput>DDS.cs</LastGenOutput>
-    </Content>
     <Content Include="Demo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Demo.Context.cs</LastGenOutput>

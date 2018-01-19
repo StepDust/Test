@@ -27,8 +27,6 @@ namespace Factory {
                             dbContext = new  DemoEntities(); break;
                         case Config.Name_GSQ:
                             dbContext = new GSQ_PaChongEntities(); break;
-                        case Config.Name_DDS:
-                            dbContext = new DDS_KF_NewEntities(); break;
                     }
                     // 创建了实例后存入
                     if (dbContext != null)
