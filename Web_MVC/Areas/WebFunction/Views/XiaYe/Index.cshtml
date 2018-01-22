@@ -1,0 +1,189 @@
+﻿@using EBuy.Areas.WebFunction.Controllers
+@model IndexData
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[,] str =
+{   // 名称，方法
+        { "花式计算","t"}
+    };
+}
+
+<div class="layui-tab layui-tab-brief">
+    <ul class="layui-tab-title title-pin">
+        @{
+            for (int i = 0; i < str.Length / 2; i++)
+            {
+                <li class="@(i==0?"layui-this":"")">@str[i, 0]</li>
+            }
+        }
+    </ul>
+    <div class="layui-tab-content">
+        <!-- WebSoket -->
+        <div class="layui-tab-item layui-show">
+            <div class="layui-row">
+                <div class="layui-col-sm3 con">
+                    <form class="layui-form  layui-form-pane">
+                        <fieldset class="layui-field-title">
+                            <legend>数值输入</legend>
+                        </fieldset>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-col-sm1">箱长</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="c" placeholder="请输入箱长，默认 '0'" class="layui-input layui-col-sm10">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-col-sm1">箱宽</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="k" placeholder="请输入箱宽，默认 '0'" class="layui-input layui-col-sm10">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-col-sm1">箱高</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="g" placeholder="请输入箱高，默认 '0'" class="layui-input layui-col-sm10">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-col-sm1">类型</label>
+                            <div class="layui-input-block">
+                                <select name="t" lay-verify="">
+                                    <option value="">请选择类型，默认'无'</option>
+                                    <option value="1">卡通箱</option>
+                                    <option value="2">天地盒</option>
+                                    <option value="3">啦啦啦</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="reset" class="layui-btn layui-btn-primary layui-col-xs5">重置</button>
+                        <span class="layui-btn layui-col-xs5" onclick="Calculation()">计算</span>
+
+                    </form>
+
+                </div>
+                <div class="layui-col-sm7 layui-col-sm-offset1 ">
+                    <fieldset class="layui-field-title">
+                        <legend>日志消息</legend>
+                    </fieldset>
+
+                    <table class="layui-table msg" lay-skin="line">
+                        <thead>
+                            <tr>
+                                <th width="50px">行号</th>
+                                <th width="50px">时间</th>
+                                <th width="50px">类型</th>
+                                <th width="50px">箱长</th>
+                                <th width="50px">箱宽</th>
+                                <th width="50px">箱高</th>
+                                <th width="50px">纸度</th>
+                                <th width="50px">纸长</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section jq{
+
+    <script>
+
+        /**
+         * 只允许输入整数和小数
+         */
+        $("input").bind("keydown", function (e) {
+            var val = $(this).val();
+
+            // 当有内容时，禁止输入'-'
+            if ((e.keyCode < 48 || 57 < e.keyCode) && e.keyCode != 8 && e.keyCode != 190) {
+                layer.msg("给我规规矩矩的输数字啊！！！", { icon: 2 });
+                return false;
+            }
+        });
+
+        function Calculation() {
+            var tc = $("input[name=c]").val();
+            var tk = $("input[name=k]").val();
+            var tg = $("input[name=g]").val();
+            var tt = $("select[name=t]").val();
+
+            if (tc.length <= 0) {
+                layer.msg("请输入箱长");
+                $("input[name=c]").focus();
+                return;
+            }
+            if (tk.length <= 0) {
+                layer.msg("请输入箱宽");
+                $("input[name=k]").focus();
+                return;
+            }
+            if (tg.length <= 0) {
+                layer.msg("请输入箱高");
+                $("input[name=g]").focus();
+                return;
+            }
+            if (tt.length <= 0) {
+                layer.msg("请选择类型");
+                $("select[name=t]").focus();
+                return;
+            }
+
+            var c = parseFloat(tc);
+            var k = parseFloat(tk);
+            var g = parseFloat(tg);
+
+
+
+            GetMsg(c, k, g, tt, 1, 1);
+
+        }
+
+
+        function GetMsg(c, k, g, zd, zc) {
+
+            var str = "<tr>";
+            str += "<td>" + bq($(".msg tr").length) + "</td>";
+            str += "<td>" + show() + "</td>";
+            str += "<td>" + $("select[name=t]").find("option:selected").text(); + "</td>";
+            str += "<td>" + c + "</td>";
+            str += "<td>" + k + "</td>";
+            str += "<td>" + g + "</td>";
+            str += "<td>" + zd + "</td>";
+            str += "<td>" + zc + "</td>";
+            str += "</tr>";
+
+            $(".msg tbody").append(str);
+
+        }
+
+        function show() {
+            var mydate = new Date();
+            var str = "" + mydate.getFullYear() + "/";
+            str += (mydate.getMonth() + 1) + "/";
+            str += mydate.getDate() + "&nbsp;&nbsp;";
+            str += mydate.getHours() + ":";
+            str += mydate.getMinutes() + ":";
+            str += mydate.getSeconds();
+            return str;
+        }
+
+        function bq(num) {
+            if (num < 10)
+                return "0" + num;
+            return num + "";
+        }
+
+
+    </script>
+}

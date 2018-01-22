@@ -12,18 +12,20 @@ namespace Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GSQ_Log
+    public partial class DT_DataItem
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> OperateTime { get; set; }
-        public Nullable<int> OperateUserId { get; set; }
-        public string OperateManagerId { get; set; }
-        public Nullable<int> OperateTypeDetailId { get; set; }
-        public string AccessPage { get; set; }
-        public string AccessName { get; set; }
-        public string IPAddress { get; set; }
-        public string Browser { get; set; }
+        public Nullable<int> ParentId { get; set; }
+        public string ItemCode { get; set; }
+        public string ItemName { get; set; }
+        public Nullable<int> IsTree { get; set; }
+        public Nullable<int> SortCode { get; set; }
         public string Description { get; set; }
+        public int EnabledMark { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
+        public string ByName { get; set; }
     }
 }

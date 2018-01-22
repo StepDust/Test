@@ -13,10 +13,10 @@ namespace Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DDS_KF_NewEntities : DbContext
+    public partial class KFMY_KF_NewEntities : DbContext
     {
-        public DDS_KF_NewEntities()
-            : base("name=DDS_KF_NewEntities")
+        public KFMY_KF_NewEntities()
+            : base("name=KFMY_KF_NewEntities")
         {
         }
     
@@ -25,7 +25,7 @@ namespace Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DDS_DataItem> DDS_DataItem { get; set; }
-        public virtual DbSet<DDS_DataItemDetail> DDS_DataItemDetail { get; set; }
+        public virtual DbSet<DT_DataItem> DT_DataItem { get; set; }
+        public virtual DbSet<DT_DataItemDetail> DT_DataItemDetail { get; set; }
     }
 }

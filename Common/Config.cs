@@ -19,16 +19,11 @@ namespace Common {
         /// CodeFirst数据库
         /// </summary>
         public const string Name_CodeFirst = "CodeFirst";
-
-        /// <summary>
-        /// GSQ_PaChong数据库
-        /// </summary>
-        public const string Name_GSQ = "GSQ_PaChongEntities";
-
+        
         /// <summary>
         /// DDS_KF_New数据库
         /// </summary>
-        public const string Name_DDS = "DDS_KF_NewEntities";
+        public const string Name_KFMY = "KFMY_KF_NewEntities";
 
         #endregion
 

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace BLL.DDS
 {
-    public class DDS_DataItemService : BaseService<DDS_DataItem>
+    public class DT_DataItemService : BaseService<DT_DataItem>
     {
-        public DDS_DataItemService() : base(Config.Name_DDS) { }
+        public DT_DataItemService() : base(Config.Name_KFMY) { }
     }
 }

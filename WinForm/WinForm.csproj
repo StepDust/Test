@@ -65,12 +65,6 @@
     <Reference Include="WebDriver, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="F_Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F_Main.designer.cs">
-      <DependentUpon>F_Main.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trans.cs">
@@ -79,9 +73,6 @@
     <Compile Include="Trans.Designer.cs">
       <DependentUpon>Trans.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="F_Main.resx">
-      <DependentUpon>F_Main.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

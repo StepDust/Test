@@ -7,7 +7,6 @@ using Common;
 using Models;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-using BLL.GSQ_PaChong;
 
 namespace WinForm {
     public partial class Trans : Form {
@@ -45,7 +44,7 @@ namespace WinForm {
             }
         }
 
-        GSQ_WebService _GSQ_WebService = new GSQ_WebService();
+     
 
         private void F_Main_Load(object sender, EventArgs e)
         {

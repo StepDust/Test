@@ -256,6 +256,7 @@
     <Compile Include="Areas\WebFunction\Controllers\LanguageController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\LoginController.cs" />
     <Compile Include="Areas\WebFunction\Controllers\SoketController.cs" />
+    <Compile Include="Areas\WebFunction\Controllers\XiaYeController.cs" />
     <Compile Include="Areas\WebFunction\WebFunctionAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Manager.cs" />
@@ -318,6 +319,7 @@
     <Content Include="Areas\WebFunction\Views\Language\Index.cshtml" />
     <Content Include="Areas\WebFunction\Views\Soket\Index.cshtml" />
     <Content Include="Areas\WebFunction\Views\AddCode\Index.cshtml" />
+    <Content Include="Areas\WebFunction\Views\XiaYe\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -327,6 +329,7 @@
     <Content Include="Views\Shared\_Sidebar.cshtml" />
     <Content Include="Views\Shared\_Input.cshtml" />
     <Content Include="Views\Shared\_Lock.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

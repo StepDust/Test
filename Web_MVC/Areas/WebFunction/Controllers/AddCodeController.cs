@@ -13,8 +13,8 @@ namespace EBuy.Areas.WebFunction.Controllers
     public class AddCodeController : Manager
     {
 
-        DDS_DataItemService _DataItemService = new DDS_DataItemService();
-        DDS_DataItemDetailService _DataItemDetailService = new DDS_DataItemDetailService();
+        DT_DataItemService _DataItemService = new DT_DataItemService();
+        DT_DataItemDetailService _DataItemDetailService = new DT_DataItemDetailService();
 
         // GET: WebFunction/AddCode
         public ActionResult Index()
@@ -22,51 +22,17 @@ namespace EBuy.Areas.WebFunction.Controllers
             string sel = ViewBag.sel;
 
             ViewBag.Type = new SelectList(_DataItemService.LoadEntities(c => true), "Id", "ItemName", sel);
-
-            //var detail = _DataItemDetailService.LoadEntities(c => true).ToList();
-            //var item = _DataItemService.LoadEntities(c => true).ToList();
-
-            //string sql = "";
-            //string sttt = "";
-
-            //foreach (var model in detail)
-            //{
-            //    if (string.IsNullOrEmpty(model.ByName))
-            //        continue;
-
-            //    string ccc = GetByName(model.ByName);
-            //    if (ccc == model.ByName)
-            //        continue;
-
-            //    sql += $"update DDS_DataItemDetail set ByName='{ccc}' where id={model.Id};\n";
-
-            //    //_DataItemDetailService.EditEntity(model);
-            //}
-
-            //foreach (var model in item)
-            //{
-            //    if (string.IsNullOrEmpty(model.ByName))
-            //        continue;
-
-            //    string ccc = GetByName(model.ByName);
-            //    if (ccc == model.ByName)
-            //        continue;
-
-            //    sttt += $"update DDS_DataItem set ByName='{ccc}' where id={model.Id};\n";
-            //    //_DataItemService.EditEntity(model);
-            //}
-
-
-
+            
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(int type)
         {
-            DDS_DataItem _DataItem = _DataItemService.FindEntity(type);
+            
+            DT_DataItem _DataItem = _DataItemService.FindEntity(type);
 
-            List<DDS_DataItemDetail> list = _DataItemDetailService.LoadEntities(c => c.DataItemId == type).ToList();
+            List<DT_DataItemDetail> list = _DataItemDetailService.LoadEntities(c => c.DataItemId == type).ToList();
 
 
             string enumType = "D:\\Code\\enumType.txt";
@@ -76,7 +42,7 @@ namespace EBuy.Areas.WebFunction.Controllers
             FileAction.AppendStr(enumType, $"        #region {_DataItem.ItemName}\n\n");
             FileAction.AppendStr(classData, $"        #region {_DataItem.ItemName}\n\n");
             // 父级
-            DDS_DataItemDetail begin = new DDS_DataItemDetail();
+            DT_DataItemDetail begin = new DT_DataItemDetail();
             begin.Id = _DataItem.Id;
             begin.ItemCode = _DataItem.ItemCode;
             begin.ByName = _DataItem.ByName;
@@ -97,12 +63,12 @@ namespace EBuy.Areas.WebFunction.Controllers
             FileAction.AppendStr(enumType, $"        #endregion\n\n");
             FileAction.AppendStr(classData, $"        #endregion\n\n");
 
-            ViewBag.sel = type;
+            ViewBag.sel = type+"";
 
             return Success("执行成功！", "AddCode/Index", false);
         }
 
-        public string GetEnumType(DDS_DataItemDetail _DataItemDetail)
+        public string GetEnumType(DT_DataItemDetail _DataItemDetail)
         {
             string str = $"" +
                 $"        /// <summary>\n" +
@@ -113,7 +79,7 @@ namespace EBuy.Areas.WebFunction.Controllers
             return str;
         }
 
-        public string GetClassData(DDS_DataItemDetail _DataItemDetail)
+        public string GetClassData(DT_DataItemDetail _DataItemDetail)
         {
             string str = $"" +
                 $"        /// <summary>\n" +
@@ -124,7 +90,7 @@ namespace EBuy.Areas.WebFunction.Controllers
                 "        {\n" +
                 "            get\n" +
                 "            {\n" +
-                $"                return _DDS_DataItem.GetDataItemDetail(EnumDataItem.{_DataItemDetail.ByName}).Id;\n" +
+                $"                return _DT_DataItem.GetDataItemDetail(EnumDataItem.{_DataItemDetail.ByName}).Id;\n" +
                 "            }\n" +
                 "            set { }\n" +
                 "        }\n\n";

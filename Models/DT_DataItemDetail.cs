@@ -12,16 +12,24 @@ namespace Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GSQ_DataItem
+    public partial class DT_DataItemDetail
     {
         public int Id { get; set; }
-        public int ParentId { get; set; }
+        public int DataItemId { get; set; }
+        public Nullable<int> ParentId { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
-        public Nullable<int> IsTree { get; set; }
+        public string ItemValue { get; set; }
+        public string QuickQuery { get; set; }
+        public string SimpleSpelling { get; set; }
+        public Nullable<int> IsDefault { get; set; }
         public Nullable<int> SortCode { get; set; }
         public string Description { get; set; }
         public int EnabledMark { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public int CreateUserId { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
+        public string ByName { get; set; }
     }
 }

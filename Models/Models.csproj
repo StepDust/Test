@@ -61,27 +61,6 @@
     <Compile Include="DataType.cs">
       <DependentUpon>Demo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DDS.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DDS.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DDS.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DDS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DDS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DDS.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DDS_DataItem.cs">
-      <DependentUpon>DDS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DDS_DataItemDetail.cs">
-      <DependentUpon>DDS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Demo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,65 +76,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Demo.edmx</DependentUpon>
     </Compile>
-    <Compile Include="GSQ.Context.cs">
+    <Compile Include="DT_DataItem.cs">
+      <DependentUpon>KFMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DT_DataItemDetail.cs">
+      <DependentUpon>KFMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KFMY.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GSQ.Context.tt</DependentUpon>
+      <DependentUpon>KFMY.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="GSQ.cs">
+    <Compile Include="KFMY.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GSQ.tt</DependentUpon>
+      <DependentUpon>KFMY.tt</DependentUpon>
     </Compile>
-    <Compile Include="GSQ.Designer.cs">
+    <Compile Include="KFMY.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GSQ.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_DataItem.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_DataItemDetail.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Log.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Manager.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Manager_Role.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Manager_Role_Value.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Navigation.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_News.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_NewsClass.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_NewsWords.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Users.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_UsersInterest.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_UsersNews.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Web.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GSQ_Words.cs">
-      <DependentUpon>GSQ.tt</DependentUpon>
+      <DependentUpon>KFMY.edmx</DependentUpon>
     </Compile>
     <Compile Include="Lang.cs">
       <DependentUpon>Demo.tt</DependentUpon>
@@ -191,36 +131,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="DDS.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DDS.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DDS.edmx.diagram">
-      <DependentUpon>DDS.edmx</DependentUpon>
-    </None>
     <None Include="Demo.edmx.diagram">
       <DependentUpon>Demo.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="GSQ.edmx">
+    <EntityDeploy Include="KFMY.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GSQ.Designer.cs</LastGenOutput>
+      <LastGenOutput>KFMY.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="GSQ.edmx.diagram">
-      <DependentUpon>GSQ.edmx</DependentUpon>
+    <None Include="KFMY.edmx.diagram">
+      <DependentUpon>KFMY.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DDS.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DDS.edmx</DependentUpon>
-      <LastGenOutput>DDS.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DDS.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DDS.edmx</DependentUpon>
-      <LastGenOutput>DDS.cs</LastGenOutput>
-    </Content>
     <Content Include="Demo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Demo.Context.cs</LastGenOutput>
@@ -231,15 +154,15 @@
       <DependentUpon>Demo.edmx</DependentUpon>
       <LastGenOutput>Demo.cs</LastGenOutput>
     </Content>
-    <Content Include="GSQ.Context.tt">
+    <Content Include="KFMY.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GSQ.edmx</DependentUpon>
-      <LastGenOutput>GSQ.Context.cs</LastGenOutput>
+      <DependentUpon>KFMY.edmx</DependentUpon>
+      <LastGenOutput>KFMY.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="GSQ.tt">
+    <Content Include="KFMY.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GSQ.edmx</DependentUpon>
-      <LastGenOutput>GSQ.cs</LastGenOutput>
+      <DependentUpon>KFMY.edmx</DependentUpon>
+      <LastGenOutput>KFMY.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

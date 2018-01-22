@@ -59,9 +59,6 @@
     <Compile Include="Demo\S_RoomMemberService.cs" />
     <Compile Include="Demo\S_RoomService.cs" />
     <Compile Include="Demo\S_UserService.cs" />
-    <Compile Include="GSQ_PaChong\GSQ_DataItemService.cs" />
-    <Compile Include="GSQ_PaChong\GSQ_NewsService.cs" />
-    <Compile Include="GSQ_PaChong\GSQ_WebService.cs" />
     <Compile Include="Demo\LangService.cs" />
     <Compile Include="Demo\LoginIPService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,8 +88,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CodeFirst\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

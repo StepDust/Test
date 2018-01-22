@@ -25,10 +25,8 @@ namespace Factory {
                     switch (ConStrName) {
                         case Config.Name_Demo:// 
                             dbContext = new  DemoEntities(); break;
-                        case Config.Name_GSQ:
-                            dbContext = new GSQ_PaChongEntities(); break;
-                        case Config.Name_DDS:
-                            dbContext = new DDS_KF_NewEntities(); break;
+                        case Config.Name_KFMY:
+                            dbContext = new KFMY_KF_NewEntities(); break;
                     }
                     // 创建了实例后存入
                     if (dbContext != null)
