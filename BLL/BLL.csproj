@@ -51,8 +51,6 @@
   <ItemGroup>
     <Compile Include="BaseDal.cs" />
     <Compile Include="BaseService.cs" />
-    <Compile Include="DDS\DDS_DataItemDetailService.cs" />
-    <Compile Include="DDS\DDS_DataItemService.cs" />
     <Compile Include="Demo\DataItemService.cs" />
     <Compile Include="Demo\DataTypeService.cs" />
     <Compile Include="Demo\S_ChatMsgService.cs" />
