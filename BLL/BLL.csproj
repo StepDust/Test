@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="BaseDal.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="KFMY\DataItemService.cs" />
+    <Compile Include="KFMY\DT_DataItemDetailService.cs" />
     <Compile Include="Demo\DataItemService.cs" />
     <Compile Include="Demo\DataTypeService.cs" />
     <Compile Include="Demo\S_ChatMsgService.cs" />
