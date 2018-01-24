@@ -17,26 +17,42 @@ namespace EBuy.Areas.WebFunction.Controllers
         DT_DataItemDetailService _DataItemDetailService = new DT_DataItemDetailService();
 
         // GET: WebFunction/AddCode
-        public ActionResult Index()
+        public ActionResult Index(ReqData<TreeView<DT_DataItemDetail>> data)
         {
-            string sel = ViewBag.sel;
 
-            ViewBag.Type = new SelectList(_DataItemService.LoadEntities(c => true), "Id", "ItemName", sel);
-            
-            return View();
+            DT_DataItemDetailService _DataItemDetailService = new DT_DataItemDetailService();
+
+            data.DropList = Utils.BingDrop(_DataItemService.LoadEntities(c => true).ToList(), "Id", "ItemName", data.MsgStr);
+
+            data.DataList = Utils.GetTree(_DataItemDetailService.LoadEntities(c => true).ToList(), "Id", "ParentId", "0", false);
+
+            return View(data);
         }
 
         [HttpPost]
         public ActionResult Index(int type)
         {
-            
+            if (type > 0)
+                GetCode(type);
+            else
+            {
+                var list = _DataItemService.LoadEntities(c => true).ToList();
+                foreach (var item in list)
+                {
+                    GetCode(item.Id);
+                }
+            }
+            return Content(ResObj.LayerScript("执行成功！", Icon.Success));
+        }
+
+        public void GetCode(int type)
+        {
             DT_DataItem _DataItem = _DataItemService.FindEntity(type);
 
             List<DT_DataItemDetail> list = _DataItemDetailService.LoadEntities(c => c.DataItemId == type).ToList();
 
-
-            string enumType = "D:\\Code\\enumType.txt";
-            string classData = "D:\\Code\\classData.txt";
+            string enumType = "D:\\Code\\enumType.cs";
+            string classData = "D:\\Code\\classData.cs";
 
             // 开头
             FileAction.AppendStr(enumType, $"        #region {_DataItem.ItemName}\n\n");
@@ -50,7 +66,7 @@ namespace EBuy.Areas.WebFunction.Controllers
 
             // 添加父级
             FileAction.AppendStr(enumType, GetEnumType(begin));
-            FileAction.AppendStr(classData, GetClassData(begin));
+            FileAction.AppendStr(classData, GetClassData(begin, "GetDataItem"));
 
             // 添加详情
             foreach (var item in list)
@@ -62,11 +78,8 @@ namespace EBuy.Areas.WebFunction.Controllers
             // 结束
             FileAction.AppendStr(enumType, $"        #endregion\n\n");
             FileAction.AppendStr(classData, $"        #endregion\n\n");
-
-            ViewBag.sel = type+"";
-
-            return Success("执行成功！", "AddCode/Index", false);
         }
+
 
         public string GetEnumType(DT_DataItemDetail _DataItemDetail)
         {
@@ -75,25 +88,24 @@ namespace EBuy.Areas.WebFunction.Controllers
                 $"        /// {_DataItemDetail.ItemName}\n" +
                 $"        /// </summary>\n" +
                 $"        [Description(\"{_DataItemDetail.ItemName}\")]\n" +
-                $"        {_DataItemDetail.ByName} = {_DataItemDetail.Id},\n\n";
+                $"        {_DataItemDetail.ByName},\n\n";
             return str;
         }
 
-        public string GetClassData(DT_DataItemDetail _DataItemDetail)
+        public string GetClassData(DT_DataItemDetail _DataItemDetail, string fun = "GetDataItemDetail")
         {
             string str = $"" +
-                $"        /// <summary>\n" +
-                $"        /// {_DataItemDetail.ItemName}\n" +
-                $"        /// </summary>\n" +
-                $"        /// {_DataItemDetail.ByName}= {_DataItemDetail.Id},\n" +
-                $"        public static int {_DataItemDetail.ByName}\n" +
-                "        {\n" +
-                "            get\n" +
-                "            {\n" +
-                $"                return _DT_DataItem.GetDataItemDetail(EnumDataItem.{_DataItemDetail.ByName}).Id;\n" +
-                "            }\n" +
-                "            set { }\n" +
-                "        }\n\n";
+                 $"        /// <summary>\n" +
+                 $"        /// {_DataItemDetail.ItemName}\n" +
+                 $"        /// </summary>\n" +
+                 $"        public static int {_DataItemDetail.ByName}\n" +
+                 "        {\n" +
+                 "            get\n" +
+                 "            {\n" +
+                 $"                return _DT_DataItem.{fun}(EnumDataItem.{_DataItemDetail.ByName}).Id;\n" +
+                 "            }\n" +
+                 //"            set { }\n" +
+                 "        }\n\n";
             return str;
         }
 

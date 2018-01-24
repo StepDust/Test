@@ -15,12 +15,15 @@ using System.Net.NetworkInformation;
 using System.Xml;
 using Sgml;
 using System.Xml.XPath;
+using System.Reflection;
 
-namespace Common {
+namespace Common
+{
     /// <summary>
     /// 工具类
     /// </summary>
-    public static class Utils {
+    public static class Utils
+    {
 
         #region 字符串处理
 
@@ -33,7 +36,8 @@ namespace Common {
         /// <returns></returns>
         public static string ReplaceStr(string str, string oldStr, string newStr)
         {
-            if (string.IsNullOrEmpty(oldStr)) {
+            if (string.IsNullOrEmpty(oldStr))
+            {
                 return "";
             }
             return str.Replace(oldStr, newStr);
@@ -48,8 +52,10 @@ namespace Common {
         public static int GetStrCount(string str, string s)
         {
             int count = 0;
-            for (int i = 0; i < str.Length - s.Length;) {
-                if (s == str.Substring(i, s.Length)) {
+            for (int i = 0; i < str.Length - s.Length;)
+            {
+                if (s == str.Substring(i, s.Length))
+                {
                     count++;
                     i += s.Length;
                 }
@@ -71,7 +77,8 @@ namespace Common {
         public static string GetStrToLen(object obj, int length, string str, bool IsAppend = false, bool IsOver = true)
         {
             string text = obj + "";
-            while (text.Length < length) {
+            while (text.Length < length)
+            {
                 if (IsAppend)
                     text += str;
                 else
@@ -96,8 +103,10 @@ namespace Common {
 
             List<double> list = new List<double>();
             string[] s = str.Split(c);
-            for (int i = 0; i < s.Length; i++) {
-                if (DataCheck.CheckReg(s[i], DataCheck.Reg_Num)) {
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (DataCheck.CheckReg(s[i], DataCheck.Reg_Num))
+                {
                     list.Add(double.Parse(s[i]));
                 }
             }
@@ -119,7 +128,8 @@ namespace Common {
 
             int index = str.Length;
 
-            while (num-- > 0 && !string.IsNullOrEmpty(str)) {
+            while (num-- > 0 && !string.IsNullOrEmpty(str))
+            {
                 index = str.LastIndexOf(strchar);
                 if (0 <= index && index <= str.Length - 1)
                     str = str.Substring(0, str.LastIndexOf(strchar));
@@ -161,7 +171,8 @@ namespace Common {
             if (format.IndexOf("{0}") < 0 || format.IndexOf("{1}") < 0)
                 return "";
             format = format.Trim();
-            foreach (string item in dic.Keys) {
+            foreach (string item in dic.Keys)
+            {
                 if (string.IsNullOrEmpty(item + ""))
                     continue;
                 if (string.IsNullOrEmpty(dic[item] + ""))
@@ -238,7 +249,8 @@ namespace Common {
             if (Arr.Length <= con)
                 con = -1;
 
-            for (int i = 0; i < Arr.Length; i++) {
+            for (int i = 0; i < Arr.Length; i++)
+            {
                 string t = Arr[i];
 
                 if (string.IsNullOrEmpty(t))
@@ -246,7 +258,8 @@ namespace Common {
 
                 if (con == -1)
                     t = t.Substring(0, 1).ToUpper() + t.Substring(1);
-                else {
+                else
+                {
                     str = str.ToLower();
 
                     return str.Substring(0, 1).ToUpper() + str.Substring(1);
@@ -387,7 +400,8 @@ namespace Common {
         /// </summary>
         public static string UrlEncode(string str)
         {
-            if (string.IsNullOrEmpty(str)) {
+            if (string.IsNullOrEmpty(str))
+            {
                 return "";
             }
             str = str.Replace("'", "");
@@ -399,7 +413,8 @@ namespace Common {
         /// </summary>
         public static string UrlDecode(string str)
         {
-            if (string.IsNullOrEmpty(str)) {
+            if (string.IsNullOrEmpty(str))
+            {
                 return "";
             }
             return HttpContext.Current.Server.UrlDecode(str);
@@ -415,10 +430,13 @@ namespace Common {
         public static string CombUrlTxt(string _url, string _keys, params string[] _values)
         {
             StringBuilder urlParams = new StringBuilder();
-            try {
+            try
+            {
                 string[] keyArr = _keys.Split(new char[] { '&' });
-                for (int i = 0; i < keyArr.Length; i++) {
-                    if (!string.IsNullOrEmpty(_values[i]) && _values[i] != "") {
+                for (int i = 0; i < keyArr.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty(_values[i]) && _values[i] != "")
+                    {
                         _values[i] = UrlEncode(_values[i]);
                         urlParams.Append(string.Format(keyArr[i], _values) + "&");
                     }
@@ -426,7 +444,8 @@ namespace Common {
                 if (!string.IsNullOrEmpty(urlParams.ToString()) && _url.IndexOf("?") == -1)
                     urlParams.Insert(0, "?");
             }
-            catch {
+            catch
+            {
                 return _url;
             }
             return _url + DelLastChar(urlParams.ToString(), '&');
@@ -466,7 +485,8 @@ namespace Common {
         {
             string userIP = "未获取用户IP";
 
-            try {
+            try
+            {
                 if (System.Web.HttpContext.Current == null
             || System.Web.HttpContext.Current.Request == null
             || System.Web.HttpContext.Current.Request.ServerVariables == null)
@@ -476,7 +496,8 @@ namespace Common {
 
                 //CDN加速后取到的IP   
                 CustomerIP = System.Web.HttpContext.Current.Request.Headers["Cdn-Src-Ip"];
-                if (!string.IsNullOrEmpty(CustomerIP)) {
+                if (!string.IsNullOrEmpty(CustomerIP))
+                {
                     return CustomerIP;
                 }
 
@@ -486,12 +507,14 @@ namespace Common {
                 if (!String.IsNullOrEmpty(CustomerIP))
                     return CustomerIP;
 
-                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null) {
+                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null)
+                {
                     CustomerIP = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
                     if (CustomerIP == null)
                         CustomerIP = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
                 }
-                else {
+                else
+                {
                     CustomerIP = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
 
                 }
@@ -543,24 +566,30 @@ namespace Common {
         public static string GetMac()
         {
             string madAddr = null;
-            try {
+            try
+            {
                 ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
                 ManagementObjectCollection moc2 = mc.GetInstances();
-                foreach (ManagementObject mo in moc2) {
-                    if (Convert.ToBoolean(mo["IPEnabled"]) == true) {
+                foreach (ManagementObject mo in moc2)
+                {
+                    if (Convert.ToBoolean(mo["IPEnabled"]) == true)
+                    {
                         madAddr = mo["MacAddress"].ToString();
                         madAddr = madAddr.Replace(':', '-');
                     }
                     mo.Dispose();
                 }
-                if (madAddr == null) {
+                if (madAddr == null)
+                {
                     return "unknown";
                 }
-                else {
+                else
+                {
                     return madAddr;
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 return "unknown";
             }
         }
@@ -571,19 +600,23 @@ namespace Common {
         /// <returns>操作系统名称</returns>  
         public static string GetSystemName()
         {
-            try {
+            try
+            {
                 string strSystemName = string.Empty;
                 ManagementObjectSearcher mos = new ManagementObjectSearcher("root\\CIMV2", "SELECT PartComponent FROM Win32_SystemOperatingSystem");
-                foreach (ManagementObject mo in mos.Get()) {
+                foreach (ManagementObject mo in mos.Get())
+                {
                     strSystemName = mo["PartComponent"].ToString();
                 }
                 mos = new ManagementObjectSearcher("root\\CIMV2", "SELECT Caption FROM Win32_OperatingSystem");
-                foreach (ManagementObject mo in mos.Get()) {
+                foreach (ManagementObject mo in mos.Get())
+                {
                     strSystemName = mo["Caption"].ToString();
                 }
                 return strSystemName;
             }
-            catch {
+            catch
+            {
                 return "unknown";
             }
         }
@@ -594,18 +627,21 @@ namespace Common {
         /// <returns>操作系统类型</returns>  
         public static string GetSystemType()
         {
-            try {
+            try
+            {
                 string strSystemType = string.Empty;
                 ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
                 ManagementObjectCollection moc = mc.GetInstances();
-                foreach (ManagementObject mo in moc) {
+                foreach (ManagementObject mo in moc)
+                {
                     strSystemType = mo["SystemType"].ToString();
                 }
                 moc = null;
                 mc = null;
                 return strSystemType;
             }
-            catch {
+            catch
+            {
                 return "unknown";
             }
         }
@@ -645,7 +681,8 @@ namespace Common {
         {
             SgmlReader reader = null;
 
-            reader = new SgmlReader {
+            reader = new SgmlReader
+            {
                 DocType = "HTML",
                 InputStream = new StringReader(GetUrlHtml(Url))
             };
@@ -665,7 +702,8 @@ namespace Common {
         {
             SgmlReader reader = null;
 
-            reader = new SgmlReader {
+            reader = new SgmlReader
+            {
                 DocType = "HTML",
                 InputStream = new StringReader(context)
             };
@@ -709,17 +747,21 @@ namespace Common {
             linkUrl += "&pageindex=" + pageId;
 
             //计算页数
-            if (totalCount < 1 || pageSize < 1) {
+            if (totalCount < 1 || pageSize < 1)
+            {
                 return OutPagingHtml("", linkUrl, pageSize, typeName, totalCount);
             }
             int pageCount = totalCount / pageSize;
-            if (pageCount < 1) {
+            if (pageCount < 1)
+            {
                 return OutPagingHtml("", linkUrl, pageSize, typeName, totalCount);
             }
-            if (totalCount % pageSize > 0) {
+            if (totalCount % pageSize > 0)
+            {
                 pageCount += 1;
             }
-            if (pageCount <= 1) {
+            if (pageCount <= 1)
+            {
                 return OutPagingHtml("", linkUrl, pageSize, typeName, totalCount);
             }
 
@@ -734,16 +776,20 @@ namespace Common {
             string firstStr = "<a href=\"" + ReplaceStr(linkUrl, pageId, "1") + "\">1</a>";
             string lastStr = "<a href=\"" + ReplaceStr(linkUrl, pageId, pageCount.ToString()) + "\">" + pageCount.ToString() + "</a>";
 
-            if (pageIndex <= 1) {
+            if (pageIndex <= 1)
+            {
                 firstBtn = "<span class=\"disabled\">«</span>";
             }
-            if (pageIndex >= pageCount) {
+            if (pageIndex >= pageCount)
+            {
                 lastBtn = "<span class=\"disabled\">»</span>";
             }
-            if (pageIndex == 1) {
+            if (pageIndex == 1)
+            {
                 firstStr = "<span class=\"current\">1</span>";
             }
-            if (pageIndex == pageCount) {
+            if (pageIndex == pageCount)
+            {
                 lastStr = "<span class=\"current\">" + pageCount.ToString() + "</span>";
             }
             // 中间开始的页码
@@ -756,18 +802,23 @@ namespace Common {
                 lastNum = pageCount - 1;
 
             pageStr.Append(firstBtn + firstStr);
-            if (pageIndex >= centSize) {
+            if (pageIndex >= centSize)
+            {
                 pageStr.Append("<span>...</span>\n");
             }
-            for (int i = firstNum; i <= lastNum; i++) {
-                if (i == pageIndex) {
+            for (int i = firstNum; i <= lastNum; i++)
+            {
+                if (i == pageIndex)
+                {
                     pageStr.Append("<span class=\"current\">" + i + "</span>");
                 }
-                else {
+                else
+                {
                     pageStr.Append("<a href=\"" + ReplaceStr(linkUrl, pageId, i.ToString()) + "\">" + i + "</a>");
                 }
             }
-            if (pageCount - pageIndex > centSize - ((centSize / 2))) {
+            if (pageCount - pageIndex > centSize - ((centSize / 2)))
+            {
                 pageStr.Append("<span>...</span>");
             }
             pageStr.Append(lastStr + lastBtn);
@@ -825,7 +876,8 @@ namespace Common {
             pageStr.Append("    });");
 
             // 添加下拉替换方法
-            if (!string.IsNullOrEmpty(typeName)) {
+            if (!string.IsNullOrEmpty(typeName))
+            {
                 // 去掉所有参数，保留'?'
                 linkUrl = linkUrl.Substring(0, linkUrl.LastIndexOf("?") + 1);
                 // 拼接下拉类型参数
@@ -856,18 +908,43 @@ namespace Common {
         /// <param name="allVal">“全部”的值</param>
         /// <param name="allStr">“全部”文本</param>
         /// <returns></returns>
-        public static List<SelectListItem> BingDrop<k, v>(Dictionary<k, v> dic, k selVal, bool isAll = true, string allVal = "-1", string allStr = "全  部")
+        public static List<SelectListItem> BingDrop<k, v>(Dictionary<k, v> dic, k selVal)
         {
             List<SelectListItem> list = new List<SelectListItem>();
 
-            foreach (k key in dic.Keys) {
+            foreach (k key in dic.Keys)
                 list.Add(CreatSelectListItem(dic[key] + "", key + "", key + "" == selVal + ""));
-            }
-
-            if (isAll)
-                list.Insert(0, CreatSelectListItem(allStr, allVal, allVal == selVal + ""));
 
             return list;
+        }
+
+        /// <summary>
+        /// 创建下拉框
+        /// </summary>
+        /// <param name="dic">数据源，(Val,Text)</param>
+        /// <param name="selVal">默认选中值</param>
+        /// <param name="isAll">是否有“全部”</param>
+        /// <param name="allVal">“全部”的值</param>
+        /// <param name="allStr">“全部”文本</param>
+        /// <returns></returns>
+        public static List<SelectListItem> BingDrop<T>(List<T> list, string val, string text, string selVal = "")
+        {
+            if (list == null || list.Count <= 0)
+                return new List<SelectListItem>();
+
+            List<SelectListItem> Drop = new List<SelectListItem>();
+
+            Type type = list[0].GetType();
+            PropertyInfo valPro = type.GetProperty(val);
+            PropertyInfo textPro = type.GetProperty(text);
+
+            foreach (var node in list)
+            {
+                SelectListItem item = CreatSelectListItem(textPro.GetValue(node) + "", valPro.GetValue(node) + "", selVal);
+                Drop.Add(item);
+            }
+
+            return Drop;
         }
 
         /// <summary>
@@ -881,7 +958,8 @@ namespace Common {
         {
             List<SelectListItem> list = new List<SelectListItem>();
 
-            for (int i = 0; i < Arr.Length; i++) {
+            for (int i = 0; i < Arr.Length; i++)
+            {
                 int val = StarVal + i;
                 list.Add(CreatSelectListItem(Arr[i].ToString(), val.ToString(), val == SelVal));
             }
@@ -896,14 +974,139 @@ namespace Common {
         /// <param name="Val">值</param>
         /// <param name="IsSel">是否选中</param>
         /// <returns></returns>
-        private static SelectListItem CreatSelectListItem(string Text, string Val, bool IsSel)
+        private static SelectListItem CreatSelectListItem(string Text, string Val, string SelVal)
         {
-            SelectListItem item = new SelectListItem() {
+            SelectListItem item = new SelectListItem()
+            {
                 Text = Text,
                 Value = Val,
-                Selected = IsSel
+                Selected = SelVal == Val
             };
             return item;
+        }
+
+        /// <summary>
+        /// 创建下拉项
+        /// </summary>
+        /// <param name="Text">文本</param>
+        /// <param name="Val">值</param>
+        /// <param name="IsSel">是否选中</param>
+        /// <returns></returns>
+        private static SelectListItem CreatSelectListItem(string Text, string Val, bool IsSell)
+        {
+            SelectListItem item = new SelectListItem()
+            {
+                Text = Text,
+                Value = Val,
+                Selected = IsSell
+            };
+            return item;
+        }
+
+        #endregion
+
+        #region 创建树
+
+        /// <summary>
+        /// 创建层级列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Data">数据源</param>
+        /// <param name="MainAttr">主属性</param>
+        /// <param name="FromAttr">从属性</param>
+        /// <param name="TopVal">顶级值</param>
+        /// <param name="IsTree">是否为树结构</param>
+        /// <param name="MaxLayer">最深层级</param>
+        /// <returns></returns>
+        public static List<TreeView<T>> GetTree<T>(List<T> Data, string MainAttr, string FromAttr, string TopVal, bool IsTree = true, int MaxLayer = 5)
+        {
+
+            // 判断数据源是否有数据
+            if (Data == null || Data.Count <= 0)
+                return null;
+
+            List<TreeView<T>> tree = new List<TreeView<T>>();
+
+            Type type = Data[0].GetType();
+            // 获取主属性
+            PropertyInfo mainPro = type.GetProperty(MainAttr);
+            // 获取从属性
+            PropertyInfo fromPro = type.GetProperty(FromAttr);
+            // 判断主从属性是否均存在
+            if (mainPro == null || fromPro == null)
+                return null;
+
+            Dictionary<object, TreeView<T>> dic = new Dictionary<object, TreeView<T>>();
+            // 最大循环次数
+            int maxCon = MaxLayer * Data.Count;
+            while (Data.Count > 0 && maxCon > 0)
+            {
+                maxCon--;
+                T t = Data[0];
+                Data.RemoveAt(0);
+
+                TreeView<T> leaf = new TreeView<T>();
+                leaf.Node = t;
+
+                // 获取值
+                object mainVal = mainPro.GetValue(t);
+                object fromVal = fromPro.GetValue(t);
+
+                // 若为顶级节点
+                if (fromVal + "" == TopVal)
+                {
+                    leaf.Layer = 1;
+                    if (leaf.Layer > MaxLayer)
+                        continue;
+                    tree.Add(leaf);
+                    dic.Add(mainVal, leaf);
+                }
+                // 若存在父级节点
+                else if (dic.Keys.Contains(fromVal))
+                {
+                    // 将当前对象插入
+                    TreeView<T> temp = dic[fromVal];
+                    leaf.Layer = temp.Layer + 1;
+                    if (leaf.Layer > MaxLayer)
+                        continue;
+                    // 是否为树结构
+                    if (IsTree)
+                    {
+                        if (temp.Children == null)
+                            temp.Children = new List<TreeView<T>>();
+                        temp.Children.Add(leaf);
+                        dic.Add(mainVal, leaf);
+                    }
+                    else
+                    {
+                        // 获取父级的索引
+                        int index = tree.IndexOf(temp) + 1;
+                        // 查找父级的最后一个子级
+                        while (index < tree.Count)
+                        {
+                            // 若当前节点的层级更小
+                            if (tree[index++].Layer < leaf.Layer)
+                            {
+                                index--;
+                                break;
+                            }
+                        }
+                        // 防止超出索引
+                        if (index < tree.Count)
+                            tree.Insert(index, leaf);
+                        else
+                            tree.Add(leaf);
+                        dic.Add(mainVal, leaf);
+                    }
+                }
+                // 否则
+                else
+                {
+                    Data.Add(t);
+                }
+            }
+
+            return tree;
         }
 
         #endregion
@@ -921,7 +1124,8 @@ namespace Common {
                 return null;
             List<T> list = new List<T>();
 
-            foreach (T item in tree) {
+            foreach (T item in tree)
+            {
                 list.Add(item);
 
                 List<T> child = Reflex.GetValByField<List<T>>(item, field);
@@ -935,5 +1139,25 @@ namespace Common {
 
 
         #endregion
+    }
+
+    /// <summary>
+    /// 树视图
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class TreeView<T>
+    {
+        /// <summary>
+        /// 当前对象
+        /// </summary>
+        public T Node { get; set; }
+        /// <summary>
+        /// 当前层级
+        /// </summary>
+        public int Layer { get; set; }
+        /// <summary>
+        /// 子集
+        /// </summary>
+        public List<TreeView<T>> Children { get; set; }
     }
 }

@@ -149,7 +149,7 @@ namespace Web_MVC.Controllers
             foreach (var item in Enum.GetValues(typeof(Icon)))
                 dic.Add((int)item, item.ToString());
 
-            ViewBag.icon = Utils.BingDrop(dic, data.Icon ?? -1, false);
+            ViewBag.icon = Utils.BingDrop(dic, data.Icon ?? -1);
             ViewBag.MsgStr = data.MsgStr;
 
             LoginInfo info = Utils.GetLoginInfo();

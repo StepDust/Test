@@ -318,8 +318,8 @@
     <Content Include="Areas\WebFunction\Views\Crawler\Index.cshtml" />
     <Content Include="Areas\WebFunction\Views\Language\Index.cshtml" />
     <Content Include="Areas\WebFunction\Views\Soket\Index.cshtml" />
-    <Content Include="Areas\WebFunction\Views\AddCode\Index.cshtml" />
     <Content Include="Areas\WebFunction\Views\XiaYe\Index.cshtml" />
+    <Content Include="Areas\WebFunction\Views\AddCode\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

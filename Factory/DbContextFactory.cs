@@ -35,7 +35,7 @@ namespace Factory {
                 return dbContext;
             }
             catch(Exception e) {
-                return null;
+                throw e;
             }
         }
 
