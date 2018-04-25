@@ -1,5 +1,6 @@
 ﻿using Common;
 using Models;
+using Models.CodeFirst;
 using System;
 using System.Data.Entity;
 using System.Runtime.Remoting.Messaging;
@@ -13,28 +14,22 @@ namespace Factory {
         /// <summary>
         /// 返回上下文对象，保证线程内唯一
         /// </summary>
-        /// <param name="ConStrName">连接字符串名字</param>
+        /// <param name="ConStr">连接字符串</param>
         /// <returns></returns>
-        public static DbContext CreateDbContext(string ConStrName) {
+        public static DbContext CreateDbContext() {
             try {
                 // 从线程数据集合（CallContext）中拿对应键值的数据
-                DbContext dbContext = (DbContext)CallContext.GetData(ConStrName);
+                DbContext dbContext = (DbContext)CallContext.GetData(typeof(DbContext).AssemblyQualifiedName);
                 // 若没有上下文对象
                 if (dbContext == null) {
-                    // 根据ConStrName，进行分支创建
-                    switch (ConStrName) {
-                        case Config.Name_Demo:// 
-                            dbContext = new  DemoEntities(); break;
-                        case Config.Name_KFMY:
-                            dbContext = new KFMY_KF_NewEntities(); break;
-                    }
+                    dbContext = new CodeFirst();
                     // 创建了实例后存入
                     if (dbContext != null)
-                        CallContext.SetData(ConStrName, dbContext);
+                        CallContext.SetData(typeof(DbContext).AssemblyQualifiedName, dbContext);
                 }
                 return dbContext;
             }
-            catch(Exception e) {
+            catch (Exception e) {
                 throw e;
             }
         }

@@ -6,7 +6,7 @@
     public class CodeFirst : DbContext {
 
         public CodeFirst()
-            : base(Config.ReadConStr(Config.Name_CodeFirst)) {
+            : base("name=CodeFirst") {
 
             // 所有Model Class的修改会同步更新到数据表，并且数据会迁移
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<CodeFirst, DbEditConfig>());
@@ -28,9 +28,7 @@
 
         #region 数据表
 
-        // public DbSet<MyEntity> MyEntities { get; set; }
-        
-         public DbSet<dt_user> dt_user { get; set; }
+        // public DbSet<dt_user> dt_user { get; set; }
 
 
         #endregion

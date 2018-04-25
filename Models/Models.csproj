@@ -76,27 +76,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Demo.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DT_DataItem.cs">
-      <DependentUpon>KFMY.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DT_DataItemDetail.cs">
-      <DependentUpon>KFMY.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KFMY.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KFMY.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KFMY.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KFMY.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KFMY.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KFMY.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Lang.cs">
       <DependentUpon>Demo.tt</DependentUpon>
     </Compile>
@@ -134,13 +113,6 @@
     <None Include="Demo.edmx.diagram">
       <DependentUpon>Demo.edmx</DependentUpon>
     </None>
-    <EntityDeploy Include="KFMY.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KFMY.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="KFMY.edmx.diagram">
-      <DependentUpon>KFMY.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -153,16 +125,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Demo.edmx</DependentUpon>
       <LastGenOutput>Demo.cs</LastGenOutput>
-    </Content>
-    <Content Include="KFMY.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KFMY.edmx</DependentUpon>
-      <LastGenOutput>KFMY.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="KFMY.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KFMY.edmx</DependentUpon>
-      <LastGenOutput>KFMY.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -32,12 +32,7 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -51,16 +46,7 @@
   <ItemGroup>
     <Compile Include="BaseDal.cs" />
     <Compile Include="BaseService.cs" />
-    <Compile Include="KFMY\DataItemService.cs" />
-    <Compile Include="KFMY\DT_DataItemDetailService.cs" />
-    <Compile Include="Demo\DataItemService.cs" />
-    <Compile Include="Demo\DataTypeService.cs" />
-    <Compile Include="Demo\S_ChatMsgService.cs" />
-    <Compile Include="Demo\S_RoomMemberService.cs" />
-    <Compile Include="Demo\S_RoomService.cs" />
-    <Compile Include="Demo\S_UserService.cs" />
-    <Compile Include="Demo\LangService.cs" />
-    <Compile Include="Demo\LoginIPService.cs" />
+    <Compile Include="CodeFirst\DT_UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,5 +75,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,10 +16,9 @@ namespace BLL {
         /// <summary>
         /// 数据服务类
         /// </summary>
-        /// <param name="ConStrName">连接字符串名字</param>
-        public BaseService(string ConStrName)
+        public BaseService()
         {
-            baseDalModel = new BaseDal<T>(ConStrName) as IBaseDal<T>;
+            baseDalModel = new BaseDal<T>() as IBaseDal<T>;
         }
 
         /// <summary>

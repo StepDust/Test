@@ -23,16 +23,15 @@ namespace BLL {
         /// 数据访问层的公共方法
         /// </summary>
         /// <param name="ConStrName">连接字符串名字</param>
-        public BaseDal(string ConStrName) {
-            dbWrite = DbContextFactory.CreateDbContext(ConStrName);
+        public BaseDal() {
+            dbWrite = DbContextFactory.CreateDbContext();
         }
 
         /// <summary>
         /// 数据库上下文对象
         /// </summary>
-        DbContext DbWrite {
-            get { return dbWrite; }
-        }
+        DbContext DbWrite { get { return dbWrite; } }
+
         DbContext dbWrite;
 
         #region 添加数据
