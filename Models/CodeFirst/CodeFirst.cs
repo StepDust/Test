@@ -30,6 +30,7 @@
 
         public DbSet<dt_user> dt_user { get; set; }
 
+        public DbSet<dt_role> dt_role { get; set; }
 
         #endregion
     }

@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="BaseDal.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="CodeFirst\DT_RoleService.cs" />
     <Compile Include="CodeFirst\DT_UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

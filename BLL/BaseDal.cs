@@ -9,7 +9,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq.Expressions;
 using System.Reflection;
 using Factory;
-using Interface;
+using Interface; 
 
 namespace BLL {
 
@@ -147,8 +147,8 @@ namespace BLL {
         public T FindEntity(int ID) {
             // 获取当前的表名
             string tableName = typeof(T).Name;
-            string sqlstr = string.Format(" select top(1) * from {0} where id='{1}' ", tableName, ID + "");
-            return LoadEntities(sqlstr).FirstOrDefault();
+            string sqlStr = string.Format(" select top(1) * from {0} where id='{1}' ", tableName, ID + "");
+            return LoadEntities<T>(sqlStr).FirstOrDefault();
         }
 
         /// <summary>
@@ -163,16 +163,16 @@ namespace BLL {
         /// <summary>
         /// 查询数据集
         /// </summary>
-        /// <param name="sqlstr">SQL语句</param>
+        /// <param name="sqlStr">SQL语句</param>
         /// <returns></returns>
-        public IQueryable<T> LoadEntities(string sqlstr) {
-            return DbWrite.Set<T>().SqlQuery(sqlstr).AsNoTracking().AsQueryable();
+        public IQueryable<K> LoadEntities<K>(string sqlStr) {
+            return DbWrite.Database.SqlQuery<K>(sqlStr).AsQueryable();
         }
 
         /// <summary>
         /// 查询数据集
         /// </summary>
-        /// <param name="sqlstr">查询条件</param>
+        /// <param name="sqlStr">查询条件</param>
         /// <returns></returns>
         public IQueryable<T> LoadEntities(Expression<Func<T, bool>> where) {
             return DbWrite.Set<T>().Where(where).AsNoTracking();

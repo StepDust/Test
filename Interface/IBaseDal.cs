@@ -82,7 +82,7 @@ namespace Interface {
         /// </summary>
         /// <param name="sqlstr">SQL语句</param>
         /// <returns></returns>
-        IQueryable<T> LoadEntities(string sqlstr);
+        IQueryable<K> LoadEntities<K>(string sqlstr);
 
         /// <summary>
         /// 查询数据集

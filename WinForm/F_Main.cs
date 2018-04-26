@@ -18,12 +18,15 @@ namespace WinForm {
 
         private void F_Main_Load(object sender, EventArgs e) {
             DT_UserService _UserService = new DT_UserService();
-            dt_user user = new dt_user()
+            DT_RoleService _RoleService = new DT_RoleService();
+            dt_role role = new dt_role()
             {
-                Name = new Random().Next(10000) + "",
-                CreateTime=DateTime.Now
+                Age = new Random().Next(10000) + "",
+                LastTime=DateTime.Now
             };
-            _UserService.AddEntity(user);
+            _RoleService.AddEntity(role);
+            
+            List<dt_role> s= _UserService.LoadEntities<dt_role>("select * from dt_role").ToList();
         }
 
 

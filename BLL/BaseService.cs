@@ -149,16 +149,16 @@ namespace BLL {
         /// <summary>
         /// 查询数据集
         /// </summary>
-        /// <param name="sqlstr">SQL语句</param>
+        /// <param name="sqlStr">SQL语句</param>
         /// <returns></returns>
-        public IQueryable<T> LoadEntities(string sqlstr) {
-            return BaseDalModel.LoadEntities(sqlstr);
+        public IQueryable<K> LoadEntities<K>(string sqlStr) {
+            return BaseDalModel.LoadEntities<K>(sqlStr);
         }
 
         /// <summary>
         /// 查询数据集
         /// </summary>
-        /// <param name="sqlstr">查询条件</param>
+        /// <param name="sqlStr">查询条件</param>
         /// <returns></returns>
         public IQueryable<T> LoadEntities(Expression<Func<T, bool>> where) {
             return BaseDalModel.LoadEntities(where);
@@ -167,9 +167,9 @@ namespace BLL {
         /// <summary>
         /// 查询数据集
         /// </summary>
-        /// <param name="sqlstr">查询条件</param>
+        /// <param name="sqlStr">查询条件</param>
         /// <param name="field">排序字段</param>
-        /// <param name="sqlstr">是否升序，默认：true</param>
+        /// <param name="sqlStr">是否升序，默认：true</param>
         /// <returns></returns>
         public IQueryable<T> LoadEntities<s>(Expression<Func<T, bool>> where, Func<T, s> field, bool isAsc = true) {
             if (isAsc)

@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CodeFirst\CodeFirst.cs" />
+    <Compile Include="CodeFirst\dt_role.cs" />
     <Compile Include="CodeFirst\dt_user.cs" />
     <Compile Include="DataItem.cs">
       <DependentUpon>Demo.tt</DependentUpon>
