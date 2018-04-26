@@ -2,7 +2,7 @@
 
 namespace Common.AttributeExpand.Validates {
     /// <summary>
-    /// 
+    /// 长度校验
     /// </summary>
     public class LengthVailDateAttribute : BaseValidateAttribute {
 

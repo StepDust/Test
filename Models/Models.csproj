@@ -81,6 +81,7 @@
     <Compile Include="S_User.cs">
       <DependentUpon>Demo.tt</DependentUpon>
     </Compile>
+    <Compile Include="tempClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Demo.edmx">
