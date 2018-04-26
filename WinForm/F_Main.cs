@@ -25,7 +25,7 @@ namespace WinForm {
                 LastTime=DateTime.Now
             };
             _RoleService.AddEntity(role);
-            
+               //    测试====
             List<dt_role> s= _UserService.LoadEntities<dt_role>("select * from dt_role").ToList();
         }
 
