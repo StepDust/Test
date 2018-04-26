@@ -1,4 +1,5 @@
 ﻿using BLL.CodeFirst;
+using Models.CodeFirst;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +18,12 @@ namespace WinForm {
 
         private void F_Main_Load(object sender, EventArgs e) {
             DT_UserService _UserService = new DT_UserService();
-
-
+            dt_user user = new dt_user()
+            {
+                Name = new Random().Next(10000) + "",
+                CreateTime=DateTime.Now
+            };
+            _UserService.AddEntity(user);
         }
 
 

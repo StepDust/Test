@@ -21,7 +21,7 @@ namespace Interface {
         /// </summary>
         /// <param name="entity">数据集合</param>
         /// <returns></returns>
-        List<T> AddEntityList(List<T> entityList);
+        IEnumerable<T> AddEntityList(IEnumerable<T> entityList);
 
         #endregion
 
@@ -46,7 +46,7 @@ namespace Interface {
         /// </summary>
         /// <param name="entityList">数据集合</param>
         /// <returns></returns>
-        List<T> DeleteEntityList(List<T> entityList);
+        IEnumerable<T> DeleteEntityList(IEnumerable<T> entityList);
 
         #endregion
 

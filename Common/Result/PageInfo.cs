@@ -1,4 +1,5 @@
-﻿using Interface;
+﻿using Common.Utils;
+using Interface;
 using System;
 
 namespace Common {
@@ -96,7 +97,7 @@ namespace Common {
         /// 执行分页
         /// </summary>
         public void GetPageList() {
-            PageContent = Utils.OutPageList(PageSize, PageIndex, PageCount, PageUrl, PageCent, PageDrop);
+            PageContent = EnythingUtils.OutPageList(PageSize, PageIndex, PageCount, PageUrl, PageCent, PageDrop);
         }
 
         #endregion

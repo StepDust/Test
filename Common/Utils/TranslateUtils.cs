@@ -1,22 +1,20 @@
-﻿using System;
+﻿using Common.Utils;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Common {
     /// <summary>
     /// 翻译类
     /// </summary>
-    public class Translate {
+    public class TranslateUtils {
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id">AppID</param>
         /// <param name="key">密钥</param>
-        public Translate(string id, string key)
+        public TranslateUtils(string id, string key)
         {
             appid = id;
             appkey = key;
@@ -74,7 +72,7 @@ namespace Common {
             string u = url;
             u += "&salt=" + salt;// 随机数
             u += "&q=" + HttpUtility.UrlEncode(str);// 翻译内容，需转码
-            u += "&sign=" + HttpUtility.UrlEncode(Encryption.EncryptMD5(appid + str + salt + appkey));// 签名
+            u += "&sign=" + HttpUtility.UrlEncode(EncryptionUtils.EncryptMD5(appid + str + salt + appkey));// 签名
             BaiduTransAPI tran = GetReqObj<BaiduTransAPI>(u);
             return tran;
         }
@@ -84,7 +82,7 @@ namespace Common {
             where T : class, new()
         {
             T obj = new T();
-            obj = Utils.JsonToObject(Utils.GetUrlHtml(url), obj) as T;
+            obj = EnythingUtils.JsonToObject(EnythingUtils.GetUrlHtml(url), obj) as T;
 
             return obj;
         }

@@ -28,7 +28,7 @@
 
         #region 数据表
 
-        // public DbSet<dt_user> dt_user { get; set; }
+        public DbSet<dt_user> dt_user { get; set; }
 
 
         #endregion

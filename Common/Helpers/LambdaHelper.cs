@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-
 namespace Common {
 
     #region Lambda拓展
@@ -93,26 +91,4 @@ namespace Common {
 
     #endregion
 
-    #region 数组拓展
-
-    public static class Arr {
-
-        /// <summary>
-        /// 返回字符串
-        /// </summary>
-        /// <param name="arr"></param>
-        /// <param name="c">分割字符</param>
-        /// <returns></returns>
-        public static string ToString<s>(this s[] arr, string c = " , ") {
-            StringBuilder str = new StringBuilder();
-            for (int i = 0; i < arr.Length; i++) {
-                if (i > 0)
-                    str.Append(c);
-                str.Append(arr[i]+"");
-            }
-            return str.ToString();
-        }
-    }
-
-    #endregion
 }

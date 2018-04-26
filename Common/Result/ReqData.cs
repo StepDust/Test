@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
 
 namespace Common {
 
@@ -14,7 +13,7 @@ namespace Common {
         /// 导航栏标题
         /// </summary>
         public string Title {
-            get { return DataCheck.GetSecurityStr(ref title); }
+            get { return Regular.GetSecurityStr(ref title); }
             set { title = value; }
         }
         private string title;
@@ -32,18 +31,18 @@ namespace Common {
         }
         private List<T> dataList;
 
-        /// <summary>
-        /// 下拉框列表
-        /// </summary>
-        public List<SelectListItem> DropList {
-            get {
-                if (dropList == null)
-                    dropList = new List<SelectListItem>();
-                return dropList;
-            }
-            set { dropList = value; }
-        }
-        private List<SelectListItem> dropList;
+        ///// <summary>
+        ///// 下拉框列表
+        ///// </summary>
+        //public List<SelectListItem> DropList {
+        //    get {
+        //        if (dropList == null)
+        //            dropList = new List<SelectListItem>();
+        //        return dropList;
+        //    }
+        //    set { dropList = value; }
+        //}
+        //private List<SelectListItem> dropList;
 
         #endregion
 
@@ -62,7 +61,7 @@ namespace Common {
         /// 消息ID
         /// </summary> 
         public string MsgID {
-            get { return DataCheck.GetSecurityStr(ref msgid); }
+            get { return Regular.GetSecurityStr(ref msgid); }
             set { msgid = value; }
         }
         private string msgid;
@@ -71,7 +70,7 @@ namespace Common {
         /// 消息文本
         /// </summary> 
         public string MsgStr {
-            get => DataCheck.GetSecurityStr(ref msgstr);
+            get => Regular.GetSecurityStr(ref msgstr);
             set { msgstr = value; }
         }
         private string msgstr;

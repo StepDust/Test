@@ -6,8 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.CodeFirst {
-    public class DT_UserService : BaseDal<dt_user> {
-
-
+    public class DT_UserService : BaseService<dt_user> {
+        
     }
 }

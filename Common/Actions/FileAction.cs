@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Common {
     /// <summary>
-    /// 文件操作类
+    /// 文件操作
     /// </summary>
     public class FileAction {
 
@@ -23,7 +23,7 @@ namespace Common {
                 return "";
 
             // 判断是否为相对路径
-            if (!DataCheck.CheckReg(path[0] + "", DataCheck.Reg_Eng))
+            if (!Regular.CheckReg(path[0] + "", Regular.Reg_Eng))
                 HttpContext.Current.Server.MapPath(path);
             // 判断文件是否存在
             if (!File.Exists(path))
@@ -48,7 +48,7 @@ namespace Common {
                 return null;
 
             // 判断是否为相对路径
-            if (!DataCheck.CheckReg(path[0] + "", DataCheck.Reg_Eng))
+            if (!Regular.CheckReg(path[0] + "", Regular.Reg_Eng))
                 HttpContext.Current.Server.MapPath(path);
             // 判断文件是否存在
             if (!File.Exists(path))
@@ -79,23 +79,23 @@ namespace Common {
             if (text != null)
                 return "";
 
-            string reg = string.Format(DataCheck.Reg_BetWeen, startStr, endStr);
+            string reg = string.Format(Regular.Reg_BetWeen, startStr, endStr);
             int starCon = 0;
             int endCon = 0;
             string res = "";
             foreach (var item in text) {
-                string temp = DataCheck.GetRegStr(item, reg);
+                string temp = Regular.GetRegStr(item, reg);
                 // 单行匹配
                 if (!string.IsNullOrEmpty(temp))
                     return temp;
                 // 多行匹配
-                if (DataCheck.CheckReg(item, startStr)) {
+                if (Regular.CheckReg(item, startStr)) {
                     starCon++;
                 }
                 if (starCon > 0) {
                     res += item;
                 }
-                if (DataCheck.CheckReg(item, endStr))
+                if (Regular.CheckReg(item, endStr))
                     endCon++;
                 if (starCon == endCon)
                     return res;
@@ -124,7 +124,7 @@ namespace Common {
         public static void AppendStr(string path, string con)
         {
             // 判断是否为绝对路径
-            if (!DataCheck.CheckReg(path[0] + "", DataCheck.Reg_Eng))
+            if (!Regular.CheckReg(path[0] + "", Regular.Reg_Eng))
                 return;
             int indexSuffix = path.LastIndexOf('.');
             int indexSlash = path.LastIndexOf('\\');

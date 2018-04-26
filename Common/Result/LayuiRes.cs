@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Utils;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,18 +7,18 @@ namespace Common {
     /// <summary>
     /// 返回结果
     /// </summary>
-    public class ResObj {
+    public class LayuiRes {
 
         #region 构造函数
 
-        public ResObj() { }
+        public LayuiRes() { }
 
         /// <summary>
         /// 返回结果
         /// </summary>
         /// <param name="s">状态</param>
         /// <param name="m">消息</param>
-        public ResObj(int s, string m) {
+        public LayuiRes(int s, string m) {
             State = s;
             Msg = m;
         }
@@ -27,7 +28,7 @@ namespace Common {
         /// </summary>
         /// <param name="s">状态</param>
         /// <param name="o">对象</param>
-        public ResObj(int s, object o) {
+        public LayuiRes(int s, object o) {
             State = s;
             Obj = o;
         }
@@ -37,7 +38,7 @@ namespace Common {
         /// </summary>
         /// <param name="t">标题</param>
         /// <param name="m">消息</param>
-        public ResObj(string t, string m) {
+        public LayuiRes(string t, string m) {
             layer_Title = t;
             Msg = m;
         }
@@ -48,7 +49,7 @@ namespace Common {
         /// <param name="t">标题</param>
         /// <param name="m">消息</param>
         /// <param name="i">图标</param>
-        public ResObj(string t, string m, Icon i) {
+        public LayuiRes(string t, string m, Icon i) {
             layer_Title = t;
             Msg = m;
             icon = i;
@@ -63,7 +64,7 @@ namespace Common {
         /// 规定：[-1：初始化]，[0：失败]，[1：成功]，[2：信息]，[3：帮助]，[4：锁定]，[5：开心]，[6：意外错误]
         /// </summary>
         public int? State {
-            get { return DataCheck.GetNumInMinToMax(ref state, -1, 6); }
+            get { return Regular.GetNumInMinToMax(ref state, -1, 6); }
             set { state = value; }
         }
         private int? state;
@@ -94,7 +95,7 @@ namespace Common {
         /// 规定：[-1：随机]，[0：变大]，[1：向下]，[2：向上]，[3：向右]，[4：风车]，[5：渐显]，[6：抖动]
         /// </summary>
         public int? Layer_Anim {
-            get { return DataCheck.GetNumInMinToMax(ref anim, -1, 6); }
+            get { return Regular.GetNumInMinToMax(ref anim, -1, 6); }
             set { anim = value; }
         }
         private int? anim;
@@ -154,7 +155,7 @@ namespace Common {
 
             // 链接
             if (string.IsNullOrEmpty(url))
-                url = Utils.GetUrlInfo();
+                url = EnythingUtils.GetUrlInfo();
             // 动画
             anim = anim % 7;
             if (anim < 0)
@@ -173,7 +174,7 @@ namespace Common {
             str.Append("location.href='" + url + "'; ");
             // 由于要返回的是父窗的方法，所以加上parent.
             str.Append("parent.layer.msg('" + msg + "',{");
-            str.Append(Utils.MosaicKeyVal(dic) + "});");
+            str.Append(EnythingUtils.MosaicKeyVal(dic) + "});");
             str.Append("</script>");
 
             return str.ToString();

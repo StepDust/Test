@@ -5,8 +5,8 @@ namespace Common {
     /// <summary>
     /// 数据校验
     /// </summary>
-    public static class DataCheck {
-
+    public static class Regular {
+        
         #region 正则表达式
 
         /// <summary>

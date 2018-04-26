@@ -15,5 +15,6 @@ namespace Models.CodeFirst {
 
         public string Name { get; set; }
 
+        public DateTime? CreateTime { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using Interface;
+using Factory;
 
 namespace BLL {
     /// <summary>
@@ -16,9 +17,8 @@ namespace BLL {
         /// <summary>
         /// 数据服务类
         /// </summary>
-        public BaseService()
-        {
-            baseDalModel = new BaseDal<T>() as IBaseDal<T>;
+        public BaseService() {
+            baseDalModel = DataBaseFactory.CreateService<T>();
         }
 
         /// <summary>
@@ -27,6 +27,7 @@ namespace BLL {
         IBaseDal<T> BaseDalModel {
             get { return baseDalModel; }
         }
+
         IBaseDal<T> baseDalModel;
 
         #region 添加数据
@@ -37,13 +38,12 @@ namespace BLL {
         /// <param name="entity">实体对象</param>
         /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public int AddEntity(T entity, bool issave = true)
-        {
+        public T AddEntity(T entity, bool issave = true) {
             BaseDalModel.AddEntity(entity);
             if (issave)
-                return SaveChanges();
-            else
-                return 0;
+                if (SaveChanges() <= 0)
+                    return null;
+            return entity;
         }
 
         /// <summary>
@@ -52,13 +52,12 @@ namespace BLL {
         /// <param name="entity">数据集合</param>
         /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public int AddEntityList(List<T> entityList, bool issave = true)
-        {
+        public IEnumerable<T> AddEntityList(IEnumerable<T> entityList, bool issave = true) {
             BaseDalModel.AddEntityList(entityList);
             if (issave)
-                return SaveChanges();
-            else
-                return 0;
+                if (SaveChanges() <= 0)
+                    return null;
+            return entityList;
         }
 
         #endregion
@@ -71,8 +70,7 @@ namespace BLL {
         /// <param name="ID">主键ID</param>
         /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public int DeleteEntity(int ID, bool issave = true)
-        {
+        public int DeleteEntity(int ID, bool issave = true) {
             BaseDalModel.DeleteEntity(ID);
             if (issave)
                 return SaveChanges();
@@ -86,8 +84,7 @@ namespace BLL {
         /// <param name="entity">数据实体</param>
         /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public int DeleteEntity(T entity, bool issave = true)
-        {
+        public int DeleteEntity(T entity, bool issave = true) {
             BaseDalModel.DeleteEntity(entity);
             if (issave)
                 return SaveChanges();
@@ -101,8 +98,7 @@ namespace BLL {
         /// <param name="entityList">数据集合</param>
         /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public int DeleteEntityList(List<T> entityList, bool issave = true)
-        {
+        public int DeleteEntityList(IEnumerable<T> entityList, bool issave = true) {
             BaseDalModel.DeleteEntityList(entityList);
             if (issave)
                 return SaveChanges();
@@ -120,8 +116,7 @@ namespace BLL {
         /// <param name="entity">数据实体</param>
         /// <param name="issave">是否立即保存</param>
         /// <returns></returns>
-        public int EditEntity(T entity, bool issave = true)
-        {
+        public int EditEntity(T entity, bool issave = true) {
             BaseDalModel.EditEntity(entity);
             if (issave)
                 return SaveChanges();
@@ -138,8 +133,7 @@ namespace BLL {
         /// </summary>
         /// <param name="ID">主键ID</param>
         /// <returns></returns>
-        public T FindEntity(int ID)
-        {
+        public T FindEntity(int ID) {
             return BaseDalModel.FindEntity(ID);
         }
 
@@ -148,8 +142,7 @@ namespace BLL {
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public T FindEntity(Expression<Func<T, bool>> where)
-        {
+        public T FindEntity(Expression<Func<T, bool>> where) {
             return BaseDalModel.FindEntity(where);
         }
 
@@ -158,8 +151,7 @@ namespace BLL {
         /// </summary>
         /// <param name="sqlstr">SQL语句</param>
         /// <returns></returns>
-        public IQueryable<T> LoadEntities(string sqlstr)
-        {
+        public IQueryable<T> LoadEntities(string sqlstr) {
             return BaseDalModel.LoadEntities(sqlstr);
         }
 
@@ -168,8 +160,7 @@ namespace BLL {
         /// </summary>
         /// <param name="sqlstr">查询条件</param>
         /// <returns></returns>
-        public IQueryable<T> LoadEntities(Expression<Func<T, bool>> where)
-        {
+        public IQueryable<T> LoadEntities(Expression<Func<T, bool>> where) {
             return BaseDalModel.LoadEntities(where);
         }
 
@@ -180,8 +171,7 @@ namespace BLL {
         /// <param name="field">排序字段</param>
         /// <param name="sqlstr">是否升序，默认：true</param>
         /// <returns></returns>
-        public IQueryable<T> LoadEntities<s>(Expression<Func<T, bool>> where, Func<T, s> field, bool isAsc = true)
-        {
+        public IQueryable<T> LoadEntities<s>(Expression<Func<T, bool>> where, Func<T, s> field, bool isAsc = true) {
             if (isAsc)
                 return BaseDalModel.LoadEntities(where).OrderBy(field).AsQueryable();
             return BaseDalModel.LoadEntities(where).OrderByDescending(field).AsQueryable();
@@ -196,8 +186,7 @@ namespace BLL {
         /// <param name="field">排序字段</param>
         /// <param name="isAsc">是否升序，默认：true</param>
         /// <returns></returns>
-        public IQueryable<T> LoadEntities<s>(IPage info, Expression<Func<T, bool>> where, Func<T, s> field, bool isAsc = true)
-        {
+        public IQueryable<T> LoadEntities<s>(IPage info, Expression<Func<T, bool>> where, Func<T, s> field, bool isAsc = true) {
             var dataList = LoadEntities(where, field, isAsc);
             info.PageCount = dataList.Count();
             return dataList.Skip((info.PageIndex - 1) * info.PageSize).Take(info.PageSize);
@@ -211,8 +200,7 @@ namespace BLL {
         /// 事务开始
         /// </summary>
         /// <param name="tranLevel">事物隔离级别</param>
-        public void BeginTrans()
-        {
+        public void BeginTrans() {
             IsolationLevel tranLevel = IsolationLevel.ReadUncommitted;
             BaseDalModel.BeginTrans(tranLevel);
         }
@@ -220,16 +208,14 @@ namespace BLL {
         /// <summary>
         /// 提交当前操作的结果
         /// </summary>
-        public int Commit()
-        {
+        public int Commit() {
             return BaseDalModel.Commit();
         }
 
         /// <summary>
         /// 把当前操作回滚成未提交状态
         /// </summary>
-        public void Rollback()
-        {
+        public void Rollback() {
             BaseDalModel.Rollback();
         }
 
@@ -238,8 +224,7 @@ namespace BLL {
         /// <summary>
         /// 提交当前操作的结果
         /// </summary>
-        public int SaveChanges()
-        {
+        public int SaveChanges() {
             return BaseDalModel.SaveChanges();
         }
 
@@ -252,8 +237,7 @@ namespace BLL {
         /// <param name="where">查询条件</param>
         /// <param name="def">默认值</param>
         /// <returns></returns>
-        public s GetFieldVal<s>(Expression<Func<T, s>> Field, Expression<Func<T, bool>> where, s def = default(s))
-        {
+        public s GetFieldVal<s>(Expression<Func<T, s>> Field, Expression<Func<T, bool>> where, s def = default(s)) {
             var list = BaseDalModel.LoadEntities(where);
             if (list.Count() > 0)
                 return list.Select(Field).FirstOrDefault();
@@ -265,8 +249,7 @@ namespace BLL {
         /// </summary>
         /// <param name="where">查询条件</param>
         /// <returns></returns>
-        public bool Exists(Expression<Func<T, bool>> where)
-        {
+        public bool Exists(Expression<Func<T, bool>> where) {
             return BaseDalModel.LoadEntities(where).Count() > 0;
         }
 

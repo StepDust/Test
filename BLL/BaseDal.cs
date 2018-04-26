@@ -24,7 +24,7 @@ namespace BLL {
         /// </summary>
         /// <param name="ConStrName">连接字符串名字</param>
         public BaseDal() {
-            dbWrite = DbContextFactory.CreateDbContext();
+            dbWrite = DataBaseFactory.CreateDbContext();
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace BLL {
         /// </summary>
         /// <param name="entity">数据集合</param>
         /// <returns></returns>
-        public List<T> AddEntityList(List<T> entityList) {
+        public IEnumerable<T> AddEntityList(IEnumerable<T> entityList) {
             DbWrite.Set<T>().AddRange(entityList);
             return entityList;
         }
@@ -87,7 +87,7 @@ namespace BLL {
         /// </summary>
         /// <param name="entityList">数据集合</param>
         /// <returns></returns>
-        public List<T> DeleteEntityList(List<T> entityList) {
+        public IEnumerable<T> DeleteEntityList(IEnumerable<T> entityList) {
             DbWrite.Set<T>().RemoveRange(entityList);
             return entityList;
         }
