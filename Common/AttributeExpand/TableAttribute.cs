@@ -1,6 +1,4 @@
-﻿using Interfaces.AttributeExpand;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Common.AttributeExpand {
 
@@ -8,7 +6,7 @@ namespace Common.AttributeExpand {
     /// 数据表描述特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
-    public class TableAttribute : Attribute, ITableAttribute {
+    public class TableAttribute : Attribute {
 
         public string Name { get; set; }
         public string Remark { get; set; }

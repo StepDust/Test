@@ -1,5 +1,4 @@
-﻿using Interfaces;
-
+﻿
 namespace Common.AttributeExpand.Validates {
     /// <summary>
     /// 长度校验
@@ -25,8 +24,8 @@ namespace Common.AttributeExpand.Validates {
             else base.Remark = "长度范围：[{0},{1}]";// 长度范围
         }
 
-        public override IMessage Validate(object oVal) {
-            IMessage result = new Message(
+        public override MsgRes Validate(object oVal) {
+            MsgRes result = new MsgRes(
                 oVal == null ||
                ((iMin == iMax && oVal.ToString().Length == iMin) ||// 固定长度
                 (iMin <= 0 && 0 < iMax && oVal.ToString().Length <= iMax) ||// 最大长度

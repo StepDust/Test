@@ -1,4 +1,4 @@
-﻿using Interfaces;
+﻿
 
 namespace Common.AttributeExpand.Validates {
     /// <summary>
@@ -19,9 +19,9 @@ namespace Common.AttributeExpand.Validates {
             base.Remark = "值域：[{0},{1}]";
         }
 
-        public override IMessage Validate(object oVal) {
+        public override MsgRes Validate(object oVal) {
 
-            IMessage msg = new Message(
+            MsgRes msg = new MsgRes(
               oVal == null || (double.Parse(oVal + "") >= this.oMin && double.Parse(oVal + "") <= this.oMax), string.Empty);
 
             if (msg.State == 0) msg.Msg = string.Format(base.Remark, oMin, oMax, oVal);

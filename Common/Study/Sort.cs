@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Common {
+namespace Common.Study {
     /// <summary>
     /// 排序类
     /// </summary>

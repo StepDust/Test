@@ -1,13 +1,8 @@
-﻿using BLL.CodeFirst;
-using Common;
-using Common.AttributeExpand.Validates;
-using Interfaces;
-using Models;
-using Models.CodeFirst;
+﻿using Common.Utils;
+using Factory;
+using Interface.DataBase.BLL;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace WinForm {
@@ -17,22 +12,15 @@ namespace WinForm {
         }
 
         private void F_Main_Load(object sender, EventArgs e) {
-            DT_UserService _UserService = new DT_UserService();
-            DT_RoleService _RoleService = new DT_RoleService();
-            dt_role role = new dt_role()
-            {
-                Age = new Random().Next(10000) + "",
-                LastTime = DateTime.Now
-            };
+            DataBaseFactory.CreateDbContext();
+            // Code.Run();
+            IDT_UserService _UserService = DataBaseFactory.CreateService<IDT_UserService>();
 
-            _RoleService.AddEntity(role);
+            _UserService.BeginTrans();
+            _UserService.AddEntity();
+            _UserService.Rollback();
 
-
-            //    执行SQL
-            List<tempClass> s = _RoleService.LoadEntities<tempClass>(
-                "select id, name,age,birthday from t1").ToList();
         }
-
 
         #region 主窗体操作
 
@@ -147,45 +135,9 @@ namespace WinForm {
                 tip.SetToolTip(bt_max, "恢复");
             }
 
-
-            #endregion
-
-
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-            // 读取配置文件
-            MessageBox.Show(ConfigAction.GetAppSetting(textBox1.Text));
-        }
+        #endregion
 
-        private void button2_Click(object sender, EventArgs e) {
-            dt_user user = new dt_user()
-            {
-                Name = textBox2.Text,// 1~6个字
-                Age=int.Parse(textBox1.Text) // 0~150
-            };
-
-
-            //if(string.IsNullOrEmpty(user.Name)) {
-            //    MessageBox.Show("Name不能为空");
-            //    return;
-            //}
-
-            IMessage msg = DataValidate.Validate(user);
-
-            if (msg.State == 0) {
-                MessageBox.Show(msg.Msg);
-                return;
-            }
-            else {
-                MessageBox.Show("成功");
-                return;
-            }
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e) {
-
-        }
     }
 }

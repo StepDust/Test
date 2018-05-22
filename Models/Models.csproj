@@ -33,80 +33,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CodeFirst\CodeFirst.cs" />
-    <Compile Include="CodeFirst\dt_role.cs" />
-    <Compile Include="CodeFirst\dt_user.cs" />
-    <Compile Include="DataItem.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataType.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Demo.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Demo.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Demo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Demo.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Demo.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Lang.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LoginIP.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Menu01.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Menu02.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
+    <Compile Include="CodeFirst\DT_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="S_ChatMsg.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="S_Room.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="S_RoomMember.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="S_User.cs">
-      <DependentUpon>Demo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tempClass.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Demo.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Demo.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="Demo.edmx.diagram">
-      <DependentUpon>Demo.edmx</DependentUpon>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Demo.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Demo.Context.cs</LastGenOutput>
-      <DependentUpon>Demo.edmx</DependentUpon>
-    </Content>
-    <Content Include="Demo.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Demo.edmx</DependentUpon>
-      <LastGenOutput>Demo.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

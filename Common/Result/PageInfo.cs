@@ -1,9 +1,8 @@
-﻿using Common.Utils;
-using Interface;
-using System;
+﻿using System;
+using Common.Utils;
 
 namespace Common {
-    public class PageInfo:IPage {
+    public class PageInfo {
 
         #region 分页数据
 

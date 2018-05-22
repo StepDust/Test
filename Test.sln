@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Inte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm", "WinForm\WinForm.csproj", "{88A6C513-5DFE-41A4-9224-2E10F593ED8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{0F706281-D24A-44C7-8542-40D7C0D1B50D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{88A6C513-5DFE-41A4-9224-2E10F593ED8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88A6C513-5DFE-41A4-9224-2E10F593ED8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88A6C513-5DFE-41A4-9224-2E10F593ED8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F706281-D24A-44C7-8542-40D7C0D1B50D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F706281-D24A-44C7-8542-40D7C0D1B50D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F706281-D24A-44C7-8542-40D7C0D1B50D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F706281-D24A-44C7-8542-40D7C0D1B50D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,9 +61,10 @@ Global
 		{77F0543B-6BD2-491F-8B66-0532A38E4794} = {2AF0CAC5-9602-4511-8EBD-ACB3DF326BE4}
 		{4D96BDD4-79C3-49DC-9542-874F4E386FF4} = {2AF0CAC5-9602-4511-8EBD-ACB3DF326BE4}
 		{C3D2D70C-3680-43B6-A254-CE10B211EA9F} = {2AF0CAC5-9602-4511-8EBD-ACB3DF326BE4}
+		{0F706281-D24A-44C7-8542-40D7C0D1B50D} = {2AF0CAC5-9602-4511-8EBD-ACB3DF326BE4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {7F2115B5-2561-4EC0-9316-5C3D966D305D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
