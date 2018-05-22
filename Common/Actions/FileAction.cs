@@ -1,14 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.IO;
 using System.Web;
-using System.Collections.Generic;
 
-namespace Common.Actions {
+namespace Common {
     /// <summary>
     /// 文件操作
     /// </summary>
-    public static class FileAction {
+    public class FileAction {
 
         /// <summary>
         /// 读取所有文字

@@ -10,9 +10,9 @@ namespace Models.CodeFirst {
     /// <summary>
     /// 用户表
     /// </summary>
-    public class DT_User {
+    public class dt_user {
 
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [RequirdVailDateAttribute]// 非空
         [LengthVailDateAttribute(1, 6)]// 长度范围
@@ -20,7 +20,8 @@ namespace Models.CodeFirst {
 
         [RangeVailDateAttribute(0, 150)]// 数字范围
         public int Age { get; set; }
-        
+
+
         public DateTime? CreateTime { get; set; }
     }
 }

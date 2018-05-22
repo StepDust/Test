@@ -36,9 +36,6 @@
   <PropertyGroup>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -89,13 +86,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{4d96bdd4-79c3-49dc-9542-874f4e386ff4}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{627570b2-399f-4515-a4fb-616d3ca9ac55}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Factory\Factory.csproj">
-      <Project>{C3D2D70C-3680-43B6-A254-CE10B211EA9F}</Project>
-      <Name>Factory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{8C141B69-6D20-4B34-82CA-E227AF6EAE0C}</Project>
@@ -105,6 +102,9 @@
       <Project>{77f0543b-6bd2-491f-8b66-0532a38e4794}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

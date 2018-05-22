@@ -29,8 +29,15 @@
             this.bt_min = new System.Windows.Forms.Button();
             this.bt_max = new System.Windows.Forms.Button();
             this.bt_close = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tip = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -43,7 +50,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(867, 30);
+            this.panel1.Size = new System.Drawing.Size(967, 30);
             this.panel1.TabIndex = 0;
             this.panel1.DoubleClick += new System.EventHandler(this.bt_max_Click);
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.F_Main_MouseDown);
@@ -56,7 +63,7 @@
             this.lb_title.Location = new System.Drawing.Point(0, 0);
             this.lb_title.Name = "lb_title";
             this.lb_title.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.lb_title.Size = new System.Drawing.Size(777, 30);
+            this.lb_title.Size = new System.Drawing.Size(877, 30);
             this.lb_title.TabIndex = 4;
             this.lb_title.Text = "API文档管理系统";
             this.lb_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -68,7 +75,7 @@
             this.bt_min.FlatAppearance.BorderSize = 0;
             this.bt_min.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bt_min.Font = new System.Drawing.Font("宋体", 7F);
-            this.bt_min.Location = new System.Drawing.Point(777, 0);
+            this.bt_min.Location = new System.Drawing.Point(877, 0);
             this.bt_min.Name = "bt_min";
             this.bt_min.Size = new System.Drawing.Size(30, 30);
             this.bt_min.TabIndex = 3;
@@ -84,7 +91,7 @@
             this.bt_max.FlatAppearance.BorderSize = 0;
             this.bt_max.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bt_max.Font = new System.Drawing.Font("宋体", 7F);
-            this.bt_max.Location = new System.Drawing.Point(807, 0);
+            this.bt_max.Location = new System.Drawing.Point(907, 0);
             this.bt_max.Name = "bt_max";
             this.bt_max.Size = new System.Drawing.Size(30, 30);
             this.bt_max.TabIndex = 2;
@@ -100,7 +107,7 @@
             this.bt_close.FlatAppearance.BorderSize = 0;
             this.bt_close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bt_close.Font = new System.Drawing.Font("宋体", 10F);
-            this.bt_close.Location = new System.Drawing.Point(837, 0);
+            this.bt_close.Location = new System.Drawing.Point(937, 0);
             this.bt_close.Name = "bt_close";
             this.bt_close.Size = new System.Drawing.Size(30, 30);
             this.bt_close.TabIndex = 0;
@@ -111,6 +118,24 @@
             this.bt_close.MouseLeave += new System.EventHandler(this.bt_close_MouseLeave);
             this.bt_close.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bt_close_MouseUp);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 30);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(967, 25);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
+            // 
             // tip
             // 
             this.tip.AutoPopDelay = 5000;
@@ -118,12 +143,53 @@
             this.tip.InitialDelay = 100;
             this.tip.ReshowDelay = 100;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(303, 201);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(117, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "读取配置文件";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(303, 152);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(279, 21);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(439, 201);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "属性校验";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(303, 125);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(279, 21);
+            this.textBox2.TabIndex = 3;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // F_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(867, 420);
+            this.ClientSize = new System.Drawing.Size(967, 520);
             this.ControlBox = false;
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -138,7 +204,10 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.F_Main_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.F_Main_MouseUp);
             this.panel1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -148,7 +217,13 @@
         private System.Windows.Forms.Button bt_close;
         private System.Windows.Forms.Button bt_min;
         private System.Windows.Forms.Button bt_max;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.Label lb_title;
         private System.Windows.Forms.ToolTip tip;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

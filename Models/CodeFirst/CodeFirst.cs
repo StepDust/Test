@@ -1,5 +1,6 @@
 ﻿namespace Models.CodeFirst {
     using System.Data.Entity;
+    using Common;
     using System.Data.Entity.Migrations;
 
     public class CodeFirst : DbContext {
@@ -27,7 +28,9 @@
 
         #region 数据表
 
-        public DbSet<DT_User> DT_User { get; set; }
+        public DbSet<dt_user> dt_user { get; set; }
+
+        public DbSet<dt_role> dt_role { get; set; }
 
         #endregion
     }

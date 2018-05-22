@@ -1,13 +1,12 @@
-using Models.CodeFirst;
-using Interface.DataBase.DAL;
-using Interface.DataBase.BLL;
+﻿using Models.CodeFirst;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.CodeFirst {
-    public class DT_UserService : AbstractService<IDT_UserBase>, IDT_UserService {
-        
-        public DT_User AddEntity() {
-            return Service.AddEntity();
-        }
+    public class DT_UserService : BaseService<dt_user> {
         
     }
 }

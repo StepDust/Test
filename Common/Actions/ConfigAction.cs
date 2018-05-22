@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Common.Actions {
+namespace Common {
     /// <summary>
     /// 配置文件操作
     /// </summary>
@@ -39,7 +41,7 @@ namespace Common.Actions {
         /// <param name="key">配置名称</param>
         /// <returns>配置值</returns>
         public static string GetAppSetting(string key) {
-            return ConfigurationManager.AppSettings[key];
+            return AddAppSetting(key, () => ConfigurationManager.AppSettings[key]);
         }
 
         /// <summary>

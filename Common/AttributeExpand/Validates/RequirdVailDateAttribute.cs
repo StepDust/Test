@@ -1,4 +1,5 @@
-﻿
+﻿using Interfaces;
+
 namespace Common.AttributeExpand.Validates {
     /// <summary>
     /// 非空校验
@@ -9,8 +10,8 @@ namespace Common.AttributeExpand.Validates {
             base.Remark = "是必须的";
         }
 
-        public override MsgRes Validate(object oVal) {
-            MsgRes result = new MsgRes(oVal != null, string.Empty);
+        public override IMessage Validate(object oVal) {
+            IMessage result = new Message(oVal != null, string.Empty);
 
             if (result.State == 0) result.Msg = base.Remark;
 

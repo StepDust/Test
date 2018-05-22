@@ -49,36 +49,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\ConfigAction.cs" />
-    <Compile Include="AttributeExpand\ManagerAttribute.cs" />
-    <Compile Include="AttributeExpand\Validates\DateTimeValidateAttribute.cs" />
-    <Compile Include="Constant.cs" />
-    <Compile Include="Encrypt\Base64Encrypt.cs" />
-    <Compile Include="Encrypt\DesEncrypt.cs" />
-    <Compile Include="Encrypt\MD5Encrypt.cs" />
-    <Compile Include="Encrypt\RsaEncrypt.cs" />
     <Compile Include="AttributeExpand\TableAttribute.cs" />
     <Compile Include="AttributeExpand\Validates\BaseValidateAttribute.cs" />
     <Compile Include="AttributeExpand\Validates\LengthVailDateAttribute.cs" />
     <Compile Include="AttributeExpand\Validates\RangeVailDateAttribute.cs" />
     <Compile Include="AttributeExpand\Validates\RequirdVailDateAttribute.cs" />
-    <Compile Include="Study\ORM.cs" />
-    <Compile Include="Utils\Code.cs" />
-    <Compile Include="Utils\Regular.cs" />
-    <Compile Include="Encrypt\EncryptionUtils.cs" />
+    <Compile Include="Actions\ConfigAction.cs" />
+    <Compile Include="Regular.cs" />
+    <Compile Include="Utils\EncryptionUtils.cs" />
     <Compile Include="Actions\FileAction.cs" />
-    <Compile Include="FunctionExpand\LambdaHelper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Reflex.cs" />
-    <Compile Include="Result\LayuiRes.cs" />
-    <Compile Include="Result\MsgRes.cs" />
+    <Compile Include="Helpers\LambdaHelper.cs" />
+    <Compile Include="Result\Message.cs" />
     <Compile Include="Result\PageInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflex.cs" />
+    <Compile Include="Result\ReqData.cs" />
+    <Compile Include="Result\LayuiRes.cs" />
+    <Compile Include="Actions\SerializeAction.cs" />
     <Compile Include="Study\Sort.cs" />
-    <Compile Include="Utils\Translate.cs" />
+    <Compile Include="Utils\TranslateUtils.cs" />
     <Compile Include="Utils\EnythingUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Interface\Interface.csproj">
+      <Project>{8c141b69-6d20-4b34-82ca-e227af6eae0c}</Project>
+      <Name>Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
