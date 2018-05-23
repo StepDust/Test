@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Common.Utils {
+namespace Common.Study {
     public class Code {
 
         private static string ProjectPath => Regular.RepStr(Path.GetFullPath(@".\"), @"[\\]{1}\w{1,}[\\]{1}bin.*", "\\");
@@ -20,8 +20,7 @@ namespace Common.Utils {
 
         private static string[] Dal => new string[] { Constant.DalPath, "DAL.CodeFirst" };
         private static string[] DalInterface => new string[] { "Interface", "Interface.DataBase.DAL" };
-
-
+        
         public static void Run() {
 
             Assembly assembly = Assembly.Load(Db[0]);

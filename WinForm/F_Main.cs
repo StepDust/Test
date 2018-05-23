@@ -1,9 +1,11 @@
-﻿using Common.Utils;
-using Factory;
-using Interface.DataBase.BLL;
+﻿using Factory;
 using System;
 using System.Drawing;
+using Interface.DataBase.BLL;
 using System.Windows.Forms;
+using System.Data.Entity;
+using Common;
+using Models.CodeFirst;
 
 namespace WinForm {
     public partial class F_Main : Form {
@@ -12,13 +14,12 @@ namespace WinForm {
         }
 
         private void F_Main_Load(object sender, EventArgs e) {
-            DataBaseFactory.CreateDbContext();
-            // Code.Run();
+
             IDT_UserService _UserService = DataBaseFactory.CreateService<IDT_UserService>();
 
             _UserService.BeginTrans();
             _UserService.AddEntity();
-            _UserService.Rollback();
+            _UserService.Commit();
 
         }
 

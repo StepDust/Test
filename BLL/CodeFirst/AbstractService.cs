@@ -5,10 +5,6 @@ using Interface.DataBase.DAL;
 namespace BLL.CodeFirst {
     public abstract class AbstractService<T> where T : IDataBase {
 
-        public AbstractService() {
-            DataBaseFactory.CreateDbContext();
-        }
-
         public T Service => DataBaseFactory.CreateBllBase<T>();
 
         public void BeginTrans() => Service.BeginTrans();

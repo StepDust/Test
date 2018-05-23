@@ -36,8 +36,7 @@ namespace Factory {
         /// <returns></returns>
         public static DbContext CreateDbContext() {
             return Create(() =>
-            Reflex.CreateModel<DbContext>(Constant.DataBaseContext[0], Constant.DataBaseContext[1]));
-
+                Reflex.CreateModel<DbContext>(Constant.DataBaseContext[0], Constant.DataBaseContext[1]));
         }
 
         /// <summary>
@@ -46,9 +45,8 @@ namespace Factory {
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IBaseDal<T> CreateDalBase<T>() where T : class, new() {
-            //return Create(() =>
-            //Reflex.CreateModel<IBaseDal<T>>(Constant.DalPath, Constant.IBaseDal));
-            return Reflex.CreateModel<IBaseDal<T>>(Constant.DalPath, Constant.IBaseDal);
+            return Create(() =>
+                Reflex.CreateModel<IBaseDal<T>>(Constant.DalPath, Constant.IBaseDal));
         }
 
         /// <summary>
@@ -58,27 +56,21 @@ namespace Factory {
         /// <param name="className"></param>
         /// <returns></returns>
         public static T CreateBllBase<T>() {
-            //return Create(() =>
-            //{
-            //    string className = typeof(T).Name;
-            //    className = className.Substring(1, className.Length - 1);
-            //    return Reflex.CreateModel<T>(Constant.DalPath, Constant.BaseDal + "." + className);
-            //});
-            string className = typeof(T).Name;
-            className = className.Substring(1, className.Length - 1);
-            return Reflex.CreateModel<T>(Constant.DalPath, Constant.BaseDal + "." + className);
+            return Create(() =>
+            {
+                string className = typeof(T).Name;
+                className = className.Substring(1, className.Length - 1);
+                return Reflex.CreateModel<T>(Constant.DalPath, Constant.BaseDal + "." + className);
+            });
         }
 
         public static T CreateService<T>() {
-            //return Create(() =>
-            //{
-            //    string className = typeof(T).Name;
-            //    className = className.Substring(1, className.Length - 1);
-            //    return Reflex.CreateModel<T>(Constant.BllPath, Constant.BaseService + "." + className);
-            //});
-            string className = typeof(T).Name;
-            className = className.Substring(1, className.Length - 1);
-            return Reflex.CreateModel<T>(Constant.BllPath, Constant.BaseService + "." + className);
+            return Create(() =>
+            {
+                string className = typeof(T).Name;
+                className = className.Substring(1, className.Length - 1);
+                return Reflex.CreateModel<T>(Constant.BllPath, Constant.BaseService + "." + className);
+            });
         }
 
     }
