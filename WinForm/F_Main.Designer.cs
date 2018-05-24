@@ -25,17 +25,21 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bt_top = new System.Windows.Forms.Button();
             this.lb_title = new System.Windows.Forms.Label();
             this.bt_min = new System.Windows.Forms.Button();
             this.bt_max = new System.Windows.Forms.Button();
             this.bt_close = new System.Windows.Forms.Button();
             this.tip = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.bt_top);
             this.panel1.Controls.Add(this.lb_title);
             this.panel1.Controls.Add(this.bt_min);
             this.panel1.Controls.Add(this.bt_max);
@@ -49,6 +53,21 @@
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.F_Main_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.F_Main_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.F_Main_MouseUp);
+            // 
+            // bt_top
+            // 
+            this.bt_top.BackColor = System.Drawing.Color.Transparent;
+            this.bt_top.Dock = System.Windows.Forms.DockStyle.Right;
+            this.bt_top.FlatAppearance.BorderSize = 0;
+            this.bt_top.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bt_top.Font = new System.Drawing.Font("宋体", 7F);
+            this.bt_top.Location = new System.Drawing.Point(747, 0);
+            this.bt_top.Name = "bt_top";
+            this.bt_top.Size = new System.Drawing.Size(30, 30);
+            this.bt_top.TabIndex = 5;
+            this.bt_top.Text = "_";
+            this.tip.SetToolTip(this.bt_top, "最小化");
+            this.bt_top.UseVisualStyleBackColor = false;
             // 
             // lb_title
             // 
@@ -118,12 +137,32 @@
             this.tip.InitialDelay = 100;
             this.tip.ReshowDelay = 100;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(316, 235);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(316, 126);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(321, 91);
+            this.textBox1.TabIndex = 2;
+            // 
             // F_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 420);
             this.ControlBox = false;
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -139,6 +178,7 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.F_Main_MouseUp);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -150,5 +190,8 @@
         private System.Windows.Forms.Button bt_max;
         private System.Windows.Forms.Label lb_title;
         private System.Windows.Forms.ToolTip tip;
+        private System.Windows.Forms.Button bt_top;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

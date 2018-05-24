@@ -39,7 +39,7 @@ namespace Common.Actions {
         /// <param name="key">配置名称</param>
         /// <returns>配置值</returns>
         public static string GetAppSetting(string key) {
-            return ConfigurationManager.AppSettings[key];
+            return ConfigurationManager.AppSettings[key] ?? "";
         }
 
         /// <summary>

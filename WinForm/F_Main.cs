@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.Data.Entity;
 using Common;
 using Models.CodeFirst;
+using Common.Utils;
+using System.Drawing.Text;
 
 namespace WinForm {
     public partial class F_Main : Form {
@@ -14,13 +16,18 @@ namespace WinForm {
         }
 
         private void F_Main_Load(object sender, EventArgs e) {
+            string AppPath = Application.StartupPath;
 
-            IDT_UserService _UserService = DataBaseFactory.CreateService<IDT_UserService>();
+            IDT_UserService _UserService=DataBaseFactory.CreateService<IDT_UserService>():
 
+            // 开启事务
             _UserService.BeginTrans();
-            _UserService.AddEntity();
-            _UserService.Commit();
 
+
+            // 回调事务
+            _UserService.Rollback();
+
+            //   bt_close.SetFontIco(FontBrandIco.Android);
         }
 
         #region 主窗体操作
@@ -140,5 +147,8 @@ namespace WinForm {
 
         #endregion
 
+        private void button1_Click(object sender, EventArgs e) {
+            
+        }
     }
 }

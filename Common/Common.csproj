@@ -42,10 +42,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +78,7 @@
     <Compile Include="Study\Sort.cs" />
     <Compile Include="Utils\Translate.cs" />
     <Compile Include="Utils\EnythingUtils.cs" />
+    <Compile Include="Utils\WinIco.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

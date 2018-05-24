@@ -16,7 +16,7 @@ namespace Common {
         /// <summary>
         /// 数据库对象，[Model层绝对路径，数据库类全名]
         /// </summary>
-        public static string[] DataBaseContext { get => ConfigAction.GetAppSetting("DataBaseContext").Split(';'); }
+        public static string[] DataBaseContext => ConfigAction.GetAppSetting("DataBaseContext").Split(';');
 
         /// <summary>
         /// Dal层生成的dll文件绝对路径
@@ -43,6 +43,9 @@ namespace Common {
 
         #endregion
 
-
+        /// <summary>
+        /// WinForm窗体字体图标，[字体文件路径，ttf1，ttf2，ttf3...]
+        /// </summary>
+        public static string[] IcoTtf => ConfigAction.GetAppSetting("IcoTtf").Split(';');
     }
 }
