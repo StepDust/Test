@@ -18,7 +18,7 @@ namespace WinForm {
         private void F_Main_Load(object sender, EventArgs e) {
             string AppPath = Application.StartupPath;
 
-            IDT_UserService _UserService=DataBaseFactory.CreateService<IDT_UserService>():
+            IDT_UserService _UserService = DataBaseFactory.CreateService<IDT_UserService>();
 
             // 开启事务
             _UserService.BeginTrans();
