@@ -4,10 +4,6 @@ using System.Drawing;
 using Interface.DataBase.BLL;
 using System.Windows.Forms;
 using Common.Utils;
-using System.Linq;
-using System.Runtime.InteropServices;
-using CCWin.SkinControl;
-using Common;
 
 namespace WinForm {
     public partial class F_Main : BaseForm {
