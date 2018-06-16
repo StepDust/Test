@@ -6,7 +6,7 @@ namespace Common {
     /// 数据校验
     /// </summary>
     public static class Regular {
-        
+
         #region 正则表达式
 
         /// <summary>
@@ -14,6 +14,9 @@ namespace Common {
         /// </summary>
         public static string Reg_Num => @"^[\-+]{0,1}[0-9]{1,}[.]{0,1}[0-9]*$";
 
+        /// <summary>
+        /// 是否为英文
+        /// </summary>
         public static string Reg_Eng => @"[a-zA-Z]+";
 
         /// <summary>
@@ -48,8 +51,7 @@ namespace Common {
         /// <param name="regStr">正则表达式</param>
         /// <param name="def">默认返回值</param>
         /// <returns></returns>
-        public static string CheckReg(string con, string regStr, string def)
-        {
+        public static string CheckReg(string con, string regStr, string def) {
             if (CheckReg(con, regStr))
                 return con;
 
@@ -64,8 +66,7 @@ namespace Common {
         /// <param name="con">初始字符</param>
         /// <param name="regStr">正则表达式</param>
         /// <returns></returns>
-        public static bool CheckReg(string con, string regStr)
-        {
+        public static bool CheckReg(string con, string regStr) {
             if (string.IsNullOrEmpty(con))
                 con = "";
             if (string.IsNullOrEmpty(regStr))
@@ -78,8 +79,7 @@ namespace Common {
         /// </summary>
         /// <param name="contents">预检测的内容</param>
         /// <returns>返回True或false</returns>
-        public static bool CheckSQL(string contents)
-        {
+        public static bool CheckSQL(string contents) {
             bool bReturnValue = false;
             if (contents.Length > 0) {
                 //convert to lower
@@ -106,8 +106,7 @@ namespace Common {
         /// <param name="con">初始字符</param>
         /// <param name="ToWestern">是否替换至西文字符</param>
         /// <returns></returns>
-        public static string RepLanguage(string con, bool ToWestern = true)
-        {
+        public static string RepLanguage(string con, bool ToWestern = true) {
 
             string[,] arr =  {
                // {"（", "(" },{ "）", ")" },// 括号
@@ -139,8 +138,7 @@ namespace Common {
         /// <param name="regex">正则表达式</param>
         /// <param name="str">新字符</param>
         /// <returns></returns>
-        public static string RepStr(string con, string regex, string str)
-        {
+        public static string RepStr(string con, string regex, string str) {
             if (string.IsNullOrEmpty(con)) return "";
             return Regex.Replace(con, regex, str);
         }
@@ -151,8 +149,7 @@ namespace Common {
         /// <param name="con">原字符串</param>
         /// <param name="num">空格长度</param>
         /// <returns></returns>
-        public static string RepTrim(string con, int num = 1)
-        {
+        public static string RepTrim(string con, int num = 1) {
             num++;
             // 去空格
             con = RepStr(con, "[ ]{" + num + ",}", "");
@@ -173,8 +170,7 @@ namespace Common {
         /// <param name="max">最大值</param>
         /// <param name="def">默认值(不填时，默认值为最小值)</param>
         /// <returns></returns>
-        public static int? GetNumInMinToMax(ref int? num, int min, int max, int? def = null)
-        {
+        public static int? GetNumInMinToMax(ref int? num, int min, int max, int? def = null) {
             // 若def没有值，将最小值给它
             if (!def.HasValue)
                 def = min;
@@ -195,8 +191,7 @@ namespace Common {
         /// <param name="Ischeck">是否开启敏感字符校验</param>
         /// <param name="def">默认的值，字符串为空时，赋此值</param>
         /// <returns></returns>
-        public static string GetSecurityStr(ref string text, bool Ischeck = true, string def = "")
-        {
+        public static string GetSecurityStr(ref string text, bool Ischeck = true, string def = "") {
             if (string.IsNullOrEmpty(text))
                 return text = def;
             text = text.Trim();
@@ -210,10 +205,10 @@ namespace Common {
         /// 返回原字符中，满足正则表达式的字符串数组
         /// </summary>
         /// <param name="text">原字符串</param>
-        /// <param name="reg">正则表达式</param>
+        /// <param name="regStr">正则表达式</param>
+        /// <param name="groupName">组名</param>
         /// <returns></returns>
-        public static string[] GetRegStrArr(string text, string regStr)
-        {
+        public static string[] GetRegStrArr(string text, string regStr, string groupName = null) {
             Regex reg = new Regex(regStr);
 
             MatchCollection mc = reg.Matches(text);
@@ -223,7 +218,10 @@ namespace Common {
             string[] str = new string[mc.Count];
             int index = 0;
             foreach (Match item in mc)
-                str[index++] = item.Value;
+                if (string.IsNullOrWhiteSpace(groupName))
+                    str[index++] = item.Value;
+                else
+                    str[index++] = item.Groups[groupName].Value;
 
             return str;
         }
@@ -234,8 +232,7 @@ namespace Common {
         /// <param name="text"></param>
         /// <param name="regStr"></param>
         /// <returns></returns>
-        public static string GetRegStr(string text, string regStr)
-        {
+        public static string GetRegStr(string text, string regStr) {
             Regex reg = new Regex(regStr);
             Match mc = reg.Match(text);
             if (mc.Length <= 0) return null;

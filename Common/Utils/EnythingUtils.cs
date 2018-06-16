@@ -15,289 +15,7 @@ namespace Common.Utils {
     /// 工具类
     /// </summary>
     public static class EnythingUtils {
-        
-        #region 字符串处理
 
-        /// <summary>
-        /// 替换指定的字符串
-        /// </summary>
-        /// <param name="str">原字符串</param>
-        /// <param name="oldStr">旧字符串</param>
-        /// <param name="newStr">新字符串</param>
-        /// <returns></returns>
-        public static string ReplaceStr(string str, string oldStr, string newStr) {
-            if (string.IsNullOrEmpty(oldStr)) {
-                return "";
-            }
-            return str.Replace(oldStr, newStr);
-        }
-
-        /// <summary>
-        /// 计算指定字符串中，指定字符出现次数
-        /// </summary>
-        /// <param name="str">原字符串</param>
-        /// <param name="s">要计数的字符</param>
-        /// <returns></returns>
-        public static int GetStrCount(string str, string s) {
-            int count = 0;
-            for (int i = 0; i < str.Length - s.Length;) {
-                if (s == str.Substring(i, s.Length)) {
-                    count++;
-                    i += s.Length;
-                }
-                else
-                    i++;
-            }
-            return count;
-        }
-
-        /// <summary>
-        /// 将字符串长度补至指定长度（默认在字符串前方补齐）
-        /// </summary>
-        /// <param name="obj">待补长对象</param>
-        /// <param name="length">指定长度</param>
-        /// <param name="str">用以补长的字符</param>
-        /// <param name="IsAppend">是否在对象，后方补长</param>
-        /// <param name="IsOver">是否允许溢出</param>
-        /// <returns></returns>
-        public static string GetStrToLen(object obj, int length, string str, bool IsAppend = false, bool IsOver = true) {
-            string text = obj + "";
-            while (text.Length < length) {
-                if (IsAppend)
-                    text += str;
-                else
-                    text = str + text;
-            }
-            if (IsOver)
-                return text;
-            return text.Substring(0, length);
-        }
-
-        /// <summary>
-        /// 字符串转Double数组
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        public static double[] GetStrToDoubleArr(string str, char c = ',') {
-
-            // 字符矫正
-            str = Regular.RepLanguage(str);
-
-            List<double> list = new List<double>();
-            string[] s = str.Split(c);
-            for (int i = 0; i < s.Length; i++) {
-                if (Regular.CheckReg(s[i], Regular.Reg_Num)) {
-                    list.Add(double.Parse(s[i]));
-                }
-            }
-
-            return list.ToArray();
-        }
-
-        /// <summary>
-        /// 删除指定字符后的字符
-        /// </summary>
-        /// <param name="str">原字符</param>
-        /// <param name="strchar">指定字符</param>
-        /// <param name="num">倒数第几个指定字符</param>
-        /// <returns></returns>
-        public static string DelLastChar(string str, string strchar, int num = 1) {
-            if (string.IsNullOrEmpty(str))
-                return "";
-
-            int index = str.Length;
-
-            while (num-- > 0 && !string.IsNullOrEmpty(str)) {
-                index = str.LastIndexOf(strchar);
-                if (0 <= index && index <= str.Length - 1)
-                    str = str.Substring(0, str.LastIndexOf(strchar));
-            }
-
-            return str;
-        }
-
-        /// <summary>
-        /// 删除指定字符结尾的指定字符
-        /// </summary>
-        /// <param name="str">原字符</param>
-        /// <param name="c">指定字符</param>
-        /// <returns></returns>
-        public static string DelLastChar(string str, char c) {
-            if (string.IsNullOrEmpty(str))
-                return "";
-            int index = str.LastIndexOf(c);
-
-            if (index == str.Length - 1)
-                return str.Substring(0, index);
-            return str;
-        }
-
-        /// <summary>
-        /// 拼接键值对
-        /// </summary>
-        /// <param name="dic">存放键值对的字典</param>
-        /// <param name="format">拼接格式，默认为Json格式</param>
-        /// <param name="Split">分割符号</param>
-        /// <returns></returns>
-        public static string MosaicKeyVal(Dictionary<object, object> dic, string format = " '{0}':'{1}' ", string Split = ",") {
-
-            StringBuilder str = new StringBuilder();
-
-            // 是否包含{0}和{1}
-            if (format.IndexOf("{0}") < 0 || format.IndexOf("{1}") < 0)
-                return "";
-            format = format.Trim();
-            foreach (string item in dic.Keys) {
-                if (string.IsNullOrEmpty(item + ""))
-                    continue;
-                if (string.IsNullOrEmpty(dic[item] + ""))
-                    continue;
-                // 添加逗号
-                if (str.Length > 0)
-                    str.Append(Split);
-                // 添加键值对
-                str.Append(string.Format(format, item.ToString(), dic[item].ToString()));
-            }
-
-            return str.ToString(); ;
-        }
-
-        /// <summary>
-        /// 路径的反斜杠统一
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string PathHandle(string path) {
-            path = ReplaceStr(path, "/", "\\");
-            if (path.IndexOf("\\") == 0)
-                path = path.Substring(1);
-            path = DelLastChar(path, '\\');
-            return path;
-        }
-
-        /// <summary>
-        /// 在字符串后添加指定长度的指定字符
-        /// </summary>
-        /// <param name="str">原字符</param>
-        /// <param name="s">指定字符串</param>
-        /// <param name="count">指定长度</param>
-        /// <returns></returns>
-        public static string StrAppend(string oldStr, string str, int count) {
-            StringBuilder sb = new StringBuilder(oldStr);
-            for (int i = 0; i < count; i++)
-                sb.Append(str);
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// 在字符串前添加指定长度的指定字符
-        /// </summary>
-        /// <param name="str">原字符</param>
-        /// <param name="s">指定字符串</param>
-        /// <param name="count">指定长度</param>
-        /// <returns></returns>
-        public static string StrAppendTo(string oldStr, string str, int count) {
-            StringBuilder sb = new StringBuilder(oldStr);
-            for (int i = 0; i < count; i++)
-                sb.Insert(0, str);
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// 首字母大写
-        /// </summary>
-        /// <param name="str">原字符串</param>
-        /// <param name="con">单词个数，默认：-1，即全部</param>
-        /// <returns></returns>
-        public static string StrToUpper(string str, int con = -1) {
-            if (string.IsNullOrEmpty(str))
-                return "";
-
-            StringBuilder builder = new StringBuilder();
-
-            string[] Arr = str.Split(' ');
-
-            if (Arr.Length <= con)
-                con = -1;
-
-            for (int i = 0; i < Arr.Length; i++) {
-                string t = Arr[i];
-
-                if (string.IsNullOrEmpty(t))
-                    continue;
-
-                if (con == -1)
-                    t = t.Substring(0, 1).ToUpper() + t.Substring(1);
-                else {
-                    str = str.ToLower();
-
-                    return str.Substring(0, 1).ToUpper() + str.Substring(1);
-                }
-
-                builder.Append(t + " ");
-            }
-            return builder.ToString().Trim();
-        }
-
-        /// <summary>
-        /// 截取指定长度字符串
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="len"></param>
-        /// <returns></returns>
-        public static string StrSub(string str, int len) {
-            if (string.IsNullOrEmpty(str))
-                return "";
-
-            if (str.Length < len)
-                return str;
-            return str.Substring(0, len);
-        }
-
-        #region Json
-
-        /// <summary>
-        ///  对象转Json
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static string ObjectToJson(object obj) {
-            return JsonConvert.SerializeObject(obj);
-        }
-
-        /// <summary>
-        /// Json转对象
-        /// </summary>
-        /// <param name="jsonString"></param>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static object JsonToObject(string jsonString, object obj) {
-            if (obj == null)
-                obj = new object();
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-            MemoryStream mStream = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
-            return serializer.ReadObject(mStream);
-        }
-
-        #endregion
-
-        #region 字符串编码
-
-        /// <summary>
-        /// 转为UTF-8编码
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string GetUtf8(string str) {
-            byte[] buffer = Encoding.UTF8.GetBytes(str);
-            string res = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
-            return res;
-        }
-
-        #endregion
-
-        #endregion
 
         #region URL处理
 
@@ -325,7 +43,7 @@ namespace Common.Utils {
             foreach (string item in HttpContext.Current.Request.Form)
                 dic.Add(item, HttpContext.Current.Request[item]);
 
-            return url + MosaicKeyVal(dic, "{0}={1}", "&");
+            return url + string.Join("&", dic.Select(c => $"{c.Key}={c.Value}"));
         }
 
         /// <summary>
@@ -348,11 +66,11 @@ namespace Common.Utils {
         public static string GetActionUrl(string url) {
             if (string.IsNullOrEmpty(url)) return "";
 
-            int now = GetStrCount(url, "/");
+            int now = StringUtils.GetStrCount(url, "/");
             if (now == 0)
                 now++;
 
-            url = DelLastChar(GetUrl(), "/", now) + "/" + url;
+            url = StringUtils.DelLastChar(GetUrl(), "/", now) + "/" + url;
 
             return url;
         }
@@ -401,13 +119,13 @@ namespace Common.Utils {
             catch {
                 return _url;
             }
-            return _url + DelLastChar(urlParams.ToString(), '&');
+            return _url + StringUtils.DelLastChar(urlParams.ToString(), '&');
         }
 
         #endregion
 
         #region 客户端信息
-             
+
         /// <summary>
         /// 获取内网IP
         /// </summary>
@@ -668,11 +386,11 @@ namespace Common.Utils {
 
 
             // 拼接页码
-            string firstBtn = "<a href=\"" + ReplaceStr(linkUrl, pageId, (pageIndex - 1).ToString()) + "\">«</a>";
-            string lastBtn = "<a href=\"" + ReplaceStr(linkUrl, pageId, (pageIndex + 1).ToString()) + "\">»</a>";
+            string firstBtn = "<a href=\"" + StringUtils.ReplaceStr(linkUrl, pageId, (pageIndex - 1).ToString()) + "\">«</a>";
+            string lastBtn = "<a href=\"" + StringUtils.ReplaceStr(linkUrl, pageId, (pageIndex + 1).ToString()) + "\">»</a>";
 
-            string firstStr = "<a href=\"" + ReplaceStr(linkUrl, pageId, "1") + "\">1</a>";
-            string lastStr = "<a href=\"" + ReplaceStr(linkUrl, pageId, pageCount.ToString()) + "\">" + pageCount.ToString() + "</a>";
+            string firstStr = "<a href=\"" + StringUtils.ReplaceStr(linkUrl, pageId, "1") + "\">1</a>";
+            string lastStr = "<a href=\"" + StringUtils.ReplaceStr(linkUrl, pageId, pageCount.ToString()) + "\">" + pageCount.ToString() + "</a>";
 
             if (pageIndex <= 1) {
                 firstBtn = "<span class=\"disabled\">«</span>";
@@ -704,7 +422,7 @@ namespace Common.Utils {
                     pageStr.Append("<span class=\"current\">" + i + "</span>");
                 }
                 else {
-                    pageStr.Append("<a href=\"" + ReplaceStr(linkUrl, pageId, i.ToString()) + "\">" + i + "</a>");
+                    pageStr.Append("<a href=\"" + StringUtils.ReplaceStr(linkUrl, pageId, i.ToString()) + "\">" + i + "</a>");
                 }
             }
             if (pageCount - pageIndex > centSize - ((centSize / 2))) {
@@ -783,7 +501,7 @@ namespace Common.Utils {
         }
 
         #endregion
-             
+
         #region 创建树
 
         /// <summary>

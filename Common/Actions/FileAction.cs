@@ -15,8 +15,7 @@ namespace Common.Actions {
         /// </summary>
         /// <param name="path">文件路径</param>
         /// <returns></returns>
-        public static string ReadToStr(string path)
-        {
+        public static string ReadToStr(string path) {
             if (string.IsNullOrEmpty(path))
                 return "";
 
@@ -27,12 +26,12 @@ namespace Common.Actions {
             if (!File.Exists(path))
                 return "";
 
-            StreamReader read = new StreamReader(path, Encoding.Default);
-
-            string str = File.ReadAllText(path, Encoding.Default);
-            read.Close();
-            read.Dispose();
-            return str;
+            string context;
+            using (StreamReader read = new StreamReader(path, Encoding.Default)) {
+                context = File.ReadAllText(path, Encoding.Default);
+                read.Close();
+            }
+            return context;
         }
 
         /// <summary>
@@ -40,8 +39,7 @@ namespace Common.Actions {
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static List<string> ReadToArr(string path)
-        {
+        public static List<string> ReadToArr(string path) {
             if (string.IsNullOrEmpty(path))
                 return null;
 
@@ -71,8 +69,7 @@ namespace Common.Actions {
         /// <param name="startStr">起始字符</param>
         /// <param name="endStr">结束字符</param>
         /// <returns></returns>
-        public static string ReadBetweenStr(string path, string startStr, string endStr)
-        {
+        public static string ReadBetweenStr(string path, string startStr, string endStr) {
             List<string> text = ReadToArr(path);
             if (text != null)
                 return "";
@@ -107,8 +104,7 @@ namespace Common.Actions {
         /// </summary>
         /// <param name="notes">注释文字</param>
         /// <returns></returns>
-        public static string ReadRegEdit(string path, string notes)
-        {
+        public static string ReadRegEdit(string path, string notes) {
             string startStr = "#region.*" + notes;
             string endStr = "#endregion";
             return ReadBetweenStr(path, startStr, endStr);
@@ -119,8 +115,7 @@ namespace Common.Actions {
         /// </summary>
         /// <param name="path">绝对路径</param>
         /// <param name="con">内容</param>
-        public static void AppendStr(string path, string con)
-        {
+        public static void AppendStr(string path, string con) {
             // 判断是否为绝对路径
             if (!Regular.CheckReg(path[0] + "", Regular.Reg_Eng))
                 return;
@@ -152,8 +147,7 @@ namespace Common.Actions {
         /// </summary>
         /// <param name="path">文件夹绝对路径</param>
         /// <param name="Suffix">文件后缀名</param>
-        public static List<FileInfo> ReadDir(string path, string Suffix = "*")
-        {
+        public static List<FileInfo> ReadDir(string path, string Suffix = "*") {
             List<FileInfo> list = new List<FileInfo>();
 
             if (Directory.Exists(path)) {
@@ -168,8 +162,7 @@ namespace Common.Actions {
         /// 读取目录下所有文件
         /// </summary>
         /// <param name="directory"></param>
-        public static List<FileInfo> SetDirs(DirectoryInfo directory, string Suffix = "*")
-        {
+        public static List<FileInfo> SetDirs(DirectoryInfo directory, string Suffix = "*") {
             List<FileInfo> list = new List<FileInfo>();
             foreach (DirectoryInfo dir in directory.GetDirectories())
                 // 访问子目录
@@ -184,8 +177,7 @@ namespace Common.Actions {
         /// </summary>
         /// <param name="directory"></param>
         /// <param name="Suffix">后缀名，默认为所有文件</param>
-        public static List<FileInfo> GetFiles(DirectoryInfo directory, string Suffix = "*")
-        {
+        public static List<FileInfo> GetFiles(DirectoryInfo directory, string Suffix = "*") {
             List<FileInfo> list = new List<FileInfo>();
 
             FileInfo[] files = directory.GetFiles();

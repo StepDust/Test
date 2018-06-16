@@ -62,15 +62,24 @@ namespace Common {
             Assembly assembly = Assembly.LoadFile(dllName);
             // 从dll中获取指定class
             Type type = assembly.GetType(className);
+            
+            return CreateModel<T>(type);
+        }
 
-
+        /// <summary>
+        /// 根据Type创建实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static T CreateModel<T>(Type type) {
             // 判断指定class是否为泛型
             if (type.IsGenericTypeDefinition) {
                 // 获取所需泛型数组
                 Type[] typeArr = typeof(T).GenericTypeArguments;
                 type = type.MakeGenericType(typeArr);
             }
-            
+
             // 根据DLL，寻找类，并创建
             T model = (T)Activator.CreateInstance(type);
             return model;

@@ -47,5 +47,10 @@ namespace Common {
         /// WinForm窗体字体图标，[字体文件路径，ttf1，ttf2，ttf3...]
         /// </summary>
         public static string[] IcoTtf => ConfigAction.GetAppSetting("IcoTtf").Split(';');
+
+        /// <summary>
+        /// WinForm窗体字体图标，[字体文件路径，ttf1，ttf2，ttf3...]
+        /// </summary>
+        public static string CustomColor => ConfigAction.GetAppSetting("CustomColor");
     }
 }

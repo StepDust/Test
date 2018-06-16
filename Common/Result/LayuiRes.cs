@@ -174,7 +174,7 @@ namespace Common {
             str.Append("location.href='" + url + "'; ");
             // 由于要返回的是父窗的方法，所以加上parent.
             str.Append("parent.layer.msg('" + msg + "',{");
-            str.Append(EnythingUtils.MosaicKeyVal(dic) + "});");
+           // str.Append(EnythingUtils.MosaicKeyVal(dic) + "});");
             str.Append("</script>");
 
             return str.ToString();
