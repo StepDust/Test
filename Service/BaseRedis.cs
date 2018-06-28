@@ -40,7 +40,7 @@ namespace Service {
         /// <summary>
         /// 缓存所有的Redis对象
         /// </summary>
-        private static readonly ConcurrentDictionary<string, ConnectionMultiplexer> ConnectionCache = new ConcurrentDictionary<string, ConnectionMultiplexer>();
+        private static ConcurrentDictionary<string, ConnectionMultiplexer> ConnectionCache => new ConcurrentDictionary<string, ConnectionMultiplexer>();
 
         /// <summary>
         /// 缓存Redis
@@ -48,10 +48,7 @@ namespace Service {
         /// <param name="connectionString">Redis连接字符串</param>
         /// <returns></returns>
         public static ConnectionMultiplexer GetConnectionMultiplexer(string connectionString) {
-            if (!ConnectionCache.ContainsKey(connectionString)) {
-                ConnectionCache[connectionString] = GetManager(connectionString);
-            }
-            return ConnectionCache[connectionString];
+            return ConnectionCache.GetOrAdd(connectionString, GetManager(connectionString));
         }
 
         /// <summary>

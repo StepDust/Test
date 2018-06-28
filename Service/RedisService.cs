@@ -1,4 +1,5 @@
-﻿using Common.Utils;
+﻿using Common;
+using Common.Utils;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Service {
         private int DbIndex { get; }
 
         private readonly ConnectionMultiplexer _conn;
-        private string CustomKey => "";
+        private string CustomKey => Constant.CustomKey;
 
         #region 构造函数
 

@@ -23,6 +23,10 @@ namespace Common {
         /// </summary>
         public static string RedisBaseContext => ConfigAction.GetAppSetting("RedisBaseContext");
 
+        /// <summary>
+        /// Redis前缀
+        /// </summary>
+        public static string CustomKey => ConfigAction.GetAppSetting("CustomKey");
         #endregion
 
         /// <summary>

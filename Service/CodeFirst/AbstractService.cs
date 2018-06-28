@@ -14,19 +14,6 @@ namespace Service.CodeFirst {
         /// </summary>
         protected DataService<T> ByData => new DataService<T>();
 
-        /// <summary>
-        /// 开启事务
-        /// </summary>
-        public void BeginTrans() => ByData.BeginTrans();
-        /// <summary>
-        /// 提交事务
-        /// </summary>
-        public void Commit() => ByData.Commit();
-        /// <summary>
-        /// 关闭事务
-        /// </summary>
-        public void Rollback() => ByData.Rollback();
-
         #endregion
 
         #region Redis服务
