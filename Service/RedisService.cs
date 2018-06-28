@@ -56,6 +56,12 @@ namespace Service {
             return func.Invoke(redisBase);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        /// <returns></returns>
         private IEnumerable<T> ConvertList<T>(RedisValue[] values) {
             foreach (var item in values) {
                 yield return StringUtils.ConvertObject<T>(item);

@@ -1,5 +1,4 @@
 ﻿using Common;
-using Factory;
 using StackExchange.Redis;
 using System.Collections.Concurrent;
 
