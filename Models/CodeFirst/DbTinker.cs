@@ -2,13 +2,13 @@
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
 
-    public class CodeFirst : DbContext {
+    public class DbTinker : DbContext {
 
-        public CodeFirst()
+        public DbTinker()
             : base("name=CodeFirst") {
 
             // 所有Model Class的修改会同步更新到数据表，并且数据会迁移
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<CodeFirst, DbEditConfig>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbTinker, DbEditConfig>());
             // 当数据库不存在时，创建对应数据库
             Database.CreateIfNotExists();
         }
@@ -16,7 +16,7 @@
         /// <summary>
         /// 数据库更新配置
         /// </summary>
-        internal sealed class DbEditConfig : DbMigrationsConfiguration<CodeFirst> {
+        internal sealed class DbEditConfig : DbMigrationsConfiguration<DbTinker> {
             public DbEditConfig() {
                 // 任何Model Class的修改将会直接更新数据库
                 AutomaticMigrationsEnabled = true;

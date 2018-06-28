@@ -111,6 +111,10 @@
       <Project>{77f0543b-6bd2-491f-8b66-0532a38e4794}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{5A5DFAAE-C819-4F9D-B913-282C074DB621}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

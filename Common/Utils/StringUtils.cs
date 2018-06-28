@@ -166,8 +166,8 @@ namespace Common.Utils {
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string ObjectToJson(object obj) {
-            return JsonConvert.SerializeObject(obj);
+        public static string ConvertJson(object obj) {
+            return obj == null ? null : obj is string ? obj.ToString() : JsonConvert.SerializeObject(obj);
         }
 
         /// <summary>
@@ -176,8 +176,8 @@ namespace Common.Utils {
         /// <param name="json"></param>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T JsonToObject<T>(string json, T obj) {
-            return obj = JsonConvert.DeserializeObject<T>(json);
+        public static T ConvertObject<T>(string json) {
+            return json == null ? default : JsonConvert.DeserializeObject<T>(json);
         }
 
         #endregion

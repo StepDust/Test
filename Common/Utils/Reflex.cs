@@ -22,33 +22,6 @@ namespace Common {
             return F.GetValue(obj) as s;
         }
 
-        /// <summary>
-        /// 将两个对象属性名称相同的值进行拷贝
-        /// </summary>
-        /// <typeparam name="T1"></typeparam>
-        /// <typeparam name="T2"></typeparam>
-        /// <param name="res">返回的对象</param>
-        /// <param name="data">提供数据的对象</param>
-        /// <returns></returns>
-        public static T1 CopyVal<T1, T2>(T1 res, T2 data)
-            where T1 : class, new() {
-            Type resType = res.GetType();
-            Type dataType = data.GetType();
-
-            PropertyInfo[] info = resType.GetProperties();
-
-            foreach (var item in info) {
-                PropertyInfo temp = dataType.GetProperty(item.Name);
-                if (temp == null)
-                    break;
-
-                object val = temp.GetValue(data);
-                item.SetValue(res, val);
-            }
-
-            return res;
-        }
-
 
         /// <summary>
         /// 通过反射创建对象
@@ -62,7 +35,7 @@ namespace Common {
             Assembly assembly = Assembly.LoadFile(dllName);
             // 从dll中获取指定class
             Type type = assembly.GetType(className);
-            
+
             return CreateModel<T>(type);
         }
 
@@ -72,7 +45,10 @@ namespace Common {
         /// <typeparam name="T"></typeparam>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static T CreateModel<T>(Type type) {
+        public static T CreateModel<T>(Type type = null) {
+
+            if (type == null) type = typeof(T);
+
             // 判断指定class是否为泛型
             if (type.IsGenericTypeDefinition) {
                 // 获取所需泛型数组

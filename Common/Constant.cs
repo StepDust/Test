@@ -19,27 +19,9 @@ namespace Common {
         public static string[] DataBaseContext => ConfigAction.GetAppSetting("DataBaseContext").Split(';');
 
         /// <summary>
-        /// Dal层生成的dll文件绝对路径
+        /// Redis连接字符串
         /// </summary>
-        public static string DalPath => ConfigAction.GetAppSetting("DalPath");
-
-        /// <summary>
-        /// Bll层生成的dll文件绝对路径
-        /// </summary>
-        public static string BllPath => ConfigAction.GetAppSetting("BllPath");
-
-        /// <summary>
-        /// 基础数据操作类全名，实现接口IBaseDal
-        /// </summary>
-        public static string IBaseDal => ConfigAction.GetAppSetting("IBaseDal");
-
-        /// <summary>
-        /// Dal命名空间
-        /// </summary>
-        public static string BaseDal => ConfigAction.GetAppSetting("BaseDal");
-
-
-        public static string BaseService => ConfigAction.GetAppSetting("BaseService");
+        public static string RedisBaseContext => ConfigAction.GetAppSetting("RedisBaseContext");
 
         #endregion
 

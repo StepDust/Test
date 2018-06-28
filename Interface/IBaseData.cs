@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 namespace Interface {
-    public interface IBaseDal<T> where T : class, new() {
+    public interface IBaseData<T> where T : class, new() {
 
         #region 添加数据
         

@@ -17,7 +17,7 @@ namespace WinForm {
 
         public List<CustomColor> GetColorList() {
 
-            StringUtils.JsonToObject(FileAction.ReadToStr(Constant.CustomColor), colorList);
+            colorList= StringUtils.ConvertObject<List<CustomColor>>(FileAction.ReadToStr(Constant.CustomColor));
 
             if (colorList == null || colorList.Count <= 0) {
                 CustomColor custom = new CustomColor()

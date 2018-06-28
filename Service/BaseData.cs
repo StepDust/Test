@@ -11,19 +11,19 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 
-namespace DAL {
+namespace Service {
 
     /// <summary>
-    /// 数据访问类
+    /// 数据库访问类
     /// Date：2018-5-21
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BaseDal<T> : IBaseDal<T> where T : class, new() {
+    public class BaseData<T> : IBaseData<T> where T : class, new() {
 
         /// <summary>
         /// 数据访问层的公共方法
         /// </summary>
-        public BaseDal() {
+        public BaseData() {
             dbWrite = DataBaseFactory.CreateDbContext();
         }
 

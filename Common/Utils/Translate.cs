@@ -78,9 +78,7 @@ namespace Common {
 
         public T GetReqObj<T>(string url)
             where T : class, new() {
-            T obj = new T();
-            obj = StringUtils.JsonToObject(EnythingUtils.GetUrlHtml(url), obj) as T;
-
+            T obj = StringUtils.ConvertObject<T>(EnythingUtils.GetUrlHtml(url));
             return obj;
         }
 

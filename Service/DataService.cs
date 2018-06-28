@@ -1,32 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
+using Factory;
+using Interface;
 using System.Linq;
 using System.Data;
-using System.Data.Entity;
 using System.Linq.Expressions;
-using Interface;
-using Factory;
+using System.Collections.Generic;
 
-namespace DAL {
+namespace Service {
+
     /// <summary>
-    /// 数据服务类
+    /// 数据库服务类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BaseService<T> where T : class, new() {
+    public class DataService<T> where T : class, new() {
 
         /// <summary>
         /// 数据服务类
         /// </summary>
-        public BaseService() {
-            baseDalModel = DataBaseFactory.CreateDalBase<T>();
+        public DataService() {
+            baseDalModel = DataBaseFactory.CreateService<BaseData<T>>();
         }
 
-        private IBaseDal<T> baseDalModel;
+        private IBaseData<T> baseDalModel;
 
         /// <summary>
         /// 数据库访问对象
         /// </summary>
-        private IBaseDal<T> BaseDalModel => baseDalModel;
+        private IBaseData<T> BaseDalModel => baseDalModel;
         
         #region 添加数据
 
@@ -203,27 +203,20 @@ namespace DAL {
         }
 
         #endregion
-
-        /// <summary>
-        /// 提交当前操作的结果
-        /// </summary>
-        public int SaveChanges() {
-            return BaseDalModel.SaveChanges();
-        }
-
+        
         #region 拓展方法
 
         /// <summary>
         /// 返回指定字段的值
         /// </summary>
-        /// <param name="Field">返回的字段</param>
+        /// <param name="field">返回的字段</param>
         /// <param name="where">查询条件</param>
         /// <param name="def">默认值</param>
         /// <returns></returns>
-        public s GetFieldVal<s>(Expression<Func<T, s>> Field, Expression<Func<T, bool>> where, s def = default(s)) {
+        public s GetFieldVal<s>(Expression<Func<T, s>> field, Expression<Func<T, bool>> where, s def = default(s)) {
             var list = BaseDalModel.LoadEntities(where);
             if (list.Count() > 0)
-                return list.Select(Field).FirstOrDefault();
+                return list.Select(field).FirstOrDefault();
             return def;
         }
 
@@ -237,5 +230,10 @@ namespace DAL {
         }
 
         #endregion
+
+        /// <summary>
+        /// 提交当前操作的结果
+        /// </summary>
+        public int SaveChanges() => BaseDalModel.SaveChanges();
     }
 }

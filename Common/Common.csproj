@@ -68,7 +68,6 @@
     <Compile Include="AttributeExpand\Validates\RequirdVailDateAttribute.cs" />
     <Compile Include="Actions\XmlAction.cs" />
     <Compile Include="Study\ORM.cs" />
-    <Compile Include="Study\Code.cs" />
     <Compile Include="Utils\Regular.cs" />
     <Compile Include="Encrypt\EncryptionUtils.cs" />
     <Compile Include="Actions\FileAction.cs" />
